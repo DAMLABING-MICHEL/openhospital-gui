@@ -1,0 +1,43 @@
+--------------------
+- TODO
+--------------------
+
+. OPD con successivo ricovero entro le 24 ore -> il costo rientra tra i ricoveri - FATTO
+
+. REPORT per i registri di ADMISSION - DISCHARGE -> FATTO
+
+. QUERY per creazione tabelle per Fabio per analisi -> FATTO
+
+. WORKLOAD per ogni operatore -> numero di inserimenti in tabella 
+	
+	registrazioni pazienti -> tabella PATIENT
+	prescrizioni -> tabella MEDICALWARDPRESCRIPTION	
+	ambulatori -> OPD
+	ricoveri/discharge -> ADMISSION	
+	pagamenti -> tabella BILL
+	
+. QUERY per aggiornare il campo ETA nella tabella paziente. -> FATTO
+ se esiste la data di nascita -> la calcola
+ se esiste un time stamp -> data time stamp - eta
+ altrimenti -> data prima visita - eta
+
+. da aggiornare le QUERY dove viene usata l'eta' alla data dell'evento: OPD - OPERAZIONE - RICOVERO
+
+. FARE dei controlli sull'inserimento: -> FATTO
+-> pazienti inseriti nei WARDS esatti -> in base all'eta' 
+( se eta < 1 mese -> neonatologia
+( se eta > 1 mese < 5 anni -> pediatria
+( se eta > 5 anni -> adulto
+-> fatture -> sul prezzo e quantità inserita
+
+. fascie di età: 
+ 0-5 
+ 6-10
+ >10
+
+. ALERT su costi ODP > 500 potrebbero esserci errori -> FATTO
+
+
+
+
+

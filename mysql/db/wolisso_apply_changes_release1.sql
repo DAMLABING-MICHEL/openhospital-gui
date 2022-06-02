@@ -1,0 +1,8 @@
+source wolisso_step_00_migrate_from_1_6_0.sql;
+source wolisso_step_01_suppliers_table_create_and_load.sql;
+source wolisso_step_02_switch_city_and_address.sql;
+source wolisso_step_03_costs_table_create.sql;
+source wolisso_step_04_new_pharmacy_alter_table.sql;
+source wolisso_step_05_location_table_create_and_load.sql;
+source wolisso_step_06_patient_extension_alter_table.sql;
+source wolisso_step_07_procedure_accounting.sql;

@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="OH005_IncomesAllByCategories"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isFloatColumnFooter="true"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+	<import value="it.businesslogic.ireport.IReportScriptlet" />
+
+	<parameter name="fromdate" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="todate" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="Hospital" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Address" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="City" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Email" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Telephone" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="LOGO_PATH" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["./rsc/images/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT "OPD Service Fees" AS CATEGORY, BLI_ITEM_DESC, QTI, AMOUNT
+FROM 
+(SELECT BLI_ITEM_DESC, SUM(BLI_QTY) AS QTI, SUM(BLI_ITEM_AMOUNT * BLI_QTY) AS AMOUNT FROM BILLITEMS 
+JOIN BILLS ON BLI_ID_BILL = BLL_ID
+WHERE BLL_STATUS = 'C'
+AND DATE(BLL_UPDATE) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate},'%d/%m/%Y')
+AND (BLI_ITEM_DESC LIKE 'C1 -%'
+OR BLI_ITEM_DESC LIKE 'C2 -%'
+OR BLI_ITEM_DESC LIKE 'C3 -%'
+OR BLI_ITEM_DESC LIKE 'EMG -%'
+OR BLI_ITEM_DESC LIKE 'MC1 -%'
+OR BLI_ITEM_DESC LIKE 'MC2 -%'
+OR BLI_ITEM_DESC LIKE 'MC3 -%'
+OR BLI_ITEM_DESC LIKE 'MEMG -%'
+OR BLI_ITEM_DESC LIKE 'PC1 -%'
+OR BLI_ITEM_DESC LIKE 'PC2 -%'
+OR BLI_ITEM_DESC LIKE 'PC3 -%'
+OR BLI_ITEM_DESC LIKE 'PEMG -%')
+GROUP BY BLI_ITEM_DESC
+ORDER BY BLI_ITEM_DESC) AS BILL
+
+UNION
+
+SELECT "Diagnostic Investigations" AS CATEGORY, BLI_ITEM_DESC, QTI, AMOUNT
+FROM (SELECT BLI_ITEM_DESC, SUM(BLI_QTY) AS QTI, SUM(BLI_ITEM_AMOUNT * BLI_QTY) AS AMOUNT FROM BILLITEMS 
+JOIN BILLS ON BLI_ID_BILL = BLL_ID 
+WHERE BLL_STATUS = 'C' 
+AND DATE(BLL_UPDATE) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate},'%d/%m/%Y')
+AND (BLI_ITEM_DESC LIKE 'ST0 -%'
+OR BLI_ITEM_DESC LIKE 'ST1 -%'
+OR BLI_ITEM_DESC LIKE 'ST2 -%'
+OR BLI_ITEM_DESC LIKE 'ST3 -%'
+OR BLI_ITEM_DESC LIKE 'ST4 -%'
+OR BLI_ITEM_DESC LIKE 'ST5 -%'
+OR BLI_ITEM_DESC LIKE 'ST6 -%'
+OR BLI_ITEM_DESC LIKE 'ST7 -%'
+OR BLI_ITEM_DESC LIKE 'ST8 -%'
+OR BLI_ITEM_DESC LIKE 'ST9 -%'
+OR BLI_ITEM_DESC LIKE 'ST10 -%'
+OR BLI_ITEM_DESC LIKE 'X%'
+OR BLI_ITEM_DESC LIKE 'US -%'
+OR BLI_ITEM_DESC LIKE 'ECG -%'
+OR BLI_ITEM_DESC LIKE 'MT0 -%'
+OR BLI_ITEM_DESC LIKE 'MT1 -%'
+OR BLI_ITEM_DESC LIKE 'MT2 -%'
+OR BLI_ITEM_DESC LIKE 'MT3 -%'
+OR BLI_ITEM_DESC LIKE 'MX%'
+OR BLI_ITEM_DESC LIKE 'MECG -%'
+OR BLI_ITEM_DESC LIKE 'PT0 -%'
+OR BLI_ITEM_DESC LIKE 'PT1 -%'
+OR BLI_ITEM_DESC LIKE 'PT2 -%'
+OR BLI_ITEM_DESC LIKE 'PT3 -%'
+OR BLI_ITEM_DESC LIKE 'PX%'
+OR BLI_ITEM_DESC LIKE 'PUS -%'
+OR BLI_ITEM_DESC LIKE 'MUS -%'
+OR BLI_ITEM_DESC LIKE 'IPUS -%'
+OR BLI_ITEM_DESC LIKE 'VHCP%'
+OR BLI_ITEM_DESC LIKE 'PECG -%')
+GROUP BY BLI_ITEM_DESC
+ORDER BY BLI_ITEM_DESC) AS BILL
+
+UNION
+
+SELECT "Minor Procedure" AS CATEGORY, BLI_ITEM_DESC, QTI, AMOUNT
+FROM (SELECT BLI_ITEM_DESC, SUM(BLI_QTY) AS QTI, SUM(BLI_ITEM_AMOUNT * BLI_QTY) AS AMOUNT FROM BILLITEMS  
+JOIN BILLS ON BLI_ID_BILL = BLL_ID 
+WHERE BLL_STATUS = 'C' 
+AND DATE(BLL_UPDATE) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate},'%d/%m/%Y')
+AND (BLI_ITEM_DESC LIKE 'MS -%'
+OR BLI_ITEM_DESC LIKE 'MS1 -%'
+OR BLI_ITEM_DESC LIKE 'MS2 -%'
+OR BLI_ITEM_DESC LIKE 'MS3 -%'
+OR BLI_ITEM_DESC LIKE 'MS4 -%'
+OR BLI_ITEM_DESC LIKE 'MS5 -%'
+OR BLI_ITEM_DESC LIKE 'MS6 -%'
+OR BLI_ITEM_DESC LIKE 'MS7 -%'
+OR BLI_ITEM_DESC LIKE 'MS8 -%'
+OR BLI_ITEM_DESC LIKE 'POP1 -%'
+OR BLI_ITEM_DESC LIKE 'POP2 -%'
+OR BLI_ITEM_DESC LIKE 'POP4 -%'
+OR BLI_ITEM_DESC LIKE 'MMS -%'
+OR BLI_ITEM_DESC LIKE 'MMS1 -%'
+OR BLI_ITEM_DESC LIKE 'MMS2 -%'
+OR BLI_ITEM_DESC LIKE 'MMS3 -%'
+OR BLI_ITEM_DESC LIKE 'MMS4 -%'
+OR BLI_ITEM_DESC LIKE 'MMS5 -%'
+OR BLI_ITEM_DESC LIKE 'MMS6 -%'
+OR BLI_ITEM_DESC LIKE 'MMS7 -%'
+OR BLI_ITEM_DESC LIKE 'MMS8 -%'
+OR BLI_ITEM_DESC LIKE 'MPOP1 -%'
+OR BLI_ITEM_DESC LIKE 'MPOP2 -%'
+OR BLI_ITEM_DESC LIKE 'MPOP4 -%'
+OR BLI_ITEM_DESC LIKE 'PMS -%'
+OR BLI_ITEM_DESC LIKE 'PMS1 -%'
+OR BLI_ITEM_DESC LIKE 'PMS2 -%'
+OR BLI_ITEM_DESC LIKE 'PMS3 -%'
+OR BLI_ITEM_DESC LIKE 'PMS4 -%'
+OR BLI_ITEM_DESC LIKE 'PMS5 -%'
+OR BLI_ITEM_DESC LIKE 'PPOP1 -%'
+OR BLI_ITEM_DESC LIKE 'PPOP2 -%'
+OR BLI_ITEM_DESC LIKE 'PPOP3 -%'
+OR BLI_ITEM_DESC LIKE 'PPOP4 -%'
+OR BLI_ITEM_DESC LIKE 'RT%'
+OR BLI_ITEM_DESC LIKE 'MOS%'
+OR BLI_ITEM_DESC LIKE 'MMOS'
+OR BLI_ITEM_DESC LIKE 'PMOS')
+GROUP BY BLI_ITEM_DESC
+ORDER BY BLI_ITEM_DESC) AS BILL
+
+UNION
+
+SELECT "Special Services" AS CATEGORY, BLI_ITEM_DESC, QTI, AMOUNT
+FROM (SELECT BLI_ITEM_DESC, SUM(BLI_QTY) AS QTI, SUM(BLI_ITEM_AMOUNT * BLI_QTY) AS AMOUNT FROM BILLITEMS  
+JOIN BILLS ON BLI_ID_BILL = BLL_ID 
+WHERE BLL_STATUS = 'C' 
+AND DATE(BLL_UPDATE) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate},'%d/%m/%Y')
+AND (BLI_ITEM_DESC LIKE 'CR -%'
+OR BLI_ITEM_DESC LIKE 'CR1 -%'
+OR BLI_ITEM_DESC LIKE 'CR2 -%'
+OR BLI_ITEM_DESC LIKE 'CR3 -%'
+OR BLI_ITEM_DESC LIKE 'CR4 -%'
+OR BLI_ITEM_DESC LIKE 'OVN -%'
+OR BLI_ITEM_DESC LIKE 'MCR -%'
+OR BLI_ITEM_DESC LIKE 'MCR1 -%'
+OR BLI_ITEM_DESC LIKE 'MCR2 -%'
+OR BLI_ITEM_DESC LIKE 'MCR3 -%'
+OR BLI_ITEM_DESC LIKE 'MCR4 -%'
+OR BLI_ITEM_DESC LIKE 'MOVN -%'
+OR BLI_ITEM_DESC LIKE 'PCR -%'
+OR BLI_ITEM_DESC LIKE 'PCR1 -%'
+OR BLI_ITEM_DESC LIKE 'PCR2 -%'
+OR BLI_ITEM_DESC LIKE 'PCR4 -%'
+OR BLI_ITEM_DESC LIKE 'POVN -%')
+GROUP BY BLI_ITEM_DESC
+ORDER BY BLI_ITEM_DESC) AS BILL
+
+UNION
+
+SELECT "Medical Cases" AS CATEGORY, BLI_ITEM_DESC, QTI, AMOUNT
+FROM (SELECT BLI_ITEM_DESC, SUM(BLI_QTY) AS QTI, SUM(BLI_ITEM_AMOUNT * BLI_QTY) AS AMOUNT FROM BILLITEMS  
+JOIN BILLS ON BLI_ID_BILL = BLL_ID 
+WHERE BLL_STATUS = 'C' 
+AND DATE(BLL_UPDATE) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate},'%d/%m/%Y')
+AND (BLI_ITEM_DESC LIKE 'M1 -%'
+OR BLI_ITEM_DESC LIKE 'M2 -%'
+OR BLI_ITEM_DESC LIKE 'ChM1 -%'
+OR BLI_ITEM_DESC LIKE 'MM1 -%'
+OR BLI_ITEM_DESC LIKE 'MM2 -%'
+OR BLI_ITEM_DESC LIKE 'P1 -%'
+OR BLI_ITEM_DESC LIKE 'P2 -%')
+GROUP BY BLI_ITEM_DESC
+ORDER BY BLI_ITEM_DESC) AS BILL
+
+UNION
+
+SELECT "Surgical Cases" AS CATEGORY, BLI_ITEM_DESC, QTI, AMOUNT
+FROM (SELECT BLI_ITEM_DESC, SUM(BLI_QTY) AS QTI, SUM(BLI_ITEM_AMOUNT * BLI_QTY) AS AMOUNT FROM BILLITEMS  
+JOIN BILLS ON BLI_ID_BILL = BLL_ID 
+WHERE BLL_STATUS = 'C' 
+AND DATE(BLL_UPDATE) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate},'%d/%m/%Y')
+AND (BLI_ITEM_DESC LIKE 'S1 -%'
+OR BLI_ITEM_DESC LIKE 'S2 -%'
+OR BLI_ITEM_DESC LIKE 'S3 -%'
+OR BLI_ITEM_DESC LIKE 'S4 -%'
+OR BLI_ITEM_DESC LIKE 'OR1 -%'
+OR BLI_ITEM_DESC LIKE 'OR2 -%'
+OR BLI_ITEM_DESC LIKE 'OR3 -%'
+OR BLI_ITEM_DESC LIKE 'OR4 -%'
+OR BLI_ITEM_DESC LIKE 'SG1 -%'
+OR BLI_ITEM_DESC LIKE 'SG2 -%'
+OR BLI_ITEM_DESC LIKE 'SG3 -%'
+OR BLI_ITEM_DESC LIKE 'PHY -%'
+OR BLI_ITEM_DESC LIKE 'PH1 -%'
+OR BLI_ITEM_DESC LIKE 'FR1 -%'
+OR BLI_ITEM_DESC LIKE 'FR2 -%'
+OR BLI_ITEM_DESC LIKE 'SM1 -%'
+OR BLI_ITEM_DESC LIKE 'SM2 -%'
+OR BLI_ITEM_DESC LIKE 'SM3 -%'
+OR BLI_ITEM_DESC LIKE 'SM4 -%'
+OR BLI_ITEM_DESC LIKE 'MOR1 -%'
+OR BLI_ITEM_DESC LIKE 'MOR2 -%'
+OR BLI_ITEM_DESC LIKE 'MOR3 -%'
+OR BLI_ITEM_DESC LIKE 'MOR4 -%'
+OR BLI_ITEM_DESC LIKE 'MPHY -%'
+OR BLI_ITEM_DESC LIKE 'MPH1 -%'
+OR BLI_ITEM_DESC LIKE 'MFR1 -%'
+OR BLI_ITEM_DESC LIKE 'MFR2 -%'
+OR BLI_ITEM_DESC LIKE 'F -%'
+OR BLI_ITEM_DESC LIKE 'MF -%'
+OR BLI_ITEM_DESC LIKE 'MPF -%'
+OR BLI_ITEM_DESC LIKE 'PF -%'
+OR BLI_ITEM_DESC LIKE 'PS1 -%'
+OR BLI_ITEM_DESC LIKE 'PS2 -%'
+OR BLI_ITEM_DESC LIKE 'PS3 -%'
+OR BLI_ITEM_DESC LIKE 'PS4 -%'
+OR BLI_ITEM_DESC LIKE 'POR1 -%'
+OR BLI_ITEM_DESC LIKE 'POR2 -%'
+OR BLI_ITEM_DESC LIKE 'POR3 -%'
+OR BLI_ITEM_DESC LIKE 'POR4 -%'
+OR BLI_ITEM_DESC LIKE 'PPH1 -%'
+OR BLI_ITEM_DESC LIKE 'PFR1 -%'
+OR BLI_ITEM_DESC LIKE 'PFR2 -%')
+GROUP BY BLI_ITEM_DESC
+ORDER BY BLI_ITEM_DESC) AS BILL
+
+UNION
+
+SELECT "Special Surgery" AS CATEGORY, BLI_ITEM_DESC, QTI, AMOUNT
+FROM (SELECT BLI_ITEM_DESC, SUM(BLI_QTY) AS QTI, SUM(BLI_ITEM_AMOUNT * BLI_QTY) AS AMOUNT FROM BILLITEMS  
+JOIN BILLS ON BLI_ID_BILL = BLL_ID 
+WHERE BLL_STATUS = 'C' 
+AND DATE(BLL_UPDATE) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate},'%d/%m/%Y')
+AND (BLI_ITEM_DESC LIKE 'E1 -%'
+OR BLI_ITEM_DESC LIKE 'E2 -%'
+OR BLI_ITEM_DESC LIKE 'E3 -%'
+OR BLI_ITEM_DESC LIKE 'E4 -%'
+OR BLI_ITEM_DESC LIKE 'E5 -%'
+OR BLI_ITEM_DESC LIKE 'E6 -%'
+OR BLI_ITEM_DESC LIKE 'E7 -%'
+OR BLI_ITEM_DESC LIKE 'E8 -%'
+OR BLI_ITEM_DESC LIKE 'E9 -%'
+OR BLI_ITEM_DESC LIKE 'E10 -%'
+OR BLI_ITEM_DESC LIKE 'E11 -%'
+OR BLI_ITEM_DESC LIKE 'E12 -%'
+OR BLI_ITEM_DESC LIKE 'E13 -%'
+OR BLI_ITEM_DESC LIKE 'E14 -%'
+OR BLI_ITEM_DESC LIKE 'E15 -%'
+OR BLI_ITEM_DESC LIKE 'E16 -%'
+OR BLI_ITEM_DESC LIKE 'E17 -%'
+OR BLI_ITEM_DESC LIKE 'E18 -%'
+OR BLI_ITEM_DESC LIKE 'E19 -%'
+OR BLI_ITEM_DESC LIKE 'E20 -%'
+OR BLI_ITEM_DESC LIKE 'E21 -%'
+OR BLI_ITEM_DESC LIKE 'E22 -%'
+OR BLI_ITEM_DESC LIKE 'EM1 -%'
+OR BLI_ITEM_DESC LIKE 'EM2 -%'
+OR BLI_ITEM_DESC LIKE 'EM3 -%'
+OR BLI_ITEM_DESC LIKE 'EM4 -%'
+OR BLI_ITEM_DESC LIKE 'EM5 -%'
+OR BLI_ITEM_DESC LIKE 'EM6 -%'
+OR BLI_ITEM_DESC LIKE 'EM7 -%'
+OR BLI_ITEM_DESC LIKE 'EM8 -%'
+OR BLI_ITEM_DESC LIKE 'EM9 -%'
+OR BLI_ITEM_DESC LIKE 'EM10 -%'
+OR BLI_ITEM_DESC LIKE 'EM11 -%'
+OR BLI_ITEM_DESC LIKE 'ENT1 -%'
+OR BLI_ITEM_DESC LIKE 'ENT2 -%'
+OR BLI_ITEM_DESC LIKE 'ENT3 -%'
+OR BLI_ITEM_DESC LIKE 'DN1 -%'
+OR BLI_ITEM_DESC LIKE 'DN2 -%'
+OR BLI_ITEM_DESC LIKE 'DN3 -%'
+OR BLI_ITEM_DESC LIKE 'DN4 -%'
+OR BLI_ITEM_DESC LIKE 'DN5 -%'
+OR BLI_ITEM_DESC LIKE 'DN6 -%'
+OR BLI_ITEM_DESC LIKE 'DN7 -%'
+OR BLI_ITEM_DESC LIKE 'DN8 -%'
+OR BLI_ITEM_DESC LIKE 'DN9 -%'
+OR BLI_ITEM_DESC LIKE 'DN10 -%'
+OR BLI_ITEM_DESC LIKE 'DN11 -%'
+OR BLI_ITEM_DESC LIKE 'DN12 -%'
+OR BLI_ITEM_DESC LIKE 'DN13 -%'
+OR BLI_ITEM_DESC LIKE 'DN14 -%'
+OR BLI_ITEM_DESC LIKE 'DN15 -%'
+OR BLI_ITEM_DESC LIKE 'DN16 -%'
+OR BLI_ITEM_DESC LIKE 'SS1 -%'
+OR BLI_ITEM_DESC LIKE 'ME1 -%'
+OR BLI_ITEM_DESC LIKE 'ME2 -%'
+OR BLI_ITEM_DESC LIKE 'ME3 -%'
+OR BLI_ITEM_DESC LIKE 'ME4 -%'
+OR BLI_ITEM_DESC LIKE 'ME5 -%'
+OR BLI_ITEM_DESC LIKE 'ME6 -%'
+OR BLI_ITEM_DESC LIKE 'ME7 -%'
+OR BLI_ITEM_DESC LIKE 'ME8 -%'
+OR BLI_ITEM_DESC LIKE 'ME9 -%'
+OR BLI_ITEM_DESC LIKE 'ME10 -%'
+OR BLI_ITEM_DESC LIKE 'ME11 -%'
+OR BLI_ITEM_DESC LIKE 'MENT1 -%'
+OR BLI_ITEM_DESC LIKE 'MENT2 -%'
+OR BLI_ITEM_DESC LIKE 'MENT3 -%'
+OR BLI_ITEM_DESC LIKE 'MDN1 -%'
+OR BLI_ITEM_DESC LIKE 'MDN2 -%'
+OR BLI_ITEM_DESC LIKE 'MDN3 -%'
+OR BLI_ITEM_DESC LIKE 'MDN4 -%'
+OR BLI_ITEM_DESC LIKE 'MDN5 -%'
+OR BLI_ITEM_DESC LIKE 'MDN6 -%'
+OR BLI_ITEM_DESC LIKE 'MDN7 -%'
+OR BLI_ITEM_DESC LIKE 'MDN8 -%'
+OR BLI_ITEM_DESC LIKE 'MDN9 -%'
+OR BLI_ITEM_DESC LIKE 'MDN10 -%'
+OR BLI_ITEM_DESC LIKE 'MDN11 -%'
+OR BLI_ITEM_DESC LIKE 'MDN12 -%'
+OR BLI_ITEM_DESC LIKE 'MDN13 -%'
+OR BLI_ITEM_DESC LIKE 'MDN14 -%'
+OR BLI_ITEM_DESC LIKE 'MDN15 -%'
+OR BLI_ITEM_DESC LIKE 'MDN16 -%'
+OR BLI_ITEM_DESC LIKE 'MSS1 -%'
+OR BLI_ITEM_DESC LIKE 'PE3 -%'
+OR BLI_ITEM_DESC LIKE 'PE6 -%'
+OR BLI_ITEM_DESC LIKE 'PE7 -%'
+OR BLI_ITEM_DESC LIKE 'PE8 -%'
+OR BLI_ITEM_DESC LIKE 'PE9 -%'
+OR BLI_ITEM_DESC LIKE 'PE10 -%'
+OR BLI_ITEM_DESC LIKE 'PE11 -%'
+OR BLI_ITEM_DESC LIKE 'PENT1 -%'
+OR BLI_ITEM_DESC LIKE 'PENT2 -%'
+OR BLI_ITEM_DESC LIKE 'PENT3 -%'
+OR BLI_ITEM_DESC LIKE 'PDN1 -%'
+OR BLI_ITEM_DESC LIKE 'PDN2 -%'
+OR BLI_ITEM_DESC LIKE 'PDN3 -%'
+OR BLI_ITEM_DESC LIKE 'PDN4 -%'
+OR BLI_ITEM_DESC LIKE 'PDN5 -%'
+OR BLI_ITEM_DESC LIKE 'PDN6 -%'
+OR BLI_ITEM_DESC LIKE 'PDN7 -%'
+OR BLI_ITEM_DESC LIKE 'PDN8 -%'
+OR BLI_ITEM_DESC LIKE 'PDN9 -%'
+OR BLI_ITEM_DESC LIKE 'PDN10 -%'
+OR BLI_ITEM_DESC LIKE 'PDN11 -%'
+OR BLI_ITEM_DESC LIKE 'PDN12 -%'
+OR BLI_ITEM_DESC LIKE 'PDN13 -%'
+OR BLI_ITEM_DESC LIKE 'PDN14 -%'
+OR BLI_ITEM_DESC LIKE 'PDN15 -%'
+OR BLI_ITEM_DESC LIKE 'PDN16 -%'
+OR BLI_ITEM_DESC LIKE 'PSS1 -%')
+GROUP BY BLI_ITEM_DESC
+ORDER BY BLI_ITEM_DESC) AS BILL
+
+UNION
+
+SELECT "Maternity Fees" AS CATEGORY, BLI_ITEM_DESC, QTI, AMOUNT
+FROM (SELECT BLI_ITEM_DESC, SUM(BLI_QTY) AS QTI, SUM(BLI_ITEM_AMOUNT * BLI_QTY) AS AMOUNT FROM BILLITEMS  
+JOIN BILLS ON BLI_ID_BILL = BLL_ID 
+WHERE BLL_STATUS = 'C' 
+AND DATE(BLL_UPDATE) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate},'%d/%m/%Y')
+AND (BLI_ITEM_DESC LIKE 'ANC -%'
+OR BLI_ITEM_DESC LIKE 'ANCC -%'
+OR BLI_ITEM_DESC LIKE 'NA -%'
+OR BLI_ITEM_DESC LIKE 'PAD -%'
+OR BLI_ITEM_DESC LIKE 'D1 -%'
+OR BLI_ITEM_DESC LIKE 'D2 -%'
+OR BLI_ITEM_DESC LIKE 'D3 -%'
+OR BLI_ITEM_DESC LIKE 'D4 -%'
+OR BLI_ITEM_DESC LIKE 'D5 -%'
+OR BLI_ITEM_DESC LIKE 'D6 -%'
+OR BLI_ITEM_DESC LIKE 'D7 -%')
+GROUP BY BLI_ITEM_DESC
+ORDER BY BLI_ITEM_DESC) AS BILL
+
+UNION
+
+SELECT "Admission in Maternity" AS CATEGORY, BLI_ITEM_DESC, QTI, AMOUNT
+FROM (SELECT BLI_ITEM_DESC, SUM(BLI_QTY) AS QTI, SUM(BLI_ITEM_AMOUNT * BLI_QTY) AS AMOUNT FROM BILLITEMS  
+JOIN BILLS ON BLI_ID_BILL = BLL_ID 
+WHERE BLL_STATUS = 'C' 
+AND DATE(BLL_UPDATE) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate},'%d/%m/%Y')
+AND (BLI_ITEM_DESC LIKE 'MWA -%'
+OR BLI_ITEM_DESC LIKE 'N1 -%'
+OR BLI_ITEM_DESC LIKE 'N2 -%')
+GROUP BY BLI_ITEM_DESC
+ORDER BY BLI_ITEM_DESC) AS BILL]]></queryString>
+
+	<field name="CATEGORY" class="java.lang.String"/>
+	<field name="BLI_ITEM_DESC" class="java.lang.String"/>
+	<field name="QTI" class="java.math.BigDecimal"/>
+	<field name="AMOUNT" class="java.lang.Double"/>
+
+	<variable name="CATEGORY_AMOUNT" class="java.lang.Double" resetType="Group" resetGroup="CATEGORY" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMOUNT}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMOUNT}]]></variableExpression>
+	</variable>
+
+		<group  name="CATEGORY" >
+			<groupExpression><![CDATA[$F{CATEGORY}]]></groupExpression>
+			<groupHeader>
+			<band height="18"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="535"
+						height="18"
+						key="textField-8"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true" isItalic="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CATEGORY}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="18"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="444"
+						y="0"
+						width="91"
+						height="18"
+						key="textField-19"/>
+					<box rightPadding="5">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{CATEGORY_AMOUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="157"  isSplitAllowed="true" >
+				<rectangle radius="0" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="1"
+						width="535"
+						height="48"
+						forecolor="#00CCCC"
+						backcolor="#000099"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="5"
+						y="5"
+						width="468"
+						height="40"
+						forecolor="#FFFFFF"
+						backcolor="#FFFFFF"
+						key="staticText"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Arial Black" size="24" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+					</textElement>
+				<text><![CDATA[Incomes by Categories]]></text>
+				</staticText>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="476"
+						y="5"
+						width="56"
+						height="40"
+						key="image-1"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{LOGO_PATH} + "Splash.jpg"]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="49"
+						width="535"
+						height="22"
+						key="textField-4"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{Hospital}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="71"
+						width="535"
+						height="17"
+						key="textField-5"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{Address} + " - " + $P{City}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="105"
+						width="535"
+						height="17"
+						key="textField-7"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{Telephone}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="65"
+						y="122"
+						width="64"
+						height="17"
+						key="textField-15"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{fromdate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="122"
+						width="65"
+						height="17"
+						key="staticText-2"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[From]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="129"
+						y="122"
+						width="65"
+						height="17"
+						key="staticText-3"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[To]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="194"
+						y="122"
+						width="64"
+						height="17"
+						key="textField-16"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{todate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="88"
+						width="535"
+						height="17"
+						key="textField-17"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{Email}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="18"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="444"
+						y="0"
+						width="91"
+						height="18"
+						key="textField-10"/>
+					<box leftPadding="5" rightPadding="5">					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{AMOUNT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="353"
+						height="18"
+						key="textField-20"/>
+					<box leftPadding="5" rightPadding="5">					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{BLI_ITEM_DESC}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="353"
+						y="0"
+						width="91"
+						height="18"
+						key="textField-21"/>
+					<box leftPadding="5" rightPadding="5">					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QTI}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="23"  isSplitAllowed="true" >
+				<rectangle radius="0" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="1"
+						width="535"
+						height="20"
+						forecolor="#000099"
+						backcolor="#000099"
+						key="rectangle-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Transparent"
+						x="325"
+						y="2"
+						width="174"
+						height="19"
+						forecolor="#FFFFFF"
+						backcolor="#FFFFFF"
+						key="textField-11"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Helvetica" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Transparent"
+						x="499"
+						y="2"
+						width="36"
+						height="19"
+						forecolor="#FFFFFF"
+						backcolor="#FFFFFF"
+						key="textField-12"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Helvetica" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="2"
+						width="209"
+						height="19"
+						forecolor="#FFFFFF"
+						backcolor="#FFFFFF"
+						key="textField-13"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Times-Roman" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="28"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="444"
+						y="10"
+						width="91"
+						height="18"
+						key="textField-14"/>
+					<box rightPadding="5">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{TOTAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="353"
+						y="10"
+						width="91"
+						height="18"
+						key="staticText-1"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="6"
+						width="535"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</summary>
+</jasperReport>

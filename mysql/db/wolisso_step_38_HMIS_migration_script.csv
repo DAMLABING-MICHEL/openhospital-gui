@@ -1,0 +1,265 @@
+101;101 - Malaria (clinical without laboratory confirmation);1;0;1;0;0;1;1;0;0;0
+101.1;101.1 - Cerebral malaria (without laboratory confirmation);1;0;0;1;1;1;1;0;0;0
+101.2;101.2 - Other unspec malaria (without laboratory confirmation);1;0;0;1;1;1;1;0;0;0
+102;102 - Malaria (confirmed with P. falciparum);1;0;1;0;0;1;1;0;0;0
+102.1;102.1 - Cerebral malaria (confirmed P. falciparum);1;0;0;1;1;1;1;0;0;0
+102.2;102.2 - Other malaria manifestation (confirmed P. falciparum);1;0;0;1;1;1;1;0;0;0
+103;103 - Malaria (confirmed with species other than P. falciparum);1;0;1;0;0;1;1;0;0;0
+103.1;103.1 - Vivax malaria (with laboratory confirmation);1;0;0;1;1;1;1;0;0;0
+103.2;103.2 - Other plasmodium (with laboratory confirmation);1;0;0;1;1;1;1;0;0;0
+104;104 - Diarrhea (non-bloody);1;0;1;1;1;1;1;0;0;0
+105;105 - Diarrhea with dehydration;1;0;1;1;1;1;1;0;0;0
+106;106 - Diarrhea with blood (dysentery);1;0;1;1;1;1;1;0;0;0
+107;107 - Meningitis;1;0;1;0;0;1;1;0;0;0
+107.1;107.1 - Meningitis CSF positive;1;0;0;1;1;1;1;0;0;0
+107.2;107.2 - Meningitis CSF negative (Clinical Meningitis);1;0;0;1;1;1;1;0;0;0
+108;108 - Typhoid fever;1;0;1;1;1;1;1;0;0;0
+109;109 - Relapsing fever;1;0;1;1;1;1;1;0;0;0
+110;110 - Epidemic typhus;1;0;1;1;1;1;1;0;0;0
+111;111 - Acute febrile illness (AFI);1;0;1;1;1;1;1;0;0;0
+112;112 - Poliomyelitis/Acute flaccid paralysis;1;0;1;1;1;1;1;0;0;0
+113;113 - Measles;1;0;1;1;1;1;1;0;0;0
+114;114 - Plague;1;0;1;1;1;1;1;0;0;0
+115;115 - Cholera;1;0;1;1;1;1;1;0;0;0
+116;116 - Yellow fever;1;0;1;1;1;1;1;0;0;0
+117;117 - Dracunculiasis;1;0;1;1;1;1;1;0;0;0
+118;118 - Neonatal tetanus;1;0;1;1;1;1;1;0;1;0
+119;119 - Viral hemorrhagic fevers;1;0;1;1;1;1;1;0;0;0
+120;120 - Avian Human Influenza;1;0;1;1;1;1;1;0;0;0
+121;121 - Rift Valley Fever (RVF);1;0;1;1;1;1;1;0;0;0
+122.1;122.1 - Human immunodeficiency virus [HIV] disease;1;0;1;1;1;1;1;0;0;1
+122.2;122.2 - AIDS;1;0;1;1;1;1;1;0;0;1
+123;123 - Tuberculosis all forms;1;0;1;0;0;1;1;0;0;1
+123.1;123.1 - TB pulmonary;1;0;0;1;1;1;1;0;0;0
+123.2;123.2 - TB miliary;1;0;0;1;1;1;1;0;0;0
+123.4;123.4 - Disseminated TB;1;0;0;1;1;1;1;0;0;0
+123.5;123.5 - TB meningitis;1;0;0;1;1;1;1;0;0;0
+123.6;123.6 - TB abdominal;1;0;0;1;1;1;1;0;0;0
+123.7;123.7 - TB bone + joints;1;0;0;1;1;1;1;0;0;0
+123.8;123.8 - Pleural TB;1;0;0;1;1;1;1;0;0;0
+123.99;123.99 - Other extrapulmonary TB;1;0;0;1;1;1;1;0;0;0
+124;124 - Leprosy;1;0;1;1;1;1;1;0;0;1
+125;125 - Pneumonia;1;0;1;0;0;1;1;0;0;0
+125.1;125.1 - Lobar pneumonia;1;0;0;1;1;1;1;0;0;0
+125.2;125.2 - Bronchopneumonia;1;0;0;1;1;1;1;0;0;0
+125.3;125.3 - PCP;1;0;0;1;1;1;1;0;0;0
+125.99;125.99 - Other pneumonia;1;0;0;1;1;1;1;0;0;0
+126.1;126.1 - Sexually transmitted infections: urethral discharge;1;0;1;1;1;1;1;120;0;0
+126.2;126.2 - Sexually transmitted infections: persistent / recurrent urethral discharge in men;1;0;1;1;1;1;0;120;0;0
+126.3;126.3 - Sexually transmitted infections: genital ulcer;1;0;1;1;1;1;1;120;0;0
+126.4;126.4 - Sexually transmitted infections: vaginal discharge syndrome;1;0;1;1;1;0;1;120;0;0
+126.5;126.5 - Sexually transmitted infections: lower abdominal pain syndrome (pelvic inflammatory syndrome – PID);1;0;1;1;1;0;1;120;0;0
+126.6;126.6 - Sexually transmitted infections: scrotal swelling syndrome;1;0;1;1;1;1;0;120;0;0
+126.7;126.7 - Sexually transmitted infections: inguinal bubo swelling (swollen glands);1;0;1;1;1;1;1;120;0;0
+126.8;126.8 - Sexually transmitted infections: neonatal conjunctivitis;1;0;1;1;1;1;1;120;0;0
+126.9;126.9 - Sexually transmitted infections: neonatal herpes;1;0;1;1;1;1;1;120;0;0
+127.1;127.1 - Leishmaniasis (Visceral);1;0;1;1;1;1;1;0;0;0
+127.2;127.2 - Leishmaniasis (Cutaneous and Mucocutaneous);1;0;1;1;1;1;1;0;0;0
+128;128 - Onchocerciasis;1;0;1;1;1;1;1;0;0;0
+129;129 - Diphtheria;1;0;1;1;1;1;1;0;0;0
+130;130 - Pertussis;1;0;1;1;1;1;1;0;0;0
+131;131 - Tetanus (other than neonatal tetanus);1;0;1;1;1;1;1;0;0;0
+132;132 - Trypanosomiasis;1;0;1;1;1;1;1;0;0;0
+133;133 - Schistosomiasis;1;0;1;1;1;1;1;0;0;0
+134;134 - Trachoma;1;0;1;1;1;1;1;0;0;0
+135;135 - Viral hepatitis;1;0;1;0;0;1;1;0;0;1
+135.1;135.1 - Viral Hepatitis - HbSAg+;1;0;0;1;1;1;1;0;0;0
+135.2;135.2 - Viral Hepatitis - HbSAg-;1;0;0;1;1;1;1;0;0;0
+136;136 - Rabies;1;0;1;1;1;1;1;0;0;0
+137;137 - Helminthiasis;1;0;1;1;1;1;1;0;0;0
+138;138 - Septicaemia;1;0;1;1;1;1;1;0;0;0
+199;199 - Other or unspecified infectious and parasitic diseases;1;0;1;1;1;1;1;0;0;0
+201;201 - Breast cancer;2;0;1;1;1;1;1;180;0;1
+202;202 - Cancer of the cervix;2;0;1;1;1;0;1;180;0;1
+203;203 - Leukemia;2;0;1;0;0;0;0;0;0;1
+203.1;203.1 - Acute Lymphocytic Leukemia;2;0;0;1;1;1;1;0;0;0
+203.2;203.2 - Acute Myelocytic Leukemia;2;0;0;1;1;1;1;0;0;0
+203.3;203.3 - Chronic Lymphocytic Leukemia;2;0;0;1;1;1;1;0;0;0
+203.4;203.4 - Chronic Myelocytic Leukemia;2;0;0;1;1;1;1;0;0;0
+204;204 - Lymphoma;2;0;1;1;1;1;1;0;0;1
+249;249 - Other or unspecified malignant neoplasms;2;0;1;0;0;1;1;0;0;1
+249.1;249.1 - Oropharyngeal Cancer;2;0;0;1;1;1;1;180;0;0
+249.2;249.2 - Oesophagus Cancer;2;0;0;1;1;1;1;180;0;0
+249.3;249.3 - Stomach Cancer;2;0;0;1;1;1;1;180;0;0
+249.4;249.4 - Intestine Cancer;2;0;0;1;1;1;1;180;0;0
+249.5;249.5 - Colon Rectum Cancer;2;0;0;1;1;1;1;180;0;0
+249.6;249.6 - Larynx & Other Upper Resp. Tract. Cancer;2;0;0;1;1;1;1;180;0;0
+249.7;249.7 - Other uterine cancers;2;0;0;1;1;0;1;180;0;0
+249.8;249.8 - Prostate Cancer;2;0;0;1;1;1;0;180;0;0
+249.9;249.9 - Skin Cancer;2;0;0;1;1;1;1;0;0;0
+249.10;249.10 - Bones Cancer;2;0;0;1;1;1;1;0;0;0
+249.11;249.11 - Cancer Liver Primitive;2;0;0;1;1;1;1;0;0;0
+249.12;249.12 - Ovary Cancer;2;0;0;1;1;0;1;180;0;0
+249.13;249.13 - Penis Cancer;2;0;0;1;1;1;0;180;0;0
+249.99;249.99 - Other or unspecified malignant neoplasms;2;0;0;1;1;1;1;0;0;0
+250;250 - Uterine fibroma (leiomyoma of uterus);2;0;1;1;1;1;1;180;0;0
+299;299 - Other or unspecified benign neoplasms;2;0;1;1;1;1;1;0;0;1
+301;301 - Anemias;3;0;1;0;0;1;1;0;0;0
+301.1;301.1 - Pernicious anemia;3;0;0;1;1;1;1;0;0;1
+301.2;301.2 - Iron deficency anemia;3;0;0;1;1;1;1;0;0;1
+301.3;301.3 - Sickle cells anemia;3;0;0;1;1;1;1;0;0;1
+301.99;301.99 - Other anemias;3;0;0;1;1;1;1;0;0;1
+399;399 - Other or unspecified diseases of the blood;3;0;1;1;1;1;1;0;0;1
+401;401 - Diabetes mellitus;3;0;1;0;0;1;1;0;0;0
+401.1;401.1 - DM type 1;3;0;0;1;1;1;1;0;0;1
+401.2;401.2 - DM type 2;3;0;0;1;1;1;1;240;0;1
+402;402 - Iodine-deficiency-related goiter;3;0;1;0;0;1;1;0;0;0
+402.1;402.1 - Non toxic goiter;3;0;0;1;1;1;1;0;0;1
+402.2;402.2 - Thyrotoxicosis;3;0;0;1;1;1;1;0;0;1
+403;403 - Moderate acute malnutrition;3;0;1;1;1;1;1;0;0;0
+404;404 - Severe acute malnutrition;3;0;1;0;0;1;1;0;0;0
+404.1;404.1 - Severe acute malnutrition Kwashiorkor;3;0;0;1;1;1;1;0;0;0
+404.2;404.2 - Severe acute malnutrition Marasmus;3;0;0;1;1;1;1;0;0;0
+404.3;404.3 - Severe acute malnutrition Marasmic - Kwashiorkor;3;0;0;1;1;1;1;0;0;0
+499.1;499.1 - Chronic Malnutrition Stunted;3;0;0;1;1;1;1;0;0;1
+499.2;499.2 - Ricketts;3;0;0;1;1;1;1;0;0;1
+499.3;499.3 - Vit. A deficiciency;3;0;0;1;1;1;1;0;0;0
+499.99;499.99 - Other or unspecified endocrine- nutritional- and metabolic diseases;3;0;0;1;1;1;1;0;0;0
+501;501 - Dementia;4;0;1;1;1;1;1;240;0;1
+502;502 - Schizophrenia;4;0;1;1;1;1;1;240;0;1
+503;503 - Depression;4;0;1;1;1;1;1;240;0;1
+504;504 - Psychosis;4;0;1;1;1;1;1;240;0;1
+505;505 - Psychoneurosis;4;0;1;1;1;1;1;240;0;1
+506;506 - Mental deficiency;4;0;1;1;1;1;1;240;0;1
+599;599 - Other or unspecified mental and behavioural disorders;4;0;1;1;1;1;1;0;0;1
+601;601 - Epilepsy;5;0;1;1;1;1;1;0;0;1
+699;699 - Other or unspecified neuro-psychiatric diseases;5;0;1;1;1;1;1;0;0;1
+701;701 - Cataract;5;0;1;1;1;1;1;240;0;0
+702;702 - Glaucoma;5;0;1;1;1;1;1;0;0;0
+799;799 - Other or unspecified diseases of the eye and annexes;5;0;1;1;1;1;1;0;0;0
+799.1;799.1 - Corneal disease;5;0;1;1;1;1;1;0;0;0
+799.2;799.2 - Retinal disease;5;0;1;1;1;1;1;0;0;0
+799.3;799.3 - Refracting error;5;0;1;1;1;1;1;0;0;0
+799.4;799.4 - Traumatic ophatalmic injury;5;0;1;1;1;1;1;0;0;0
+799.5;799.5 - Conjunctivitis;5;0;1;1;1;1;1;0;0;0
+799.99;799.99 - Other or unspecified diseases of the eye and annexes;5;0;1;1;1;1;1;0;0;0
+801;801 - Otitis;5;0;1;0;0;1;1;0;0;0
+801.1;801.1 - Otitis media;5;0;1;1;1;1;1;0;0;0
+801.2;801.2 - Otitis externa;5;0;1;1;1;1;1;0;0;0
+899;899 - Other or unspecified diseases of the ear and mastoid process;5;0;1;1;1;1;1;0;0;0
+901;901 - Hypertension and related diseases;6;0;1;1;1;1;1;240;0;1
+902;902 - Rheumatic heart disease;6;0;1;1;1;1;1;0;0;1
+903;903 - Ischemic heart disease;6;0;1;1;1;1;1;60;0;1
+904;904 - Cerebrovascular accident (stroke);6;0;1;1;1;1;1;60;0;1
+999;999 - Other or unspecified diseases of the circulatory system;6;0;1;0;0;1;1;0;0;0
+999.1;999.1 - Chronic Heart Failure (CHF);6;0;0;1;1;1;1;0;0;1
+999.99;999.99 - Other or unspecified diseases of the circulatory system;6;0;0;1;1;1;1;0;0;1
+1001;1001 - Acute upper respiratory infections;7;0;1;1;1;1;1;0;0;0
+1001;1001 - Acute upper respiratory infections;7;0;1;0;0;1;1;0;0;0
+1002.1;1002.1 - Acute Bronchitis;7;0;0;1;1;1;1;0;0;0
+1002.2;1002.2 - Bronchiolitis (< 1 year);7;0;0;1;1;1;1;0;0;0
+1002.3;1002.3 - Asthmatic Bronchitis;7;0;0;1;1;1;1;0;0;0
+1003;1003 - Asthma;7;0;1;1;1;1;1;0;0;1
+1004;1004 - Chronic obstructive pulmonary disease (COPD);7;0;1;1;1;1;1;240;0;1
+1099;1099 - Other or unspecified diseases of the respiratory system;7;0;1;1;1;1;1;0;0;1
+1101;1101 - Dental and gum diseases;8;0;1;0;0;1;1;0;0;0
+1101.1;1101.1 - Dental Caries;8;0;1;1;1;1;1;24;0;0
+1101.2;1101.2 - Periodontal disease;8;0;1;1;1;1;1;24;0;0
+1101.3;1101.3 - Orofacial space infections;8;0;1;1;1;1;1;0;0;0
+1101.4;1101.4 - Malocclusion;8;0;1;1;1;1;1;0;0;0
+1101.5;1101.5 - Oral traumatic injury;8;0;1;1;1;1;1;0;0;0
+1101.99;1101.99 - Other Dental and gum diseases;8;0;1;1;1;1;1;0;0;0
+1102;1102 - Dyspepsia;8;0;1;1;1;1;1;120;0;0
+1103;1103 - Peptic ulcer disease;8;0;1;1;1;1;1;120;0;0
+1104;1104 - Cirrhosis of liver;8;0;1;1;1;1;1;240;0;1
+1105;1105 - Appendicitis;8;0;1;1;1;1;1;0;0;0
+1106;1106 - Hernias without intestinal obstruction;8;0;1;1;1;1;1;0;0;0
+1107;1107 - Intestinal obstruction;8;0;1;1;1;1;1;0;0;0
+1108;1108 - Cholelithiasis;8;0;1;1;1;1;1;0;0;0
+1199;1199 - Other or unspecified diseases of the digestive system;8;0;1;1;1;1;1;0;0;1
+1201;1201 - Infections of the skin and subcutaneous tissue;8;0;1;0;0;1;1;0;0;0
+1201.1;1201.1 - Leg ulcer;11;0;0;1;1;1;1;0;0;1
+1201.99;1201.99 - Other Infections of the skin and subcutaneous tissue;11;0;0;1;1;1;1;0;0;1
+1299;1299 - Other or unspecified diseases of the skin and subcutaneous tissue;11;0;1;1;1;1;1;0;0;1
+1300.1;1300.1 - Arthrit and Spondilits;11;0;1;1;1;1;1;0;0;0
+1300.2;1300.2 - Rheumatism;11;0;1;1;1;1;1;0;0;0
+1300.3;1300.3 - Osteomyelitis periostitis;11;0;1;1;1;1;1;0;0;0
+1300.4;1300.4 - Ankylosis/deformities;11;0;1;1;1;1;1;0;0;0
+1300.5;1300.5 - Pyomyositis;11;0;1;1;1;1;1;0;0;0
+1300.99;1300.99 - Other Diseases of the musculoskeletal system and connective tissue;11;0;1;1;1;1;1;0;0;0
+1401;1401 - Urinary tract infection;9;0;1;1;1;1;1;0;0;0
+1402;1402 - Nephritis;9;0;1;0;0;1;1;0;0;0
+1402.1;1402.1 - Acute Glomerulo Nephritis;9;0;0;1;1;1;1;0;0;0
+1402.2;1402.2 - Nephrotic syndrome;9;0;0;1;1;1;1;0;0;0
+1402.3;1402.3 - Chronic Nephritis;9;0;0;1;1;1;1;0;0;1
+1402.4;1402.4 - Chronic renal failure;9;0;0;1;1;1;1;0;0;1
+1403;1403 - Hyperplasia of prostate;9;0;1;1;1;1;0;240;0;0
+1499;1499 - Other or unspecified disorders of the genitourinary system;9;0;1;1;1;1;1;0;0;0
+1501;1501 - Medical abortion without complication (safe abortion);10;0;1;1;1;0;1;144;0;0
+1502;1502 - Other abortion (spontaneous- with complication- Septic Abortion etc.);10;0;1;0;0;0;1;144;0;0
+1502.1;1502.1 - Incomplete abortion;10;0;0;1;1;0;1;144;0;0
+1502.99;1502.99 - Other abortion (spontaneous- with complication- Septic Abortion etc.);10;0;0;1;1;0;1;144;0;0
+1503;1503 - Single spontaneous delivery (Normal Delivery);10;0;1;1;1;0;1;144;0;0
+1504;1504 - Other delivery;10;0;1;0;0;0;1;144;0;0
+1504.1;1504.1 - Cesarean Section Delivery (CS);10;0;0;1;1;0;1;144;0;0
+1504.2;1504.2 - Vacuum extraction;10;0;0;1;1;0;1;144;0;0
+1504.3;1504.3 - Forceps;10;0;0;1;1;0;1;144;0;0
+1504.4;1504.4 - Craniotomy;10;0;0;1;1;0;1;144;0;0
+1504.5;1504.5 - Distructive delivery;10;0;0;1;1;0;1;144;0;0
+1504.99;1504.99 - Other delivery;10;0;0;1;1;0;1;144;0;0
+1505;1505 - Prolonged obstructed labour;10;0;1;0;0;0;1;144;0;0
+1505.1;1505.1 - Cephalo-pelvic disproportion (CPD);10;0;0;1;1;0;1;144;0;0
+1505.2;1505.2 - Malposition;10;0;0;1;1;0;1;144;0;0
+1505.3;1505.3 - Breech;10;0;0;1;1;0;1;144;0;0
+1505.99;1505.99 - Other Prolonged obstructed labour;10;0;0;1;1;0;1;144;0;0
+1506.1;1506.1 - Antepartum Hemorrhage (APH);10;0;1;1;1;0;1;144;0;0
+1506.2;1506.2 - Postpartum Hemorrhage (PPH);10;0;1;1;1;0;1;144;0;0
+1507;1507 - Pregnancy induced hypertension and edema;10;0;1;0;0;0;1;144;0;0
+1507.1;1507.1 - Preeclampsia;10;0;0;1;1;0;1;144;0;0
+1507.2;1507.2 - Eclampsia;10;0;0;1;1;0;1;144;0;0
+1508;1508 - Ectopic pregnancy;10;0;1;1;1;0;1;144;0;0
+1509;1509 - Puerperal sepsis;10;0;1;1;1;0;1;144;0;0
+1598;1598 - Other causes of abnormal pregnancy- childbirth and puerperium;10;0;1;0;0;0;1;144;0;0
+1598.1;1598.1 - Ectopic Pregnancy;10;0;0;1;1;0;1;144;0;0
+1598.2;1598.2 - Uterine rupture;10;0;0;1;1;0;1;144;0;0
+1598.99;1598.99 - Other causes of abnormal pregnancy- childbirth and puerperium;10;0;0;1;1;0;1;144;0;0
+1599;1599 - Other or unspecified obstetric conditions;10;0;1;1;1;0;1;144;0;0
+1601;1601 - Birth asphyxia;10;0;1;1;1;1;1;0;1;0
+1602;1602 - Prematurity;10;0;1;0;0;0;0;0;1;0
+1602.1;1602.1 - Mild Prematurity (35 - 36 weeks);10;0;0;1;1;1;1;0;1;0
+1602.2;1602.2 - Moderate Prematurity (33 - 34 weeks);10;0;0;1;1;1;1;0;1;0
+1602.3;1602.3 - Severe Prematurity (< 33 weeks);10;0;0;1;1;1;1;0;1;0
+1603;1603 - Neonatal sepsis;10;0;1;0;0;1;1;0;1;0
+1603.1;1603.1 - Early onset neonatal sepsis (< 72hr of life);10;0;0;1;1;1;1;0;1;0
+1603.2;1603.2 - Late onset neonatal sepsis (> 72hr of life);10;0;0;1;1;1;1;0;1;0
+1603.3;1603.3 - LRTI in newborn;10;0;0;1;1;1;1;0;1;0
+1603.4;1603.4 - Ophtalmia neonatorum;10;0;0;1;1;1;1;0;1;0
+1603.5;1603.5 - Skin infection of the newborn (with abscess);10;0;0;1;1;1;1;0;1;0
+1603.6;1603.6 - Skin infection of the newborn (without abscess);10;0;0;1;1;1;1;0;1;0
+1603.7;1603.7 - Onphalitis ;10;0;0;1;1;1;1;0;1;0
+1603.8;1603.8 - NEC;10;0;0;1;1;1;1;0;1;0
+1603.99;1603.99 - Other neonatal infections;10;0;0;1;1;1;1;0;1;0
+1604;1604 - Low birth weight of newborn;10;0;1;0;0;1;1;0;1;0
+1604.1;1604.1 - LBW (1500 - 2499 gr);10;0;0;1;1;1;1;0;1;0
+1604.2;1604.2 - VLBW (1000 - 1499 gr);10;0;0;1;1;1;1;0;1;0
+1604.3;1604.3 - ELBW (< 1000 gr);10;0;0;1;1;1;1;0;1;0
+1604.4;1604.4 - IUGR (term baby with body weight < 2500gr);10;0;0;1;1;1;1;0;1;0
+1699;1699 - Other or unspecified perinatal diseases;10;0;1;0;0;1;1;0;1;0
+1699.1;1699.1 - Birth injury;10;0;0;1;1;1;1;0;1;0
+1699.2;1699.2 - Naonatal Jaundice paraphysiologic;10;0;0;1;1;1;1;0;1;0
+1699.3;1699.3 - AB0 incompatibility;10;0;0;1;1;1;1;0;1;0
+1699.4;1699.4 - Rh incompatibility;10;0;0;1;1;1;1;0;1;0
+1699.5;1699.5 - Other jaundice;10;0;0;1;1;1;1;0;1;0
+1699.6;1699.6 - RDS of the preterm;10;0;0;1;1;1;1;0;1;0
+1699.7;1699.7 - TTN (Transitory Tachipnoea of the newborn);10;0;0;1;1;1;1;0;1;0
+1699.8;1699.8 - Other causes of respiratory distress;10;0;0;1;1;1;1;0;1;0
+1699.9;1699.9 - Neonatal Hypoglycaemia;10;0;0;1;1;1;1;0;1;0
+1699.10;1699.10 - Neonatal Hypothermia;10;0;0;1;1;1;1;0;1;0
+1699.99;1699.99 - Other or unspecified perinatal diseases;10;0;0;1;1;1;1;0;1;0
+1700;1700 - Congenital malformations- deformations and chromosomal abnormalities;12;0;1;1;1;1;1;0;0;0
+1801;1801 - Trauma (Falls- injury- fracture etc.);15;0;1;1;1;1;1;0;0;0
+1802;1802 - Burns and corrosions (Fire and explosion);15;0;1;1;1;1;1;0;0;0
+1803;1803 - Poisoning;15;0;1;1;1;1;1;0;0;0
+1899;1899 - Other or unspecified effects of external causes;15;0;1;1;1;1;1;0;0;0
+1901;1901 - Road traffic injuries;15;0;1;1;1;1;1;0;0;0
+1902.1;1902.1 - Rape Case;15;0;1;1;1;1;1;0;0;0
+1902.2;1902.2 - Fighting;15;0;1;1;1;1;1;0;0;0
+1902.3;1902.3 - Gunshot Wound (All);15;0;1;1;1;1;1;0;0;0
+1902.99;1902.99 - Other Violence and other intentional injury;15;0;1;1;1;1;1;0;0;0
+1999;1999 - Other or unspecified external causes of morbidity and mortality;16;0;1;1;1;1;1;0;0;0
+2000;2000 - Factors influencing health status and contact with health services, including visit for examination and investigation (check-up, examination for driving license, etc.);16;0;1;0;0;1;1;0;0;0
+9001;9001 - District / region specific diseases - 1;16;0;0;0;0;1;1;0;0;0
+9002;9002 - District / region specific diseases - 2;16;0;0;0;0;1;1;0;0;0
+9999;9999 - Other or unspecified diseases;16;0;1;0;0;1;1;0;0;0
+9999.1;9999.1 - Observation with normal findings;16;0;0;1;1;1;1;0;0;0
+9999.99;9999.99 - Other or unspecified diseases;16;0;0;1;1;1;1;0;0;0

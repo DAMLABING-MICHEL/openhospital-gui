@@ -1,0 +1,30 @@
+MALNUTRITION MODULE RELEASE NOTES
+
+This module allows the clinician to register data on malnutrition inpatients. It has been developed initially for St.
+Luke hospital in Wolisso, Ethiopia.
+
+Starting from the Admission browser GUI, a patient can be searched by OPD code. Then, after clicking on the Data button,
+the admission related to the malnutrition episode must be selected. Once an admission is selected and the Malnutrition
+button is clicked, the malnutrition panel will open, even if the admission is not flagged as 'M'. This change was
+made in order to avoid a mistake from the clerks admitting the patient to impede the work of Therapeutic Feeding Unit
+(TFU) clerks.
+
+The malnutrition window will provide by default two tabs, one to register admission data and one to register discharge
+data. If an open admission is chosen, only the Admission tab will be available.
+
+Notice that some of the data recorded in the MalnutritionVisit table duplicates data recorded elsewhere in the system
+(for example patient data are duplicated). This was done in order to allow some supervisor to asses the quality of the
+data inserted by the clerks at admission time.
+
+Notice that some function available before, like inserting patient height and weight at patient registration time,
+are momentarily disabled, since a malnutrition record is not an appropriate place to store such kind of data.
+
+MALNUTRITIONCONTROL table is left in place for backward compatibility.
+
+The class org.isf.malnutrition.utils.WhReference is there because it was an attempt to compute automatically th W/H
+value starting from Weight and Height values. The computation is basically a ratio between patient weight and a
+reference weight related to patient's weight (percent). To compute the W/H, nurses use a table from the government
+the reports, in each row, the upper weight limit for each percent interval (corresponding to different degrees of
+malnutrition). There is a row per each weight, starting from 49 ang going to 110 Kg with 0.5 steps. Unluckily, the
+values reported in the government tables differs from the actual percent value (maybe they misprinted).
+So basically I gave up the automatic computation.

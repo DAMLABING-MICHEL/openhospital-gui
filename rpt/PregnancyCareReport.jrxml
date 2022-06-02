@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="PregnancyCareReport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false"
+		 resourceBundle="PregnancyCareReport">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="fromdate" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="todate" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT 
+    '1/PRENATAL VISITS' AS GROUPING,
+    'Number of first prenatal visits' AS METRIC,
+    '' AS DES,
+    COUNT(DISTINCT (PVIS_ID)) AS COUNTING,
+    COUNT(DISTINCT (PVIS_ID)) / (SELECT COUNT(DISTINCT (PVIS_PREG_ID)) FROM PREGNANCYVISIT WHERE DATE(PVIS_DATE) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y')) AS PERC
+FROM
+    PREGNANCYVISIT
+WHERE
+    PVIS_TYPE = - 1
+AND DATE(PVIS_DATE) between STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y')
+
+UNION ALL
+
+SELECT '1/PRENATAL VISITS' AS GROUPING,'Number of second prenatal visits' AS METRIC, '' AS DES ,COUNT(*) AS COUNTING , (COUNT(*)/ (SELECT COUNT(DISTINCT (PAT)) 
+FROM (SELECT ADM_PAT_ID AS PAT FROM ADMISSION
+WHERE ADM_PRG_DATE_DEL IS NOT NULL
+UNION ALL (SELECT PREG_PAT_ID AS PAT
+FROM PREGNANCY)) AS T)) AS PERC FROM (
+SELECT PVIS_ID 
+FROM PREGNANCYVISIT 
+WHERE PVIS_TYPE = -1 AND DATE(PVIS_DATE) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y')
+GROUP BY PVIS_PREG_ID 
+HAVING COUNT( * ) >1 ) AS C
+
+UNION ALL
+
+SELECT '1/PRENATAL VISITS' AS GROUPING,'Number of third prenatal visits' AS METRIC, '' AS DES ,COUNT(*) AS COUNTING , (COUNT(*)/ (SELECT COUNT(DISTINCT (PAT)) 
+FROM (SELECT ADM_PAT_ID AS PAT FROM ADMISSION
+WHERE ADM_PRG_DATE_DEL IS NOT NULL
+UNION ALL (SELECT PREG_PAT_ID AS PAT
+FROM PREGNANCY)) AS T)) AS PERC FROM (
+SELECT PVIS_ID 
+FROM PREGNANCYVISIT 
+WHERE PVIS_TYPE = -1 AND DATE(PVIS_DATE) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y')
+GROUP BY PVIS_PREG_ID 
+HAVING COUNT( * ) >2 ) AS C
+
+UNION ALL
+
+SELECT '1/PRENATAL VISITS' AS GROUPING,'Number of forth prenatal visits' AS METRIC, '' AS DES ,COUNT(*) AS COUNTING, (COUNT(*)/ (SELECT COUNT(DISTINCT (PAT)) 
+FROM (SELECT ADM_PAT_ID AS PAT FROM ADMISSION
+WHERE ADM_PRG_DATE_DEL IS NOT NULL
+UNION ALL (SELECT PREG_PAT_ID AS PAT
+FROM PREGNANCY)) AS T)) AS PERC FROM (
+SELECT PVIS_ID 
+FROM PREGNANCYVISIT 
+WHERE PVIS_TYPE = -1 AND DATE(PVIS_DATE) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y')
+GROUP BY PVIS_PREG_ID 
+HAVING COUNT( * ) >3 ) AS C
+
+UNION ALL
+
+(SELECT '2/DELIVERIES' AS GROUPING, DLT_DESC AS METRIC, DRT_DESC AS DES, COUNT( * ) AS COUNTING, COUNT( * ) / (SELECT COUNT(DISTINCT(PDEL_ID)) FROM PREGNANCYDELIVERY WHERE DATE(PDEL_DATE_DEL) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y') ) AS PERC
+FROM DELIVERYTYPE , PREGNANCYDELIVERY
+JOIN DELIVERYRESULTTYPE
+WHERE 
+DATE(PDEL_DATE_DEL) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y') AND
+PDEL_DRT_ID_A = DRT_ID_A
+AND PDEL_DLT_ID_A = DLT_ID_A
+GROUP BY DLT_ID_A, DRT_DESC
+ORDER BY DLT_DESC )
+
+UNION ALL
+
+SELECT '3/POSTNATAL VISITS' AS GROUPING, 'Postnatal visits ' AS METRIC, '' AS DES, COUNT(*) AS COUNTING,  
+COUNT(DISTINCT (PVIS_ID)) / (SELECT COUNT(DISTINCT (PVIS_PREG_ID)) FROM PREGNANCYVISIT WHERE DATE(PVIS_DATE) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y')) AS PERC
+FROM PREGNANCYVISIT 
+WHERE PVIS_TYPE =1 
+AND DATE(PVIS_DATE) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y')
+
+UNION ALL 
+
+SELECT '4/TOTAL' AS GROUPING,'Number of pregnancies' AS METRIC, '' AS DES, COUNT(DISTINCT(PVIS_PREG_ID)) AS COUNTING, 0 AS PERC 
+FROM PREGNANCYVISIT
+WHERE DATE(PVIS_DATE) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y')
+
+UNION ALL
+
+SELECT '4/TOTAL' AS GROUPING,'Number of deliveries' AS METRIC, '' AS DES, COUNT(*) AS COUNTING, 0 AS PERC 
+FROM PREGNANCYDELIVERY WHERE
+DATE(PDEL_DATE_DEL) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y')
+
+UNION ALL
+
+SELECT '4/TOTAL' AS GROUPING,'Total number of pregnancy visits' AS METRIC, '' AS DES, COUNT(*) AS COUNTING , 0 AS PERC 
+FROM PREGNANCYVISIT
+WHERE DATE(PVIS_DATE) between STR_TO_DATE($P{fromdate},'%d/%m/%Y') and STR_TO_DATE($P{todate},'%d/%m/%Y')
+]]></queryString>
+
+	<field name="GROUPING" class="java.lang.String"/>
+	<field name="METRIC" class="java.lang.String"/>
+	<field name="DES" class="java.lang.String"/>
+	<field name="COUNTING" class="java.lang.Long"/>
+	<field name="PERC" class="java.math.BigDecimal"/>
+
+
+		<group  name="GROUPS" >
+			<groupExpression><![CDATA[$F{GROUPING}]]></groupExpression>
+			<groupHeader>
+			<band height="13"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="183"
+						height="13"
+						key="textField-20"/>
+					<box leftPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isPdfEmbedded ="true" pdfEncoding ="Cp1250"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GROUPING}.equals("1/PRENATAL VISITS") ? $R{1.PRENATAL.VISITS} :
+$F{GROUPING}.equals("2/DELIVERIES") ? $R{2.DELIVERIES} :
+$F{GROUPING}.equals("3/POSTNATAL VISITS") ? $R{3.POSTNATAL.VISITS} :
+$F{GROUPING}.equals("4/TOTAL") ? $R{4.TOTAL} : $F{GROUPING}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="18"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="50"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="283"
+						height="28"
+						forecolor="#FFFFFF"
+						backcolor="#000000"
+						key="textField-19"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$R{PregnancyCareStatistics}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="396"
+						y="14"
+						width="73"
+						height="14"
+						key="textField-11"/>
+					<box leftPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{todate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="300"
+						y="14"
+						width="96"
+						height="14"
+						forecolor="#FFFFFF"
+						backcolor="#000000"
+						key="textField-18"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$R{ToDateYear}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="300"
+						y="0"
+						width="96"
+						height="14"
+						forecolor="#FFFFFF"
+						backcolor="#000000"
+						key="textField-17"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$R{FromDate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="396"
+						y="0"
+						width="73"
+						height="14"
+						key="textField-12"/>
+					<box leftPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{fromdate}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="13"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="53"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="442"
+						y="12"
+						width="88"
+						height="38"
+						key="textField-22"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$R{Percentage}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="354"
+						y="12"
+						width="88"
+						height="38"
+						key="textField-23"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$R{TotalCount}]]></textFieldExpression>
+				</textField>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="19"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="6"
+						width="183"
+						height="13"
+						key="textField-1"/>
+					<box leftPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isPdfEmbedded ="true" pdfEncoding ="Cp1250"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{METRIC}.equals("Number of first prenatal visits") ? $R{NrOfFirstPrenatalVisits} :
+$F{METRIC}.equals("Number of second prenatal visits") ? $R{NrOfSecondPrenatalVisits} :
+$F{METRIC}.equals("Number of third prenatal visits") ? $R{NrOfThirdPrenatalVisits} :
+$F{METRIC}.equals("Number of forth prenatal visits") ? $R{NrOfForthPrenatalVisits} :
+$F{METRIC}.equals("Postnatal visits") ? $R{PostNatalVisits} :
+$F{METRIC}.equals("Number of deliveries") ? $R{NrOfDeliveries} :
+$F{METRIC}.equals("Total number of pregnancy visits") ? $R{TotalNrOfPregnancyVisits} : $F{METRIC}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="354"
+						y="6"
+						width="88"
+						height="13"
+						key="textField-2"/>
+					<box leftPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isPdfEmbedded ="true" pdfEncoding ="Cp1250"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{COUNTING}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00 %" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="442"
+						y="6"
+						width="88"
+						height="13"
+						key="textField-13"/>
+					<box leftPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isPdfEmbedded ="true" pdfEncoding ="Cp1250"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PERC}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="183"
+						y="6"
+						width="171"
+						height="13"
+						key="textField-14"/>
+					<box leftPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isPdfEmbedded ="true" pdfEncoding ="Cp1250"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DES}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="18"
+						width="535"
+						height="0"
+						forecolor="#999999"
+						key="line-1">
+							<printWhenExpression><![CDATA[new Boolean(!$F{METRIC}.equals(""))]]></printWhenExpression>
+						</reportElement>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+</graphicElement>
+				</line>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="20"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="43"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="25"
+						width="100"
+						height="18"
+						key="textField-3"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="294"
+						y="26"
+						width="192"
+						height="17"
+						key="textField-4"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="486"
+						y="26"
+						width="49"
+						height="17"
+						key="textField-15"/>
+					<box leftPadding="3">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="535"
+						height="13"
+						key="textField-21"/>
+					<box leftPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isPdfEmbedded ="true" pdfEncoding ="Cp1250"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$R{OneStar}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="43"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="535"
+						height="13"
+						key="textField-24"/>
+					<box leftPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isPdfEmbedded ="true" pdfEncoding ="Cp1250"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$R{OneStar}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="25"
+						width="100"
+						height="18"
+						key="textField-25"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="294"
+						y="26"
+						width="192"
+						height="17"
+						key="textField-26"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="486"
+						y="26"
+						width="49"
+						height="17"
+						key="textField-27"/>
+					<box leftPadding="3">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

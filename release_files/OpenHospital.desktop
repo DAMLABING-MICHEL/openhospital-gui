@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=OpenHospital
+Comment=OpenHospital launcher
+Exec=/home/admin/OpenHospital/oh.sh
+Icon=/home/admin/OpenHospital/oh-1.7.0/rsc/images/Splash.jpg
+Terminal=false
+Type=Application

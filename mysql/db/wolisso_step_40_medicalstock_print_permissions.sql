@@ -1,0 +1,2 @@
+INSERT INTO MENUITEM (MNI_ID_A, MNI_BTN_LABEL, MNI_LABEL, MNI_TOOLTIP, MNI_SHORTCUT, MNI_SUBMENU, MNI_CLASS, MNI_IS_SUBMENU, MNI_POSITION) VALUES ('btnpharmstockprint', 'angal.menu.btn.btnpharmstockprint', 'angal.menu.btnpharmstockprint', 'x', 'P', 'medicalstock', 'none', 'N', '3');
+INSERT INTO GROUPMENU (GM_UG_ID_A, GM_MNI_ID_A, GM_ACTIVE) VALUES ('admin', 'btnpharmstockprint', 'Y');

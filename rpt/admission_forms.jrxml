@@ -1,0 +1,1223 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="admission_forms"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="patientID" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="Hospital" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["St.Luke Catholic Hospital & College of Nursing"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO_PATH" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["./rsc/images/"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT * FROM PATIENT JOIN ADMISSION ON PAT_ID = ADM_PAT_ID
+JOIN WARD ON ADM_WRD_ID_A = WRD_ID_A
+WHERE PAT_ID = $P{patientID}
+ORDER BY ADM_ID DESC
+LIMIT 1]]></queryString>
+
+	<field name="PAT_ID" class="java.lang.Integer"/>
+	<field name="PAT_FNAME" class="java.lang.String"/>
+	<field name="PAT_SNAME" class="java.lang.String"/>
+	<field name="PAT_NAME" class="java.lang.String"/>
+	<field name="PAT_BDATE" class="java.sql.Date"/>
+	<field name="PAT_AGE" class="java.lang.Integer"/>
+	<field name="PAT_AGETYPE" class="java.lang.String"/>
+	<field name="PAT_SEX" class="java.lang.String"/>
+	<field name="PAT_ADDR" class="java.lang.String"/>
+	<field name="PAT_CITY" class="java.lang.String"/>
+	<field name="PAT_NEXT_KIN" class="java.lang.String"/>
+	<field name="PAT_TELE" class="java.lang.String"/>
+	<field name="PAT_MOTH_NAME" class="java.lang.String"/>
+	<field name="PAT_MOTH" class="java.lang.String"/>
+	<field name="PAT_FATH_NAME" class="java.lang.String"/>
+	<field name="PAT_FATH" class="java.lang.String"/>
+	<field name="PAT_LEDU" class="java.lang.String"/>
+	<field name="PAT_ESTA" class="java.lang.String"/>
+	<field name="PAT_PTOGE" class="java.lang.String"/>
+	<field name="PAT_NOTE" class="java.lang.String"/>
+	<field name="PAT_DELETED" class="java.lang.String"/>
+	<field name="PAT_LOCK" class="java.lang.Integer"/>
+	<field name="PAT_BTYPE" class="java.lang.String"/>
+	<field name="PAT_PHOTO" class="java.lang.Object"/>
+	<field name="PAT_TAXCODE" class="java.lang.String"/>
+	<field name="PAT_TIMESTAMP" class="java.sql.Timestamp"/>
+	<field name="PAT_PCODE" class="java.lang.String"/>
+	<field name="PAT_ESTA_NAME" class="java.lang.String"/>
+	<field name="ADM_ID" class="java.lang.Integer"/>
+	<field name="ADM_IN" class="java.lang.Integer"/>
+	<field name="ADM_TYPE" class="java.lang.String"/>
+	<field name="ADM_WRD_ID_A" class="java.lang.String"/>
+	<field name="ADM_YPROG" class="java.lang.Integer"/>
+	<field name="ADM_PAT_ID" class="java.lang.Integer"/>
+	<field name="ADM_DATE_ADM" class="java.sql.Timestamp"/>
+	<field name="ADM_ADMT_ID_A_ADM" class="java.lang.String"/>
+	<field name="ADM_FHU" class="java.lang.String"/>
+	<field name="ADM_IN_DIS_ID_A" class="java.lang.String"/>
+	<field name="ADM_OUT_DIS_ID_A" class="java.lang.String"/>
+	<field name="ADM_OUT_DIS_ID_A_2" class="java.lang.String"/>
+	<field name="ADM_OUT_DIS_ID_A_3" class="java.lang.String"/>
+	<field name="ADM_OPE_ID_A" class="java.lang.String"/>
+	<field name="ADM_DATE_OP" class="java.sql.Timestamp"/>
+	<field name="ADM_RESOP" class="java.lang.String"/>
+	<field name="ADM_DATE_DIS" class="java.sql.Timestamp"/>
+	<field name="ADM_DIST_ID_A" class="java.lang.String"/>
+	<field name="ADM_NOTE" class="java.lang.String"/>
+	<field name="ADM_TRANS" class="java.lang.Float"/>
+	<field name="ADM_PRG_DATE_VIS" class="java.sql.Timestamp"/>
+	<field name="ADM_PRG_PTT_ID_A" class="java.lang.String"/>
+	<field name="ADM_PRG_DATE_DEL" class="java.sql.Timestamp"/>
+	<field name="ADM_PRG_DLT_ID_A" class="java.lang.String"/>
+	<field name="ADM_PRG_DRT_ID_A" class="java.lang.String"/>
+	<field name="ADM_PRG_WEIGHT" class="java.lang.Float"/>
+	<field name="ADM_PRG_DATE_CTRL1" class="java.sql.Timestamp"/>
+	<field name="ADM_PRG_DATE_CTRL2" class="java.sql.Timestamp"/>
+	<field name="ADM_PRG_DATE_ABORT" class="java.sql.Timestamp"/>
+	<field name="ADM_LOCK" class="java.lang.Integer"/>
+	<field name="ADM_DELETED" class="java.lang.String"/>
+	<field name="WRD_ID_A" class="java.lang.String"/>
+	<field name="WRD_NAME" class="java.lang.String"/>
+	<field name="WRD_TELE" class="java.lang.String"/>
+	<field name="WRD_FAX" class="java.lang.String"/>
+	<field name="WRD_EMAIL" class="java.lang.String"/>
+	<field name="WRD_NBEDS" class="java.lang.Integer"/>
+	<field name="WRD_NQUA_NURS" class="java.lang.Integer"/>
+	<field name="WRD_NDOC" class="java.lang.Integer"/>
+	<field name="WRD_IS_PHARMACY" class="java.lang.Boolean"/>
+	<field name="WRD_LOCK" class="java.lang.Integer"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="802"  isSplitAllowed="false" >
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="5"
+						y="116"
+						width="231"
+						height="214"
+						key="staticText-57"/>
+					<box leftPadding="5" topPadding="5">					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Rx.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="73"
+						width="41"
+						height="18"
+						key="staticText-60"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Name: ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="41"
+						y="73"
+						width="200"
+						height="18"
+						key="textField-30"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAT_NAME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="91"
+						width="29"
+						height="18"
+						key="staticText-61"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[Age:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="91"
+						width="32"
+						height="18"
+						key="textField-31"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{PAT_AGE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="61"
+						y="91"
+						width="29"
+						height="18"
+						key="staticText-62"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[Sex:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="90"
+						y="91"
+						width="32"
+						height="18"
+						key="textField-32"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAT_SEX}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="122"
+						y="91"
+						width="48"
+						height="18"
+						key="staticText-63"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[IPD No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="55"
+						width="41"
+						height="18"
+						key="staticText-64"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[PID:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="41"
+						y="55"
+						width="100"
+						height="18"
+						key="textField-33"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{PAT_ID}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="330"
+						width="80"
+						height="18"
+						key="staticText-65"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Doctor's Name:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="348"
+						width="29"
+						height="18"
+						key="staticText-66"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="99"
+						y="348"
+						width="29"
+						height="18"
+						key="staticText-67"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Sign:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="170"
+						y="91"
+						width="66"
+						height="18"
+						key="textField-34"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{ADM_YPROG}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="29"
+						y="348"
+						width="56"
+						height="18"
+						key="staticText-68"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="128"
+						y="348"
+						width="113"
+						height="18"
+						key="staticText-69"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="80"
+						y="330"
+						width="161"
+						height="18"
+						key="staticText-70"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="-28"
+						y="401"
+						width="591"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="299"
+						y="116"
+						width="231"
+						height="214"
+						key="staticText-71"/>
+					<box leftPadding="5" topPadding="5">					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Rx.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="294"
+						y="73"
+						width="41"
+						height="18"
+						key="staticText-74"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Name: ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="335"
+						y="73"
+						width="200"
+						height="18"
+						key="textField-36"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAT_NAME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="294"
+						y="91"
+						width="29"
+						height="18"
+						key="staticText-75"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[Age:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="323"
+						y="91"
+						width="32"
+						height="18"
+						key="textField-37"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{PAT_AGE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="355"
+						y="91"
+						width="29"
+						height="18"
+						key="staticText-76"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[Sex:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="384"
+						y="91"
+						width="32"
+						height="18"
+						key="textField-38"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAT_SEX}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="416"
+						y="91"
+						width="48"
+						height="18"
+						key="staticText-77"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[IPD No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="294"
+						y="55"
+						width="41"
+						height="18"
+						key="staticText-78"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[PID:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="335"
+						y="55"
+						width="100"
+						height="18"
+						key="textField-39"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{PAT_ID}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="294"
+						y="330"
+						width="80"
+						height="18"
+						key="staticText-79"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Doctor's Name:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="294"
+						y="348"
+						width="29"
+						height="18"
+						key="staticText-80"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="393"
+						y="348"
+						width="29"
+						height="18"
+						key="staticText-81"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Sign:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="464"
+						y="91"
+						width="66"
+						height="18"
+						key="textField-40"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{ADM_YPROG}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="323"
+						y="348"
+						width="56"
+						height="18"
+						key="staticText-82"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="422"
+						y="348"
+						width="113"
+						height="18"
+						key="staticText-83"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="374"
+						y="330"
+						width="161"
+						height="18"
+						key="staticText-84"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="5"
+						y="543"
+						width="231"
+						height="214"
+						key="staticText-85"/>
+					<box leftPadding="5" topPadding="5">					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Rx.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="500"
+						width="41"
+						height="18"
+						key="staticText-88"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Name: ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="41"
+						y="500"
+						width="200"
+						height="18"
+						key="textField-42"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAT_NAME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="518"
+						width="29"
+						height="18"
+						key="staticText-89"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[Age:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="518"
+						width="32"
+						height="18"
+						key="textField-43"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{PAT_AGE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="61"
+						y="518"
+						width="29"
+						height="18"
+						key="staticText-90"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[Sex:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="90"
+						y="518"
+						width="32"
+						height="18"
+						key="textField-44"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAT_SEX}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="122"
+						y="518"
+						width="48"
+						height="18"
+						key="staticText-91"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[IPD No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="482"
+						width="41"
+						height="18"
+						key="staticText-92"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[PID:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="41"
+						y="482"
+						width="100"
+						height="18"
+						key="textField-45"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{PAT_ID}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="757"
+						width="80"
+						height="18"
+						key="staticText-93"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Doctor's Name:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="775"
+						width="29"
+						height="18"
+						key="staticText-94"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="99"
+						y="775"
+						width="29"
+						height="18"
+						key="staticText-95"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Sign:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="170"
+						y="518"
+						width="66"
+						height="18"
+						key="textField-46"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{ADM_YPROG}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="29"
+						y="775"
+						width="56"
+						height="18"
+						key="staticText-96"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="128"
+						y="775"
+						width="113"
+						height="18"
+						key="staticText-97"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="80"
+						y="757"
+						width="161"
+						height="18"
+						key="staticText-98"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="299"
+						y="543"
+						width="231"
+						height="214"
+						key="staticText-99"/>
+					<box leftPadding="5" topPadding="5">					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Rx.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="294"
+						y="500"
+						width="41"
+						height="18"
+						key="staticText-102"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Name: ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="335"
+						y="500"
+						width="200"
+						height="18"
+						key="textField-48"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAT_NAME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="294"
+						y="518"
+						width="29"
+						height="18"
+						key="staticText-103"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[Age:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="323"
+						y="518"
+						width="32"
+						height="18"
+						key="textField-49"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{PAT_AGE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="355"
+						y="518"
+						width="29"
+						height="18"
+						key="staticText-104"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[Sex:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="384"
+						y="518"
+						width="32"
+						height="18"
+						key="textField-50"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PAT_SEX}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="416"
+						y="518"
+						width="48"
+						height="18"
+						key="staticText-105"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[IPD No.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="294"
+						y="482"
+						width="41"
+						height="18"
+						key="staticText-106"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[PID:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="335"
+						y="482"
+						width="100"
+						height="18"
+						key="textField-51"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{PAT_ID}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="294"
+						y="757"
+						width="80"
+						height="18"
+						key="staticText-107"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Doctor's Name:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="294"
+						y="775"
+						width="29"
+						height="18"
+						key="staticText-108"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="393"
+						y="775"
+						width="29"
+						height="18"
+						key="staticText-109"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement verticalAlignment="Bottom">
+						<font/>
+					</textElement>
+				<text><![CDATA[Sign:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="464"
+						y="518"
+						width="66"
+						height="18"
+						key="textField-52"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{ADM_YPROG}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="323"
+						y="775"
+						width="56"
+						height="18"
+						key="staticText-110"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="422"
+						y="775"
+						width="113"
+						height="18"
+						key="staticText-111"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="374"
+						y="757"
+						width="161"
+						height="18"
+						key="staticText-112"/>
+					<box leftPadding="5" topPadding="5">					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="267"
+						y="0"
+						width="0"
+						height="802"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="241"
+						height="45"
+						key="image-5"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{LOGO_PATH} + "header.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="0"
+						y="42"
+						width="241"
+						height="13"
+						key="staticText-113"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Prescription Paper - IN-PATIENT]]></text>
+				</staticText>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="294"
+						y="0"
+						width="241"
+						height="45"
+						key="image-6"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{LOGO_PATH} + "header.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="294"
+						y="42"
+						width="241"
+						height="13"
+						key="staticText-114"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Prescription Paper - IN-PATIENT]]></text>
+				</staticText>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="427"
+						width="241"
+						height="45"
+						key="image-7"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{LOGO_PATH} + "header.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="0"
+						y="469"
+						width="241"
+						height="13"
+						key="staticText-115"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Prescription Paper - IN-PATIENT]]></text>
+				</staticText>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="294"
+						y="427"
+						width="241"
+						height="45"
+						key="image-8"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{LOGO_PATH} + "header.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="294"
+						y="469"
+						width="241"
+						height="13"
+						key="staticText-116"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Prescription Paper - IN-PATIENT]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="141"
+						y="55"
+						width="100"
+						height="18"
+						key="textField-53"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Oblique" isBold="false" isItalic="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{WRD_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="435"
+						y="55"
+						width="100"
+						height="18"
+						key="textField-54"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Oblique" isBold="false" isItalic="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{WRD_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="141"
+						y="482"
+						width="100"
+						height="18"
+						key="textField-55"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Oblique" isBold="false" isItalic="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{WRD_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="435"
+						y="482"
+						width="100"
+						height="18"
+						key="textField-56"/>
+					<box leftPadding="5" topPadding="5"></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Oblique" isBold="false" isItalic="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{WRD_NAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

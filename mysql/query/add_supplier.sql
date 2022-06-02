@@ -1,0 +1,3 @@
+INSERT INTO SUPPLIER 
+(SUP_NAME,	SUP_ADDRESS,	SUP_TAXCODE,	SUP_PHONE,	SUP_FAX,	SUP_EMAIL,	SUP_NOTE) VALUES 
+('',		'',				'',				'',			'',			'',			'',		);

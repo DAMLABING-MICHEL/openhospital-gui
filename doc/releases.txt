@@ -1,0 +1,3871 @@
+* Wolisso_core1_7_0 branch start (as oh_1_7_0)
+================================================================================
+1.
+	04/03/2013 - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.accounting.service.IoOperations
+			   - org.isf.exa.service.IoOperations
+			   - org.isf.lab.service.IoOperations
+			   - org.isf.menu.service.IoOperations
+			   - org.isf.visits.service.IoOperationss
+	
+	From HEAD:
+	- Fixed a bug in deleting laboratory exams procedure 2
+	- Fixed a bug in saving bill Items and Payments  
+	- Fixed some bugs in queries management
+========================================================================================================
+2.
+	04/03/2013 - org.isf.admission.gui.AdmissionBrowser
+	
+	Fixed a bug when discharging just after admission (data refreshing)
+	From Wolisso_core1_6_0_release2:
+	- Changed Transfusional Unit step to 1
+========================================================================================================
+3.
+	04/03/2013 - org.isf.admission.gui.AdmittedPatientBrowser
+	
+			   - bundle/language_xx.properties
+			   
+	Fixed a minor bug in retrieving data
+========================================================================================================
+4.
+	04/03/2013 - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.patient.gui.PatientInsertExtended
+			   
+			   - bundle/language_en.properties
+	
+	From Wolisso_core1_6_0_release2:
+	- Moved TaxCode field to the bottom
+	- Hided Medical, Operations and Exams from bill composing
+	- Reduced size for PatientBillEdit and fixed some label dimensions
+	- Improved RemoveItem e RemovePayment buttons
+	- Modified labels for OperationResultType from Positive/Negative to Elective/Emergency. (still 'P' o 'N' in the DB)
+	- Modified Patient name label from 'Second Name'a 'Other Names'
+	- Changed 'City' and 'Address' to 'Woreda' and 'Kebele'
+	- Changed 'Other Prices' to 'Codes'
+========================================================================================================
+5.
+	04/03/2013 - rsc/database.properties
+				 rsc/generaldData.properties
+				 rsc/txtPrinters.properties
+	
+	From Wolisso_core1_6_0_release2:
+	- Collection of settings & options for this project
+========================================================================================================
+6.
+	05/03/2013 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.service.IoOperations
+			   - org.isf.menu.gui.SubMenu
+			   - org.isf.patient.gui.PatientInsertExtended
+			   - org.isf.patient.model.Patient
+			   - org.isf.patient.service.IoOperations
+			   - org.isf.reportlauncher.gui.ReportLauncher
+			   
+			   --> rpt/FMOH_Ver102_IPD.jasper
+			   --> rpt/FMOH_Ver102_IPD.jrxml
+			   - bundle/language_en.properties
+	
+	From Wolisso_core1_6_0_release2:
+	- Removed gaps in GUI and PatientData panel for better fitting netbook screen
+	- Submenu no longer overlaps MainMenu but just appears contiguous
+	- Added Report FMOH Ver1/02 for Ethiopian Government
+	- Added patient's telephone and taxcode in search criteria
+	- Switched First Name and Second Name
+	- Removed patient code prediction (to avoid misusing)
+========================================================================================================
+7.
+	05/03/2013 - org.isf.medicalstock.gui.MovStockInserting
+			   --> org.isf.supplier.manager.SupplierManager
+			   --> org.isf.supplier.model.Supplier
+			   --> org.isf.supplier.service.IoOperations
+			   
+			   
+			   --> mysql/query/add_supplier.sql
+			   --> mysql/db/wolisso_step_01_suppliers_table_create_and_load.sql
+			   --> mysql/db/suppliers.csv
+	
+	From Wolisso_core1_6_0_release2:
+	- Added Supplier module (no GUI) with query for inserting
+========================================================================================================
+8.
+	05/03/2013 - org.isf.medicalstock.gui.MovStockInserting
+	
+	From Wolisso_core1_6_0_release2:
+	- Search field only for product code now
+========================================================================================================
+9.
+	05/03/2013 - org.isf.stat.reportlauncher.gui.ReportLauncher
+	
+			   - bundle/language_en.properties
+			   --> rpt/OH004A_IncomesOpdByPriceCodes.jasper
+			   --> rpt/OH004A_IncomesOpdByPriceCodes.jrxml
+			   --> rpt/OH004B_IncomesOpdByCategories.jasper
+			   --> rpt/OH004B_IncomesOpdByCategories.jrxml
+			   --> rpt/OH004C_IncomesIpdByPriceCodes.jasper
+			   --> rpt/OH004C_IncomesIpdByPriceCodes.jrxml
+			   --> rpt/OH009_InPatientReport.jasper
+			   --> rpt/OH009_InPatientReport.jrxml
+			   
+	From Wolisso_core1_6_0_release2:
+	- Added and re-sorted production reports
+========================================================================================================
+10.
+	07/03/2013 - org.isf.admission.ADmittedPatientBrowser
+			   --> org.isf.location.manager.LocationManager
+			   --> org.isf.location.model.Location
+			   --> org.isf.location.service.IoOperations
+			   - org.isf.patient.gui.PatientInsertExtended
+			   - org.isf.patient.model.Patient
+			   
+			   - bundle/language_xx.properties
+			   --> mysql/db/locations.csv
+			   --> mysql/db/wolisso_step_02_location_table_create_and_load.sql
+			   --> mysql/query/add_woreda_kebele.sql
+			   - rpt/OH002_RegisteredPatientsByProvenance.jasper
+			   - rpt/OH002_RegisteredPatientsByProvenance.jrxml
+			   - rpt/OH009_InPatientReport.jasper
+			   - rpt/OH009_InPatientReport.jrxml
+	
+	Switching and coding on City & Address (Woreda & Kebele):
+	- Swapped column PAT_CITY with PAT_ADDR
+	- Changed City to Woreda and Address to Kebele in bundles
+	- Changed Woreda and Kebele textfield in combobox
+	- Added LOCATION table and Location module to populate Woredes and Kebele
+	- Added script to add entries to LOCATION table
+	- Updated reports to reflect changes
+========================================================================================================
+11.
+	07/03/2013 - org.isf.supplier.manager.SupplierManager
+			   - org.isf.supplier.service.IoOperations
+	
+	Added logging capability to Supplier module
+========================================================================================================
+12.
+	09/03/2013 --> lib/poi-2.0-final-20040126.jar
+	
+	Added library for Excel format in report exporting
+========================================================================================================
+13.
+	18/03/2013 - org.isf.medicalstock.gui.MovStockInserting
+			   - org.isf.medicalstock.gui.manager.MovStockInsertingManager
+			   - org.isf.medicalstock.model.Lot
+			   - org.isf.medicalstock.model.Movement
+			   - org.isf.medicalstock.service.IoOperations
+			   
+	Rollback on automatic discharge to allow automatic lot selection
+========================================================================================================
+14.
+	18/03/2013 <-- org.isf.utils.db.CSV2SQL
+			   --> org.isf.utils.db.PharmacyResetFromCSV
+			   
+	Renamed and optimized compilation unit for Pharmacy
+========================================================================================================
+15.
+	18/03/2013 - org.isf.medicalstock.gui.MovStockBrowser
+	
+	Disabled lot selection when AUTOMATICLOT is true and fixed some GUI problems
+========================================================================================================
+16.
+	18/03/2013 - org.isf.medicalstock.gui.MovStockInserting
+	
+	Changed Supplier ID with its name
+========================================================================================================
+17.
+	19/03/2013 - org.isf.medicalstock.service.IoOperations
+	
+	Fixed a bug when first lot is enough big
+========================================================================================================
+18.
+	19/03/2013 --> org.isf.medicalcost.manager.MedicalCostManager
+			   --> org.isf.medicalcost.model.MedicalCost
+			   --> org.isf.medicalcost.service.IoOperations
+			   - org.isf.medicalstock.gui.MovStockInserting
+			   
+			   - bundle/language_xx.properties
+			   - mysql/db/wolisso_step_03_costs_table_create.sql
+			   
+	Added module for traking medicals cost while loading the pharmacy
+========================================================================================================
+19.
+	19/03/2013 - org.isf.utils.excel.ExcelExporter
+	
+	Added method for save a resultset as CSV
+========================================================================================================
+20.
+	19/03/2013 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.stat.manager.GenericReportFromDateToDate
+			   - org.isf.stat.manager.GenericReportMY
+			   - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   - org.isf.xmpp.gui.ChatMessages
+			   
+	Added button to save any report directly to CSV
+========================================================================================================
+21.
+	21/03/2013 - org.isf.medicalcost.manager.MedicalCostManager
+			   - org.isf.medicalcost.model.MedicalCost
+			   - org.isf.medicalcost.service.IoOperations
+			   
+	Added method for multiple inserting thread (no auto-commit)
+========================================================================================================
+22.
+	21/03/2013 - org.isf.medicalstock.gui.MovStockBrowser
+			   <-- org.isf.medicalstock.gui.MovStockInserting
+			   --> org.isf.medicalstock.gui.MovStockMultipleCharging
+			   --> org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   - org.isf.medicalstock.manager.MovBrowserManager
+			   - org.isf.medicalstock.manager.MovStockInsertingManager
+			   - org.isf.medicalstock.model.Movement
+			   - org.isf.medicalstock.service.IoOperations
+			   --> org.isf.utils.jobjects.RequestFocusListener
+			   --> org.isf.utils.jobjects.TextPrompt
+			   
+			   - bundle/language_xx.properties
+			   --> mysql/db/wolisso_step_04_new_pharmacy_alter_table.sql
+			   
+	New Pharmacy Stock Management:
+	- different buttons for charging and discharging types movement
+	- multiple movements inserting
+	- reference number
+========================================================================================================
+23.
+	21/03/2013 - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.medicalstock.service.IoOperations
+			   
+	Fixes and enhancement:
+	- fix filtering
+	- ordered by descending date
+	- fix some GUI problems
+========================================================================================================
+24.
+	21/03/2013 - org.isf.admission.gui.AdmittedPatientBrowser
+	
+	Added waiting mechanism for long filtering operations
+========================================================================================================
+25.
+	21/03/2013 - org.isf.location.service.IoOperations
+			   - org.isf.patient.gui.PatientInsertExtended
+	
+	Fixed a bug in selecting the Address and order by City first then Address
+========================================================================================================
+26.
+	21/03/2013 --> mysql/db/wolisso_step_00_migrate_from_1_6_0.sql
+			   - mysql/db/wolisso_step_03_costs_table_create.sql
+	
+	Fixed script for table MEDICALDSRCOST and added migration script (tested)
+========================================================================================================
+27.
+	21/03/2013 - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   - org.isf.supplier.manager.SupplierManager
+			   
+			   - bundle/language_xx.properties
+	
+	Changed the way to store Supplier (by code) and formatted costs
+========================================================================================================
+28.
+	21/03/2013 - rpt/OH009_InPatientReport.jasper
+			   - rpt/OH009_InPatientReport.jrxml
+			   
+	Fixed the way to count bed days and ordered by discharge date
+========================================================================================================
+29.
+	21/03/2013 --> mysql/query/find_duplicated_admissions.sql
+	
+	Added query to find and "mark" (delete) duplicated admissions
+========================================================================================================
+30.
+	21/03/2013 - org.isf.admission.gui.AdmissionBrowser
+	
+	Added waiting mechanism for long filtering operations
+========================================================================================================
+31.
+	22/03/2013 - mysql/db/location.csv
+	
+	New set of locations for LOCATION table
+========================================================================================================
+32.
+	22/03/2013 - rsc/generalData.properties
+			   - rsc/log4j.properties
+	
+	New settings for clients
+========================================================================================================
+33.
+	22/03/2013 - org.isf.patient.gui.PatientInsertExtended
+	
+	Fixed Woreda and Kebele size
+========================================================================================================
+34.
+	22/03/2013 --> release_file/oh.sh
+	
+	Added launcher script for releases
+========================================================================================================
+35.
+	23/03/2013 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.service.IoOperations
+			   
+	Improved save and query process
+========================================================================================================
+36.
+	23/03/2013 - org.isf.admission.gui.PatientFolderBrowser
+			   - org.isf.generaldata.GeneralData
+			   - org.isf.stat.manager.GenericReportDischargePatient
+			   
+			   - bundle/language_xx.properties
+			   --> rpt/patient_discharge_chart_ver1.jasper
+			   --> rpt/patient_discharge_chart_ver1.jarxml
+			   - rsc/generalData.properties
+			   
+	Added new report for Discharge Chart related to a single admission
+========================================================================================================
+37.
+	23/03/2013 - rpt/patient_clinical_sheet_patsubreport.jasper
+			   - rpt/patient_clinical_sheet_patsubreport.jrxml
+			   
+	Changed City and Address with Woreda and Kebele
+========================================================================================================
+38.
+	23/03/2013 - org.isf.stat.reportlauncher.gui.ReportLauncher
+	
+			   --> rpt/OH010_OutPatientReport.jasper
+			   --> rpt/OH010_OutPatientReport.jrxml
+	
+	Added new report for OPD
+========================================================================================================
+39.
+	23/03/2013 - org.isf.stat.reportlauncher.gui.ReportLauncher
+	
+	Added waiting mechanism for generating report
+========================================================================================================
+40.
+	24/03/2013 - org.isf.patient.gui.PatientInsertExtended
+	
+	Added waiting machanism for patient save operation
+========================================================================================================
+41.
+	24/03/2013 - mysql/db/location.csv
+	
+	New set of locations for LOCATION table
+========================================================================================================
+42.
+	24/03/2013 - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   
+	Added control for Supplier and Ward fields
+========================================================================================================
+43.
+	24/03/2013 - org.isf.medicalstock.gui.MovStockBrowser
+	
+	Added filtering based on due date also when AUTOMATICLOT is true
+========================================================================================================
+44.
+	24/03/2013 --> release_file/oh.bat
+	
+	Added launcher script for releases
+========================================================================================================
+45.
+	24/03/2013 - org.isf.generaldata.GeneralData
+	
+	Fixed a bug in the property name
+========================================================================================================
+46.
+	24/03/2013 - rpt/hmis108_adm_by_diagnosis_in.jasper
+			   - rpt/hmis108_adm_by_diagnosis_in.jrxml
+			   - rpt/hmis108_adm_by_diagnosis_out.jasper
+			   - rpt/hmis108_adm_by_diagnosis_out.jrxml
+			   - rpt/patient_discharge_chart_ver1.jasper
+			   - rpt/patient_discharge_chart_ver1.jrxml
+	
+	Update some reports
+========================================================================================================
+47.
+	25/03/2013 - org.isf.stat.manager.GenericReportFromDateToDate
+			   - org.isf.stat.manager.GenericReportMY
+			   
+	Fixed a bug in converting resultset to CSV which was closing connection with the DB
+========================================================================================================
+48.
+	25/03/2013 - mysql/db/location.csv
+	
+	New set of locations for LOCATION table
+========================================================================================================
+49.
+	26/03/2013 - org.isf.medicalstock.manager.DateTextField
+	
+	Fixed a bug in preparing dates from DateTextField
+========================================================================================================
+50.
+	26/03/2013 - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   
+	Added Medical selection by description
+========================================================================================================
+51.
+	26/03/2013 - mysql/db/location.csv
+	
+	New set of locations for LOCATION table
+========================================================================================================
+52.
+	26/03/2013 <-- mysql/db/wolisso_step_02_location_table_create_and_load.sql
+			   --> mysql/db/wolisso_step_02_switch_city_and_address.sql
+			   --> mysql/db/wolisso_step_05_location_table_create_and_load.sql
+			   
+	Split one script to avoid errors
+========================================================================================================
+53.
+	27/03/2013 - rpt/OH002_RegisteredPatientsByProvenance.jrxml
+			   - rpt/OH002_RegisteredPatientsByProvenance.jasper
+			   
+	Moved big total to the last page footer
+========================================================================================================
+54.
+	27/03/2013 - release_files/oh.bat
+	
+	Added exit command
+========================================================================================================
+55.
+	27/03/2013 --> rpt/PharmaceuticalStock_ver2.jrxml
+			   --> rpt/PharmaceuticalStock_ver2.jasper
+			   
+			   - rsc/generalData.properties
+			   
+	Added new report for Pharmaceutical Stock
+========================================================================================================
+56.
+	27/03/2013 - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.medicals.gui.MedicalEdit
+			   - org.isf.medicals.model.Medical
+			   - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   
+			   - bundle/language_xx.properties
+			   
+	Added Medical code to selection in sorted list
+========================================================================================================
+57.
+	27/03/2013 - org.isf.medicalstock.gui.MovStockBrowser
+	
+	Removed PREP_DATE column if AUTOMATICLOT is true
+========================================================================================================
+58.
+	27/03/2013 --> rpt/PharmaceuticalStock_ver3.jrxml
+			   --> rpt/PharmaceuticalStock_ver3.jasper
+			   
+			   - rsc/generalData.properties
+			   
+	Added new report for Pharmaceutical Stock
+========================================================================================================
+59.
+	27/03/2013 - org.isf.medicals.gui.MedicalEdit
+			   - org.isf.medicals.manager.MedicalBrowsingManager
+			   - org.isf.medicals.service.IoOperations
+			   
+			   - bundle/language_xx.properties
+			   
+	Added control on MDSR_CODE field to obtain unique values
+========================================================================================================
+60.
+	28/03/2013 - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.medicalstock.model.Movement
+			   - org.isf.medicalstock.service.IoOperations
+			   
+	Added RefNo, Cost and Total columns in MovStockBrowser
+========================================================================================================
+61.
+	28/03/2013 - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.medicals.gui.MedicalEdit
+			   - org.isf.medicals.manager.MedicalBrowsingManager
+			   - org.isf.medicals.service.IoOperations
+			   - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   - org.isf.medicalstock.mananger.DateTextField
+	
+	Enhancement:
+	- changed highlighting order in rendering medicals
+	- product code is unchangeble in update
+	- added totals in pharmaceutical stock
+	- cosmetic changes to the code
+=======================================================================================================
+62.
+	28/03/2013 - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.medicalstock.service.IoOperations
+			   
+	Enhancement:
+	- assigned right alignment to total's table
+	- perform reference number descendent ordering second priority after date
+=======================================================================================================
+63.
+	29/03/2013 --> release_files/autorun.bat
+			   - release_files/oh.bat
+			   - rsc/database.properties
+	
+	Updated launcher and config files
+=======================================================================================================
+=======================================================================================================
+29/03/2013 - Rilasciato sui computer ma non ancora versionato.
+=======================================================================================================
+=======================================================================================================
+64.
+	29/03/2013 - org.isf.admission.gui.AdmissionBrowser
+	
+	Force to insert the discharge date if a discharge disease has been specified
+=======================================================================================================
+65.
+	29/03/2013 - rpt/patient_discharge_chart_ver1.jrxml
+			   - rpt/patient_discharge_chart_ver1.jasper
+	
+	Fixed some labels
+=======================================================================================================
+66.
+	29/03/2013 - org.isf.admission.gui.AdmissionBrowser
+	
+	Changed bed days calculation to be at least 1
+=======================================================================================================
+=======================================================================================================
+29/03/2013 - Rilasciato solo in IPD cashier e RecordOffice
+=======================================================================================================
+=======================================================================================================
+67.
+	10/04/2013 - org.isf.opd.gui.OpdEditExtended
+	
+	Automatic Re-NewAttendance selection according with selected disease
+=======================================================================================================
+68.
+	10/04/2013 - org.isf.accounting.gui.PatientBillEdit
+	
+	Fixed one message
+=======================================================================================================
+69.
+	10/04/2013 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.manager.BillBrowserManager
+			   - org.isf.accounting.model.Bill
+			   - org.isf.accounting.service.IoOperations
+			   
+			   - rpt/OH004B_IncomesOpdByCategories.jasper
+			   - rpt/OH004B_IncomesOpdByCategories.jrxml
+			   
+	Fixed query for bills from payments retrivial and added one category in report
+=======================================================================================================
+70.
+	10/04/2013 - org.isf.admission.service.IoOperations
+			   - org.isf.patient.gui.PatientInsertExtended
+			   - org.isf.patient.gui.PatientSummary
+			   - org.isf.patient.model.Patient
+			   - org.isf.patient.service.IoOperations
+			   
+			   --> mysql/db/wolisso_step_06_patient_extension_alter_table.sql
+			   
+	Added two new fields in Patient's anagraphic and "whitened" patient folder
+=======================================================================================================
+71.
+	11/04/2013 - mysql/db/location.csv
+	
+	New set of locations for LOCATION table
+=======================================================================================================
+72.
+	12/04/2013 - release_files/oh.sh
+	
+	Commented out JDK to avoid use of OpenJDK that is compatible with Zebra Label Printers
+=======================================================================================================
+73.
+	12/04/2013 - org.isf.admission.gui.AdmissionBrowser
+	
+	Changed automatic ProgressiveInYear field in IP Number (the same as in the register) as manual field
+=======================================================================================================
+74.
+	12/04/2013 - rpt/OH009_InPatientReport.jrxml
+			   - rpt/OH009_InPatientReport.jasper
+			   
+	Added YPROGR and NOTE fields
+=======================================================================================================
+75.
+	12/04/2013 - rpt/OH010_OutPatientReport.jrxml
+			   - rpt/OH010_OutPatientReport.jasper
+			   
+	Added PCODE and AGETYPE fields
+=======================================================================================================
+76.
+	12/04/2013 - org.isf.admission.gui.PatientFolderBrowser
+	
+	Changed button label
+=======================================================================================================
+77.
+	15/04/2013 - mysql/db/location.csv
+	
+	New set of locations for LOCATION table
+=======================================================================================================
+78.
+	15/04/2013 - org.isf.patient.gui.PatientInsertExtended
+	
+	Changed one label
+=======================================================================================================
+79.
+	15/04/2013 - org.isf.patient.gui.PatientBillEdit
+	
+			   --> mysql/db/wolisso_step_07_procedure_accounting.sql
+			   
+	Changed the way to calculate bill total amount
+=======================================================================================================
+80.
+	15/04/2013 - rpt/patient_discharge_chart_ver1.jasper
+			   - rpt/patient_discharge_chart_ver1.jrxml
+			   
+	Modified report's title
+=======================================================================================================
+81.
+	15/04/2013 - rpt/OH004B_IncomesOpdByCategories.jasper
+			   - rpt/OH004B_IncomesOpdByCategories.jrxml
+	
+	Fixed a bug in a category
+=======================================================================================================
+82.
+	15/04/2013 - rpt/OH004A_IncomesOpdByPriceCodes.jasper
+			   - rpt/OH004A_IncomesOpdByPriceCodes.jrxml
+			   
+	Added one code
+=======================================================================================================
+=======================================================================================================
+16/04/2013 - Rilasciato su tutti i clients Linux e client Matteo + Yonas
+=======================================================================================================
+=======================================================================================================
+83.
+	16/04/2013 - org.isf.admission.gui.PatientFolderBrowser
+			   - org.isf.admission.model.Admission
+			   
+	Added comparator for smart sort in PatientFolder
+=======================================================================================================
+84.
+	16/04/2013 - org.isf.medicalstock.gui.MovStockMultipleCharging
+	
+	Added check on cost and automatic calculation unit cost from total cost
+=======================================================================================================
+* Wolisso_core1_7_0_release1 (released on 17/04/2013) to Yonas and USB keys
+- reflected some bug fixing from HEAD branch
+- reflected cutomization from tag Wolisso_core1_6_0_release2
+- Swapped column PAT_CITY with PAT_ADDR in database
+- Changed Woreda and Kebele in combobox with defined values
+- Added library for Excel format in report exporting
+- Rollback on automatic discharge to allow automatic lot selection
+- Renamed and optimized compilation unit for Pharmacy
+- Disabled lot selection when AUTOMATICLOT is true and fixed some GUI problems
+- Changed Supplier ID with its name
+- Added module for traking medicals cost while loading the pharmacy
+- Added method for save a resultset as CSV
+- Added button to save any report directly to CSV
+- New Pharmacy Stock Management with multiple movements inserting
+- Added waiting mechanism for long filtering operations
+- Fixed the way to count bed days and ordered by discharge date
+- Added new report for Admission & Discharge Chart related to a single admission
+- Added new report for OPD
+- Updated some reports
+- Added new report for Pharmaceutical Stock
+- Added control on MDSR_CODE field to obtain unique values
+- Added RefNo, Cost and Total columns in MovStockBrowser
+- Automatic Re-NewAttendance selection according with selected disease
+- Commented out JDK to avoid use of OpenJDK that is compatible with Zebra Label Printers
+- Changed the way to calculate bill total amount
+- Some GUI enhancements
+- fixed some minor bugs
+- cosmetic changes to the code
+=======================================================================================================
+1.
+	12/07/2013 - mysql/db/step_00_create_user.sql
+			   - mysql/db/step_01_create_structure.sql
+			   - rsc/database.properties
+			   
+	Updated database name and Padova's server for development purpose
+=======================================================================================================
+2.
+	31/07/2013 --> mysql/query/fix_pharmacy_mov_date.sql
+	
+	Added script for movements' date fixing
+=======================================================================================================
+3.
+	02/04/2014 - org.isf.stat.reportlauncher.gui.ReportLauncher
+	
+			   - bundle/language_xx.properties
+	
+			   --> lib/jasperreports-3.0.0.jar
+			   <-- lib/jasperreports-1.2.0.jar
+			   - rpt/hmis033_weekly_epid_surv_over_5.jasper
+			   - rpt/hmis033_weekly_epid_surv_over_5.jrxml
+			   - rpt/hmis033_weekly_epid_surv_under_5.jasper
+			   - rpt/hmis033_weekly_epid_surv_under_5.jrxml
+			   - rpt/hmis033_weekly_epid_surv.jasper
+			   - rpt/hmis033_weekly_epid_surv.jrxml
+			   - rpt/hmis055b_lab_monthly_formatted.jasper
+			   - rpt/hmis055b_lab_monthly_formatted.jrxml
+			   - rpt/hmis105_opd_attendance.jasper
+			   - rpt/hmis105_opd_attendance.jrxml
+			   - rpt/hmis105_opd_by_diagnosis.jasper
+			   - rpt/hmis105_opd_by_diagnosis.jrxml
+			   - rpt/hmis105_opd_referrals.jasper
+			   - rpt/hmis105_opd_referrals.jrxml
+			   - rpt/hmis108_adm_by_diagnosis_in.jasper
+			   - rpt/hmis108_adm_by_diagnosis_in.jrxml
+			   - rpt/hmis108_adm_by_diagnosis_out.jasper
+			   - rpt/hmis108_adm_by_diagnosis_out.jrxml
+			   - rpt/hmis108_cover.jasper
+			   - rpt/hmis108_cover.jrxml
+			   - rpt/hmis108_operations.jasper
+			   - rpt/hmis108_operations.jrxml
+			   - rpt/hmis108_referrals.jasper
+			   - rpt/hmis108_referrals.jrxml
+			   - rpt/HMIS1081.jasper
+			   - rpt/HMIS1081.jrxml
+			   - rpt/MOH705A_Under_5_Years_Daily_Outpatient_Morbidity_Summary_Sheet.jasper
+			   - rpt/MOH705A_Under_5_Years_Daily_Outpatient_Morbidity_Summary_Sheet.jrxml
+			   - rpt/MOH705B_Over_5_Years_Daily_Outpatient_Morbidity_Summary_Sheet.jasper
+			   - rpt/MOH705B_Over_5_Years_Daily_Outpatient_Morbidity_Summary_Sheet.jrxml
+			   - rpt/OH001_RegisteredPatients.jasper
+			   - rpt/OH001_RegisteredPatients.jrxml
+			   - rpt/OH002_RegisteredPatientsByProvenance.jasper
+			   - rpt/OH002_RegisteredPatientsByProvenance.jrxml
+			   
+	Updated Jasper Report library and commented out some unuseful reports.
+=======================================================================================================
+4.
+	02/04/2014 - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   
+			   - rpt/hmis055b_lab_monthly_formatted.jasper
+			   - rpt/hmis055b_lab_monthly_formatted.jrxml
+			   - rpt/hmis105_opd_attendance.jasper
+			   - rpt/hmis105_opd_attendance.jrxml
+			   - rpt/hmis105_opd_by_diagnosis.jasper
+			   - rpt/hmis105_opd_by_diagnosis.jrxml
+			   - rpt/hmis105_opd_referrals.jasper
+			   - rpt/hmis105_opd_referrals.jrxml
+			   - rpt/hmis108_adm_by_diagnosis_in.jasper
+			   - rpt/hmis108_adm_by_diagnosis_in.jrxml
+			   - rpt/hmis108_adm_by_diagnosis_out.jasper
+			   - rpt/hmis108_adm_by_diagnosis_out.jrxml
+			   - rpt/hmis108_cover.jasper
+			   - rpt/hmis108_cover.jrxml
+			   - rpt/hmis108_operations.jasper
+			   - rpt/hmis108_operations.jrxml
+			   - rpt/hmis108_referrals.jasper
+			   - rpt/hmis108_referrals.jrxml
+	
+	Changed all reports to format "twodates" and fixed some errors
+=======================================================================================================
+5.
+	02/04/2014 - org.isf.accounting.gui.PatientBillEdit
+	
+	Enabled Medical button
+=======================================================================================================
+6.
+	02/04/2014 - org.isf.medicalstock.gui
+	
+	Disabled scrolling bars on total
+=======================================================================================================
+7.
+	03/04/2014 - rpt/hmis108_cover.jasper
+			   - rpt/hmis108_cover.jrxml
+			   
+	Changed one label
+=======================================================================================================
+8.
+	03/04/2014 - org.isf.admission.gui.AdmissionBrowser
+			   <-- org.isf.admission.gui.AdmissionBrowserOld
+			   - org.isf.admission.gui.PatientDataBrowser
+			   - org.isf.admission.gui.PatientFolderBrowser
+			   - org.isf.disease.gui.DiseaseBrowser
+			   - org.isf.disease.gui.DiseaseEdit
+			   - org.isf.disease.manager.DiseaseBrowserManager
+			   - org.isf.disease.model.Disease
+			   - org.isf.disease.service.IoOperations
+			   - org.isf.generaldata.GeneralData
+			   - org.isf.medicalstockward.WardPharmacyNew
+			   
+			   - bundle/language_xx.properties
+			   - mysql/db/wolisso_step_08_ipd_out_disease.sql
+			   - rsc/generalData.properties
+			   
+	Added new type of Disease (IPD_OUT) in order to have separated lists of Diagnosis IN and OUT
+=======================================================================================================
+9.
+	03/04/2014 - org.isf.generaldata.GeneralData
+			   - org.isf.medicalstockward.WardPharmacyNew
+			   
+			   - bundle/language_xx.properties
+			   - rsc/generalData.properties
+	
+	Added a new parameter FORCEDISEASECODE to force Ward dispensing after a diagnosis by the clinicians
+=======================================================================================================
+10.
+	03/04/2014 - rsc/log4j.properties
+	
+	Added null appender for JasperReports
+=======================================================================================================
+11.
+	03/04/2014 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.ward.gui.WardBrowser
+			   - org.isf.ward.gui.WardEdit
+			   - org.isf.ward.model.Ward
+			   - org.isf.ward.service.IoOperations
+			   
+			   - bundle/language_xx.properties
+			   --> mysql/db/wolisso_step_09_female_wards.sql
+			   
+	Now is possible to specify if a ward is for female patients and so avoid male ones
+=======================================================================================================
+12.
+	03/04/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.opd.gui.OpdEditExtended
+			   - org.isf.patient.model.Patient
+			   
+			   --> lib/joda-time-2.2.jar
+			   
+	Improved GUI for OPD and age in years, month and days for patients
+=======================================================================================================
+13.
+	03/04/2014 - org.isf.admission.gui.PatientFolderBrowser
+			   
+			   --> rpt/admission_forms.jrxml
+			   --> rpt/admission_forms.jasper
+			   
+	Added Admission Forms for printing
+=======================================================================================================
+14.
+	03/04/2014 - rpt/patient_clinical_sheet_ver2.jrxml
+	           - rpt/patient_clinical_sheet_ver2.jasper
+	           
+	Cosmetic changes to the report
+=======================================================================================================
+15.
+	03/04/2014 - org.isf.utils.table.TableSorter
+	
+	Formatted code
+=======================================================================================================
+16.
+	03/04/2014 - org.isf.generaldata.GeneralData
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   
+			   - rsc/generalData.properties
+	
+	Added AUTOMATICOPD parameter to auto insert OPD from a PharmacyMovement if not inpatient
+=======================================================================================================
+17.
+	03/04/2014 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.gui.PatientDataBrowser
+			   - org.isf.admission.gui.PatientFolderBrowser
+			   - org.isf.admission.service.IoOperations
+			   
+			   - rpt/patient_clinical_sheet_ver2.jrxml
+			   - rpt/patient_clinical_sheet_ver2.jasper
+			   
+	Fixed the way of saving admission dates, and modified the report to sort by records timestamps
+=======================================================================================================
+18.
+	04/04/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Added OPD/IPD and New/Re-attendance controls
+=======================================================================================================
+19.
+	04/04/2014 - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.medicalstockward.gui.MovWardBrowserManager
+			   - org.isf.medicalstockward.service.IoOperations
+			   
+			   --> mysql/db/wolisso_step_10_missing_medicals.sql
+			   
+	Added possibility to record missing medicals in wards
+=======================================================================================================
+20.
+	05/04/2014 - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   
+	Deeply changed the GUI
+=======================================================================================================
+21.
+	05/04/2014 - org.isf.patient.gui.SelectPatient
+	
+	Added method to pass a string for filtering
+=======================================================================================================
+22.
+	05/04/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Improved patient search
+=======================================================================================================
+23.
+	05/04/2014 - org.isf.lab.gui.LabPrintFrame
+			   - org.isf.serviceprinting.manager.PrintManager
+	
+	Fixed path file for reuse
+=======================================================================================================
+24.
+	05/04/2014 - org.isf.medicalstockward.gui.WardPharmacy
+	           - org.isf.medicalstockward.gui.WardPharmacyNew
+	           - org.isf.medicalstockward.manager.MovWardBrowserManager
+	           --> org.isf.serviceprinting.print.MedicalWardForPrint
+	           --> org.isf.serviceprinting.print.MovementForPrint
+	           --> org.isf.serviceprinting.print.MovementWardForPrint
+	           
+	           --> rpt/WardPharmacyDrugs.jasper
+	           --> rpt/WardPharmacyDrugs.jrxml
+	           --> rpt/WardPharmacyIncomes.jasper
+	           --> rpt/WardPharmacyIncomes.jrxml
+	           --> rpt/WardPharmacyOutcomes.jasper
+	           --> rpt/WardPharmacyOutcomes.jrxml
+	
+	Added buttons for printings and Excel exporting
+=======================================================================================================
+25.
+	05/04/2014 - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.WardPharmacy
+			   - org.isf.stat.manager.GenericReportFromDateToDate
+			   - org.isf.stat.manager.GenericReportMY
+			   - org.isf.utils.excel.ExcelExporter
+			   
+	Separated methods for Excel and CSV (better) format
+=======================================================================================================
+26.
+	05/04/2014 - org.isf.medicalstockward.gui.WardPharmacy
+	           - org.isf.medicalstockward.gui.WardPharmacyNew
+	           --> org.isf.medicalstockward.gui.WardPharmacyRectify
+	           - org.isf.medicalstockward.service.IoOperations
+	           
+	           --> mysql/db/wolisso_step_11_rectify_medical_ward.sql
+	           
+	Added Rectify functionality for Medical Stock Ward management
+=======================================================================================================
+27.
+	05/04/2014 - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.manager.MovWardBrowserManager
+			   --> org.isf.medicalstockward.model.MissingMedical
+			   - org.isf.medicalstockward.service.IoOperations
+			   
+	Added MissingMedicals tab
+=======================================================================================================
+28.
+	06/04/2014 - org.isf.medicalstock.manager.MovBrowserManager
+			   - org.isf.medicalstock.service.IoOperations
+			   - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.medicalstockward.manager.MovWardBrowserManager
+			   - org.isf.medicalstockward.service.IoOperations
+			   - org.isf.serviceprinting.print.MovementForPrint
+			   - org.isf.serviceprinting.print.MovementWardForPrint
+			   
+			   - rpt/WardPharmacyDrugs.jasper
+	           - rpt/WardPharmacyDrugs.jrxml
+	           - rpt/WardPharmacyIncomes.jasper
+	           - rpt/WardPharmacyIncomes.jrxml
+	           --> rpt/WardPharmacyMissing.jasper
+	           --> rpt/WardPharmacyMissing.jrxml
+	           - rpt/WardPharmacyOutcomes.jasper
+	           - rpt/WardPharmacyOutcomes.jrxml
+	           
+	Improved GUI and reporting
+=======================================================================================================
+29.
+	07/04/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.accounting.manager.BillBrowserManager
+			   - org.isf.accounring.service.IoOperations
+			   
+	Improved GUI and service:
+	- removed bill filtering and multitab GUI to speed-up not-admin access
+	- added methods to create a Bill from a list of items
+	- create new status "L" to allow patient to pay later
+=======================================================================================================
+30.
+	07/04/2014 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.admission.gui.PatientDataBrowser
+			   - org.isf.admission.gui.PatientFolderBrowser
+			   - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   - org.isf.serviceprinting.print.MedicalStockSelection
+			   - org.isf.ward.gui.WardBrowser
+			   - org.isf.ward.gui.WardEdit
+			   - org.isf.ward.manager.WardBrowserManager
+			   - org.isf.ward.service.IoOperations
+			   
+			   --> mysql/db/wolisso_step_12_free_ward.sql
+	
+	Improved GUI and added new field to specify if the Ward is payment exempt
+=======================================================================================================
+31.
+	08/04/2014 - org.isf.generaldata.GeneralData
+			   - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.gui.WardPharmacyDispense
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.medicalstockward.manager.MovWardBrowserManager
+			   - org.isf.medicalstockward.model.MedicalWardPrescription
+			   - org.isf.medicalstockward.model.MedicalWardPrescriptionDetail
+			   
+			   --> mysql/db/wolisso_step_13_automatic_bill.sql
+			   - rpt/WardPharmacyDrugs.jasper
+	           - rpt/WardPharmacyDrugs.jrxml
+	           - rpt/WardPharmacyIncomes.jasper
+	           - rpt/WardPharmacyIncomes.jrxml
+	           - rpt/WardPharmacyMissing.jasper
+	           - rpt/WardPharmacyMissing.jrxml
+	           - rpt/WardPharmacyOutcomes.jasper
+	           - rpt/WardPharmacyOutcomes.jrxml
+	           - rsc/generalData.properties
+			    
+	AUTOMATICBILL: new parameter to allow automatic bill preparation after prescription, with different
+	cases:
+	- OPD: prepare bill and wait for "paid" or "pay later" status
+	- IPD: prepare bill and wait for "paid" or "pay later" status
+	- IPD Free: just dispense for wards exempted
+	- EMERGENCY: prepare bill and dispense for ward "EMERGENCY"
+=======================================================================================================
+32.
+	08/04/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.gui.PatientBillEdit
+			   
+	Fixed some minor bugs
+=======================================================================================================
+33.
+	08/04/2014 - org.isf.menu.gui.Menu
+	
+			   --> lib/substance.jar
+			   --> lib/trident.jar
+			   
+	Added new set of LookAndFeel
+=======================================================================================================
+34.
+	08/04/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Automatic selection of cases
+=======================================================================================================
+35.
+	08/04/2014 - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.model.MedicalWardPrescription
+			   - org.isf.medicalstockward.service.IoOperations
+			   
+			   - mysql/db/wolisso_step_13_automatic_bill.sql
+			   
+	Added new informations to MedicalWardPrescription
+=======================================================================================================
+36.
+	08/04/2014 - rpt/patient_clinical_sheet_ver2.jrxml
+	           - rpt/patient_clinical_sheet_ver2.jasper
+	           
+	Cosmetic changes to the report
+=======================================================================================================
+37.
+	08/04/2014 - org.isf.medicalstockward.gui.WardPharmacy
+	
+			   - bundle/language_xx.properties
+			   - mysql/db/wolisso_step_11_rectify_medical_ward.sql
+			   --> mysql/db/wolisso_step_14_medical_ward_permissions.sql
+			   
+	Added permissions in Ward Pharmacy and fixed some bundles
+=======================================================================================================
+38.
+	08/04/2014 - org.isf.menu.manager.UserBrowsingManager
+			   - org.isf.menu.service.IoOperations
+			   
+	Fixed a minor bug
+=======================================================================================================
+39.
+	09/04/2014 - org.isf.accounting.gui.PatientBillEdit
+	
+	Fixed a bug
+=======================================================================================================
+40.
+	09/04/2014 - org.isf.admission.gui.PatientFolderBrowser
+	
+			   - rpt/admission_forms.jasper
+			   - rpt/admission_forms.jrxml
+			   - rpt/opd_forms.jasper
+			   - rpt/opd_forms.jrxml
+			   --> rsc/images/logo.png
+			   
+	Added new forms for Admission and OPD patients
+======================================================================================================
+41.
+	09/04/2014 - org.isf.pricelist.gui.PricesBrowser
+			   - org.isf.pricelist.manager.PriceListManager
+			   - org.isf.serviceprinting.print.PriceForPrint
+			   
+			   --> rpt/PriceList.jasper
+			   --> rpt/PriceList.jrxml
+			   
+	Added new report for PriceList printing
+======================================================================================================
+42.
+	10/04/2014 - org.isf.stat.manager.GenericReportPatient
+	
+			   - rpt/admission_forms.jasper
+			   - rpt/admission_forms.jrxml
+			   - rpt/opd_forms.jasper
+			   - rpt/opd_forms.jrxml
+			   --> rsc/images/header.png
+			   
+	Added new header for Admission and OPD forms
+======================================================================================================
+43.
+	10/04/2014 - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.medicalstockward.gui.WardPharmacyReturn
+			   - org.isf.medicalstockward.model.MedicalWardPrescription
+			   - org.isf.medicalstockward.service.IoOperations
+			   
+			   - bundle/language_en.properties
+			   - mysql/db/wolisso_step_13_automatic_bill.sql
+			   
+	Added new feature to receive back drugs from the Patient and prepare bills.
+	In the new workflow all prescriptions will be saved and billed
+======================================================================================================
+44.
+	10/04/2014 - org.isf.accounting.gui.PatientBillEdit
+	
+			   - rpt/BillsReport.jasper
+			   - rpt/BillsReport.jrxml
+			   - rpt/BillsReportMonth.jasper
+			   - rpt/BillsReportMonth.jasper
+			   - rpt/OH004_IncomesAllByPriceCodes.jasper
+			   - rpt/OH004_IncomesAllByPriceCodes.jrxml
+			   - rpt/OH004A_IncomesOpdByPriceCodes.jasper
+			   - rpt/OH004A_IncomesOpdByPriceCodes.jrxml
+			   - rpt/OH004B_IncomesOpdByCategories.jasper
+			   - rpt/OH004B_IncomesOpdByCategories.jrxml
+			   - rpt/OH004C_IncomesIpdByPriceCodes.jasper
+			   - rpt/OH004C_IncomesIpdByPriceCodes.jrxml
+			   
+	Fixed some reports
+======================================================================================================
+45.
+	10/04/2014 - rsc/images/header.PNG
+	
+	Fixed header for Admission and OPD forms
+======================================================================================================
+46.
+	10/04/2014 - org.isf.generaldata.GeneralData
+			   <-- org.isf.medicalcost.*
+			   - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   - org.isf.medicalstock.manager.MovStockInsertingManager
+			   - org.isf.medicalstock.model.Lot
+			   - org.isf.medicalstock.model.Movement
+			   - org.isf.medicalstock.service.IoOperations
+			   
+			   - mysql/db/wolisso_step_15_lot_cost.sql
+			   - rsc/generalData.properties
+	
+	New parameter LOTWITHCOST:
+	- Added ability to enable cost on Lots
+	- Removed cost property from Medicals
+======================================================================================================
+47.
+	12/04/2014 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.manager.AdmissionBrowserManager
+			   - org.isf.admission.service.IoOperations
+			   - org.isf.generaldata.GeneralData
+			   
+			   - rsc/generalData.properties
+			   
+	New parameter WARDIPDNUMBER:
+	- Added ability to have IPD number on WARD or HOSPITAL basis
+	- Anyway, for Wolisso, the number will be on HOSPITAL basis and never start from 1 every year
+======================================================================================================
+48.
+	12/04/2014 --> release_files/oh_admin.sh
+			   --> release_files/OpenHospital.desktop
+			   
+	Added scripts for admin user on UbuntuOH
+======================================================================================================
+49.
+	13/04/2014 - rpt/opd_forms.jasper
+			   - rpt/opd_forms.jrxml
+			   - images/header.PNG -> header.png
+			   
+	Fixed OPD report
+======================================================================================================
+50.
+	13/04/2014 - mysql/db/wolisso_step_13_automatic_bill.sql
+			   - mysql/db/wolisso_step_15_lot_cost.sql
+			   --> mysql/db/wolisso_step_16_medical_descriptions_and_prices.sql
+			   
+	Fixed table names and add fake price support
+======================================================================================================
+51.
+	13/04/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.admission.gui.PatientFolderBrowser
+			   --> org.isf.generaldata.CardPrinter
+			   - org.isf.generaldata.TxtPrinter
+			   - org.isf.stat.manager.GenericReportPatient
+			   
+			   --> rsc/cardPrinter.properties
+			   - rsc/generalData.properties
+			   - rsc/txtPrinter.properties
+	
+	New Functionality:
+	- Add chance to print a GenericReportPatient just after new patient registration
+	- Add chance to specify different default printers for GenericReportPatient and receipts
+	- Set evince (for Linux) as INTERNALVIEWER due to a know bug in JasperViewer with Substance
+======================================================================================================
+52.
+	13/04/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Fixed minor bug
+======================================================================================================
+53.
+	13/04/2014 - org.isf.medicalstockward.gui.WardPharmacyReturn
+	
+			   - mysql/db/wolisso_step_13_automatic_bill.sql
+			   
+	Fixed a bug in returning function and added billing foreign key
+======================================================================================================
+54.
+	14/04/2014 - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.accounting.model.Bill
+			   - org.isf.accounting.service.IoOperations
+			   
+			   --> mysql/db/wolisso_step_16_no_payments_fix.sql
+			   - rpt/PatientBill.jasper
+			   - rpt/PatientBill.jrxml
+			   - rpt/PatientBillTxt.jasper
+			   - rpt/PatientBillTxt.jrxml
+			   
+	Fixed bug on bills with no payments
+======================================================================================================
+55.
+	14/04/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Fixed bug on empty prescriptions
+======================================================================================================
+56.
+	15/04/2014 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.admission.gui.PatientDataBrowser
+			   - org.isf.admission.gui.PatientFolderBrowser
+			   
+	Added Transfer button for patient transfering between wards
+======================================================================================================
+57.
+	15/04/2014 - rpt/opd_forms.jasper
+			   - rpt/opd_forms.jrxml
+			   
+	Added one lab exam
+======================================================================================================
+58.
+	15/04/2014 --> mysql/db/wolisso_apply_changes_release1.sql
+			   --> mysql/db/wolisso_apply_changes_release2.sql
+			   <-- mysql/db/wolisso_step16_medical_descriptions_and_prices.sql 
+			   --> mysql/db/wolisso_step_17_new_version_data.sql
+
+	Added scripts to apply changes after each version update
+======================================================================================================
+59.
+	15/04/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Added possibility to close emergency cases by their diagnosis code
+======================================================================================================
+60.
+	15/04/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	OPD and Emergency case management also when no prescription is produced
+======================================================================================================
+61.
+	15/04/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Added courtesy sentences and focus on patient field
+======================================================================================================
+62.
+	17/04/2014 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.generaldata.CardPrinter
+			   - org.isf.stat.manager.GenericReportPatient
+			   
+			   - rsc/cardPrinter.properties
+			   
+	Removed RememberDate support and added possibility to print the admission form on new admissions
+======================================================================================================
+63.
+	17/04/2014 - org.isf.disease.service.IoOperations
+	
+	Fixed a bug in retrieving new format of diseases
+======================================================================================================
+64.
+	17/04/2014 - org.isf.medicalstock.gui.MovStockMultipleCharging
+	
+	Medical search is now case insensitive
+======================================================================================================
+65.
+	17/04/2014 - org.isf.utils.db.PharmacyResetFromCVS
+	
+	Added queries for resetting ward pharmacies and updating prices
+======================================================================================================
+66.
+	17/04/2014 --> release_files/admission_form.pdf
+			   --> release_files/opd_form.pdf
+			   
+			   - rpt/admission_forms.jasper
+			   - rpt/admission_forms.jrxml
+			   - rpt/opd_forms.jasper
+			   - rpt/opd_forms.jrxml
+			   
+	Added ward name in admission forms and provided empty forms
+======================================================================================================
+67.
+	17/04/2014 - mysql/db/wolisso_apply_changes_release2.sql
+			   - mysql/db/wolisso_step_17_new_version_data.sql
+			   --> mysql/db/wolisso_step_18_after_save_pricelist.sql
+			   
+	Added scripts for delivering the release2
+=======================================================================================================
+* Wolisso_core1_7_0_release2 (released on 16/04/2014)
+- Updated to JasperReport 3.0.0 library (reports with borders and lines)
+- Changed all reports to type twodates for better serving Ethiopian calendar
+- Indipendent lists of diseases for Diagnosis IN and OUT in admission form
+- Now is possible to define if a Ward is only for females and if is free of charge
+- Automatic printings of OPD and Admission forms to be used in the hospital
+- New transfer between wards function
+- Emergency patients management (special admission)
+- New Ward Pharmacy with:
+	automatic OPD
+	automatic Emergency patients processing
+	automatic prescription (if drugs are in stock)
+	automatic bill on prescription
+	pay later function in billing
+	rectify function
+	return function
+	new tabs for missing drugs and prescription
+- Admission dates with time (to sort correctly in reports)
+- Moved medical cost from single medical to its lot (for future use)
+- Improved Patient search
+- Improved GUI
+=======================================================================================================
+1.
+	07/05/2014 - release_files/opd_form.pdf
+			   - rpt/opd_forms.jasper
+			   - rpt/opd_forms.jrxml
+	
+	Added "OPD Room" field in laboratory form
+=======================================================================================================
+2.
+	07/05/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.manager.BillBrowserManager
+			   - org.isf.accounting.service.IoOperations
+			   
+	Added fields for bill and patient bills search
+=======================================================================================================
+3.
+	18/06/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.medicalstockward.manager.MovWardBrowserManager
+			   - org.isf.medicalstockward.service.IoOperations
+			   
+	To pay an automatic bill automatically close related prescription
+=======================================================================================================
+4.
+	18/06/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Automatic exempted bills:
+	- Staff patients (opd number < 6 digits) is always free: (STAFF code)
+	- Under five is always free (FREE code)
+	- Free bill for admitted patient when codes P1, P2, D1, D2, D5 and MWA
+=======================================================================================================
+5.
+	18/06/2014 - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   
+	Modified A4 (PDF) version of the report
+=======================================================================================================
+6.
+	22/06/2014 - rpt/patient_clinical_sheet_ver2.jrxml
+			   - rpt/patient_clinical_sheet_ver2.jasper
+			   
+	Fixed a bug
+=======================================================================================================
+7.
+	23/06/2014 - rpt/patient_clinical_sheet_ver2.jrxml
+			   - rpt/patient_clinical_sheet_ver2.jasper
+			   
+	Added bills details and ID for OPDs (patient previous code), Bills and Admissions
+=======================================================================================================
+8.
+	23/06/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+	
+	Removed a bug that was allowing therapy module only to admitted patients
+=======================================================================================================
+9.
+	23/06/2014 - rpt/patient_clinical_sheet_ver2.jrxml
+			   - rpt/patient_clinical_sheet_ver2.jasper
+			   
+	Fixed the totals on bills and the layout
+=======================================================================================================
+10.
+	23/06/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.medicalstockward.gui.WardPharmacyReturn
+			   - org.isf.medicalstockward.model.MedicalWardPrescription
+			   - org.isf.medicalstockward.service.IoOperations
+			   --> org.isf.prescriptor.manager.PrescriptorManager
+			   --> org.isf.prescriptor.model.Prescriptor
+			   --> org.isf.prescriptor.service.IoOperations
+			   
+			   --> mysql/db/wolisso_step_19_prescriptor_table.sql
+			   
+	Added new table for prescriptor (no GUI) to specify in the prescription
+=======================================================================================================
+11.
+	04/07/2014 - org.isf.menu.gui.MainMenu
+			   - org.isf.menu.manager.UserBrowsingManager
+			   --> org.isf.menu.model.Session
+			   - org.isf.menu.service.IoOperations
+			   
+			   --> mysql/db/wolisso_step_20_user_session.sql
+
+	Added users sessions log table
+=======================================================================================================
+12.
+	06/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.stat.manager.GenericReportUserInDate
+			   
+			   - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   
+	Changed the way to report user "daily" collection with the use of sessions
+=======================================================================================================
+13.
+	07/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.menu.manager.UserBrowsingManager
+			   - org.isf.menu.model.Session
+			   - org.isf.menu.service.IoOperations
+			   
+	Added Session concept in order to select sessions in closure reports: every user can see its own
+	sessions (last 40), the admin can see all of them
+=======================================================================================================
+14.
+	07/07/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.medicalstockward.model.MedicalWardPrescription
+			   - org.isf.medicalstockward.service.IoOperations
+			   <-- org.isf.prescriptor.manager.PrescriptorManager
+			   <-- org.isf.prescriptor.model.Prescriptor
+			   <-- org.isf.prescriptor.service.IoOperations
+			   --> org.isf.prescriber.manager.PrescriberManager
+			   --> org.isf.prescriber.model.Prescriber
+			   --> org.isf.prescriber.service.IoOperations
+			   
+			   <-- mysql/db/wolisso_step_19_prescriptor_table.sql
+			   --> mysql/db/wolisso_step_19_prescriber_table.sql
+			   
+	Refactoring Prescriptor --> Prescriber
+=======================================================================================================
+15.
+	08/07/2014 --> rpt/patient_report.jasper
+			   --> rpt/patient_report.jrxml
+			   
+	Added new jasper report for registered patients 
+=======================================================================================================
+16.
+	10/07/2014 - org.isf.menu.gui.MainMenu
+	
+	Fixed a bug that was trying to close the session on failed login (session is null)
+=======================================================================================================
+17.
+	10/07/2014 - org.isf.accounting.gui.BillBrowser
+	
+	Added possibility to select more sessions for closure report
+=======================================================================================================
+18.
+	10/07/2014 - org.isf.accounting.gui.PatientBillEdit
+	
+	Added method to edit a precompiled bill before saving it
+=======================================================================================================
+19.
+	10/07/2014 - rpt/PriceList.jrxml
+			   - rpt/PriceList.jasper
+			   
+	Changed fields size
+=======================================================================================================
+20.
+	16/07/2014 - org.isf.menu.model.Session
+	
+	Changed date format
+=======================================================================================================
+21.
+	16/07/2014 - org.isf.generaldata.TxtPrinter
+			   - org.isf.serviceprinting.manager.PrintReceipt
+			   - org.isf.stat.manager.GenericReportBill
+			   - org.isf.stat.manager.GenericReportUserInDate
+			   
+			   - rpt/BillsReportUserInDate.jrxml
+			   - rpt/BillsReportUserInDate.jasper
+			   --> rpt/BillsReportUserInDatePDF.jrxml
+			   --> rpt/BillsReportUserInDatePDF.jasper
+			   - rpt/PatientBill.jrxml
+			   - rpt/PatientBill.jasper
+			   --> rpt/PatientBillPDF.jrxml
+			   --> rpt/PatientBillPDF.jasper
+			   - rpt/PatientBillTxt.jrxml
+			   - rpt/PatientBillTxt.jasper
+			   - rsc/txtPrinter.properties
+			   
+	Changed the mode of printing (PDF|TXT|ZPL) and set PDF as default to print the new PDF bills
+=======================================================================================================
+22.
+	16/07/2014 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.medicalstock.service.IoOperations
+			   - org.isf.medicalstockward.service.IoOperations
+			   - org.isf.ward.gui.WardBrowser
+			   - org.isf.ward.gui.WardEdit
+			   - org.isf.ward.model.Ward
+			   - org.isf.ward.service.IoOperations
+			   
+			   --> mysql/db/wolisso_step_21_ward_min_max_age.sql
+			   
+	Added minimum and maximum age for wards and related checks
+=======================================================================================================
+23.
+	16/07/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+	
+	Added automatic bill upon patient registration, according with age and service time
+=======================================================================================================
+24. 
+	16/07/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.opd.gui.OpdEditExtended
+			   - org.isf.patient.gui.PatientInsertExtended
+			   - org.isf.patient.model.Patient
+			   
+			   --> mysql/db/wolisso_step_22_patients_birthdate.sql
+			   
+	Set always birthdate by providing age in years, months and days. Included script to update previous
+	data.
+=======================================================================================================
+25.
+	16/07/2014 - org.isf.admisssion.gui.AdmittedPatientBrowser
+	
+	Fixed one price code
+=======================================================================================================
+26.
+	16/07/2014 - org.isf.patient.gui.PatientInsertedExtended
+	
+	Remove sex auto-selection to force the user to select one
+=======================================================================================================
+27.
+	17/07/2014 - org.isf.reportlauncher.gui.ReportLauncher
+	
+			   --> rpt/ADM_cost_betweentwodates_report.jrxml
+			   --> rpt/ADM_cost_betweentwodates_report.jasper
+			   --> rpt/OPD_AVG_COST_AGE.jrxml
+			   --> rpt/OPD_AVG_COST_AGE.jasper
+			   
+	Added two new reports
+=======================================================================================================
+28.
+	17/07/2014 - org.isf.reportlauncher.gui.ReportLauncher
+	
+			   --> rpt/PatientAdmissionPrescriptionBillReport.jrxml
+			   --> rpt/PatientAdmissionPrescriptionBillReport.jasper
+			   
+	Added new report
+=======================================================================================================
+29.
+	17/07/2014 - rpt/hmis108_adm_by_diagnosis_in.jrxml
+			   - rpt/hmis108_adm_by_diagnosis_in.jasper
+			   - rpt/hmis108_adm_by_diagnosis_out.jrxml
+			   - rpt/hmis108_adm_by_diagnosis_out.jasper
+			   
+	Fixed query and added totals
+=======================================================================================================
+30.
+	17/07/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Fixed total amount in automatic bills
+=======================================================================================================
+31.
+	17/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.gui.PatientBillEdit
+	
+	Fixed Double accuracy by introducing BigDecimal
+=======================================================================================================
+32.
+	21/07/2014 - org.isf.disease.*
+			   - org.isf.opd.gui.OpdBrowser
+
+			   --> mysql/db/
+			   
+	Added minimum age, maximum age and female specifications for diseases
+=======================================================================================================
+33.
+	21/07/2014 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.disease.manager.DiseaseBrowserManager
+			   - org.isf.disease.service.IoOperations
+			   - org.isf.opd.gui.OpdEditExtended
+			   
+	Added checks on disease selection in OPD and Admission forms
+=======================================================================================================
+34.
+	21/07/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+	
+	Added automatic bill creation upon admission
+=======================================================================================================
+35.
+	21/07/2014 - org.isf.admission.gui.AdmissionBrowser
+	
+	Fixed double check on bed occupation
+=======================================================================================================
+36.
+	21/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   
+	Added age on bills
+=======================================================================================================
+37.
+	21/07/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Added check on expensive bill (500 birr)
+=======================================================================================================
+38.
+	22/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.stat.manager.GenericReportUserInDate
+			   - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   
+			   --> rpt/AdissionUserInDate.jrxml
+			   --> rpt/AdissionUserInDate.jasper
+			   --> rpt/DischargeUserInDate.jrxml
+			   --> rpt/DischargeUserInDate.jrxml
+			   - diseaseslist.jasper
+			   - diseaseslist.jrxml
+			   --> rpt/IPD_ADMISSION.jrxml
+			   --> rpt/IPD_ADMISSION.jasper
+			   --> rpt/IPD_DISCHARGE.jrxml
+			   --> rpt/IPD_DISCHARGE.jasper
+			   - rpt/OH004B_IncomesOpdByCategories.jasper
+			   - rpt/OH004B_IncomesOpdByCategories.jrxml
+			   - rpt/patient_report.jasper.jasper
+			   - rpt/patient_report.jasper.jrxml
+			   - rpt/PatientAdmissionPrescriptionBillReport.jasper
+			   - rpt/PatientAdmissionPrescriptionBillReport.jrxml
+			   
+	Added new reports for registration officers and for statistics
+=======================================================================================================			   
+39.
+	22/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   
+	Fixed bug in retrieving login and logout time
+=======================================================================================================
+40.
+	22/07/2014 - rpt/AdissionUserInDate.jrxml
+			   - rpt/AdissionUserInDate.jasper
+			   - rpt/DischargeUserInDate.jrxml
+			   - rpt/DischargeUserInDate.jrxml 
+			   - rpt/patient_report.jasper.jasper
+			   - rpt/patient_report.jasper.jrxml
+			   
+	Added totals to reports
+=======================================================================================================
+41.
+	22/07/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Changed the way to identify staff patients
+=======================================================================================================
+42.
+	22/07/2014 --> rpt/admission_forms_empty.jasper
+			   --> rpt/admission_forms_empty.jrxml
+			   --> rpt/opd_forms_empty.jasper
+			   --> rpt/opd_forms_empty.jasper
+			   
+			   - rsc/cardPrinter.properties
+			   
+	Added new forms for printing on duplicated forms, but disabled printing by default
+=======================================================================================================
+43.
+	22/07/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Removed Under 5 exemption because it apply only for inpatient, so the price code is enough
+=======================================================================================================
+44.
+	22/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   
+	Increased font size in session selection
+=======================================================================================================
+45.
+	22/07/2014 - org.isf.menu.gui.MainMenu
+			   - org.isf.utils.jobjects.OSD
+			   
+	Added OSD to show on screen the logged user
+=======================================================================================================
+46.
+	22/07/2014 - mysql/db/locations.csv --> wolisso_step_05_locations.csv
+			   - mysql/db/locations.csv --> wolisso_step_01_suppliers.csv
+			   - mysql/db/wolisso_step_01_suppliers_table_create_and_load.sql
+			   - mysql/db/wolisso_step_05_location_table_create_and_load.sql
+			   
+	Renamed scripts to follow the numbering
+=======================================================================================================
+47.
+	22/07/2014 - org.isf.prescriber.service
+			   
+			   - mysql/db/wolisso_step_19_prescriber_table.sql
+			   --> wolisso/wolisso_step_19_prescribers.csv
+			   
+	Added CSV for prescribers
+=======================================================================================================
+48.
+	22/07/2014 - org.isf.admission.gui.PatientFolderBrowser
+			   - org.isf.generaldata.CardPrinter
+			   
+			   - rpt/admission_forms_empty.jasper
+			   - rpt/admission_forms_empty.jrxml
+			   - rpt/opd_forms_empty.jasper
+			   - rpt/opd_forms_empty.jrxml
+			   
+	Fixed new reports to print on empty forms
+=======================================================================================================
+49.
+	22/07/2014 - org.isf.utils.jobjects.OSD
+	
+	Added more transparency
+=======================================================================================================
+50.
+	22/07/2014 - org.isf.menu.gui.MainMenu
+	
+	Disabled OSD because it needs openjdk7 on Linux
+=======================================================================================================
+51.
+	22/07/2014 - org.isf.serviceprinting.manager.PrintReceipt
+	
+	Disabled IGNORE_PAGINATION because is no longer working (print pages in reverse order instead)
+=======================================================================================================
+52.
+	22/07/2014 - mysql/db/wolisso_step_22_patients_birthdate.sql
+	
+	Commented out select statements
+=======================================================================================================
+53.
+	22/07/2014 - org.isf.accounting.gui.BillBrowser
+	
+	No more asking to print receipt on report Today (Closure)
+=======================================================================================================
+54.
+	22/07/2014 - org.isf.menu.gui.Login
+			   - org.isf.menu.gui.UserBrowsing
+			   - org.isf.menu.gui.UserEdit
+			   - org.isf.menu.manager.UserBrowsingManager
+			   - org.isf.menu.service.IoOperations
+			   --> org.isf.utils.db.MD5Encrypter
+			   
+			   --> mysql/db/wolisso_step_24_encrypt_passwords.sql
+			   
+	Added password encryption
+=======================================================================================================
+55.
+	23/07/2014 - org.isf.admission.gui.PatientBillEdit
+			
+			   --> rpt/PatientBillPaymentsPDF.jasper
+			   --> rpt/PatientBillPaymentsPDF.jrxml
+	
+	Added exemption for all Staff bills and receipt printin upon single payment
+=======================================================================================================
+56.
+	23/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   
+	Removed ITALIC style from JList labels
+=======================================================================================================
+57.
+	23/07/2014 - org.isf.accounting.gui.PatientBillEdit
+	
+	Fixed staff check upon patient selection and added check on empty bills
+=======================================================================================================
+58.
+	23/07/2014 - org.isf.reportlauncher.gui.ReportLauncher
+	
+			   - rpt/OH004A_IncomesOpdByPriceCodes.jasper --> OH006_IncomesOpdByPriceCodes.jasper
+			   - rpt/OH004A_IncomesOpdByPriceCodes.jrxml --> OH006_IncomesOpdByPriceCodes.jrxml
+			   - rpt/OH004B_IncomesAllByCategories.jasper --> OH005_IncomesAllByCategories.jasper
+			   - rpt/OH004B_IncomesAllByCategories.jrxml --> OH005_IncomesAllByCategories.jrxml
+			   - rpt/OH004C_IncomesIpdByPriceCodes.jasper --> OH007_IncomesIpdByPriceCodes.jasper
+			   - rpt/OH004C_IncomesIpdByPriceCodes.jrxml --> OH007_IncomesIpdByPriceCodes.jrxml
+			   <-- rpt/OH005_opd_count_monthly_report.jasper
+			   <-- rpt/OH005_opd_count_monthly_report.jrxml
+			   <-- rpt/OH007_lab_monthly_report.jasper
+			   <-- rpt/OH007_lab_monthly_report.jrxml
+			   <-- rpt/OH008_lab_summary_for_opd.jasper
+			   <-- rpt/OH008_lab_summary_for_opd.jrxml
+	
+	Fixed and reordered some reports
+=======================================================================================================
+59.
+	23/07/2014 - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+	
+	Added confirmation message to start a new bill or edit the pending one if any
+=======================================================================================================
+60.
+	23/07/2014 - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   - rpt/patient_report.jasper
+			   - rpt/patient_report.jrxml
+			   
+	Added title and from - to dates
+=======================================================================================================
+61.
+	23/07/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+			   --> mysql/db/wolisso_step_25_update_medical_billitems.sql
+			   
+	Fixed the way medical billitems are saved and script to fix previous data
+=======================================================================================================
+62.
+	23/07/2014 - org.isf.reportlauncher.gui.ReportLauncher
+	
+			   --> rpt/OH008A_IncomesDrugsByAmount.jasper
+			   --> rpt/OH008A_IncomesDrugsByAmount.jrxml
+			   --> rpt/OH008B_IncomesDrugsByCode.jasper
+			   --> rpt/OH008B_IncomesDrugsByCode.jrxml
+			   
+	Added two new report for drugs incomes and fixed some reports labels
+=======================================================================================================
+63.
+	23/07/2014 - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   
+	Added column for drugs incomes
+=======================================================================================================
+64.
+	23/07/2014 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.disease.gui.DiseaseBrowser
+			   - org.isf.disease.gui.DiseaseEdit
+			   - org.isf.disease.model.Disease
+			   - org.isf.disaase.service.IoOperations
+			   - org.isf.opd.gui.OpdBrowser
+			   - org.isf.opd.gui.OpdEditExtended
+			   - org.isf.patient.model.Patient
+			   - org.isf.ward.gui.WardBrowser
+			   - org.isf.ward.gui.WardEdit
+			   - org.isf.ward.model.Ward
+			   - org.isf.ward.service.IoOperations
+			   
+			   - mysql/db/wolisso_step_21_ward_min_max_age.sql
+			   - mysql/db/wolisso_step_23_disease_min_max_age.sql
+			   
+	Added default settings for sex and age checks on wards and diseases
+=======================================================================================================
+65.
+	23/07/2014 - rsc/xmpp.properties
+	
+	Added IP address for OpenFire Server
+=======================================================================================================
+66.
+	23/07/2014 - org.isf.admission.gui.AdmissionBrowser
+	
+	Fixed disease age and sex check when saving admission
+=======================================================================================================
+67.
+	23/07/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Changed one label
+=======================================================================================================
+68.
+	23/07/2014 - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.medicalstockward.manager.MovWardBrowserManager
+			   - org.isf.medicalstockward.service.IoOperations
+			   
+	Fixed bug on dispensing drugs upon bill payment
+=======================================================================================================
+69.
+	24/07/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Fixed bug on total calculation
+=======================================================================================================
+70.
+	24/07/2014 - rpt/PatientBillPaymentsPDF.jasper
+			   - rpt/PatientBillPaymentsPDF.jrxml
+	
+	Fixed long names overflow
+=======================================================================================================
+71.
+	24/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.stat.manager.GenericReportUserInDate
+			   
+			   - rpt/AdmissionUserInDate.jasper
+			   - rpt/AdmissionUserInDate.jrxml
+			   - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   - rpt/DischargeUserInDate.jasper
+			   - rpt/DischargeUserInDate.jrxml
+			   - rpt/PatientBillPDF.jasper
+			   - rpt/PatientBillPDF.jrxml
+			   
+	Fixed some reports
+=======================================================================================================
+72.
+	24/07/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   
+			   - rpt/IPD_ADMISSION.jasper
+			   - rpt/IPD_ADMISSION.jrxml
+			   - rpt/IPD_DISCHARGE.jasper
+			   - rpt/IPD_DISCHARGE.jrxml
+			   --> rpt/PATIENT.jasper
+			   --> rpt/PATIENT.jrxml
+			   
+	Added new report in statistics and totals to some reports
+=======================================================================================================
+73.
+	25/07/2014 - rpt/PatientBill.jasper
+			   - rpt/PatientBill.jrxml
+	
+	Fixed total calculation 
+=======================================================================================================	
+74.
+	25/07/2014 - org.isf.menu.gui.MainMenu
+	
+			   --> rsc/icons/oh.png
+			   
+	Added icon for the menu's window and replace title with the user name
+=======================================================================================================
+75.
+	25/07/2014 - org.isf.utils.jobjects.ModalJFrame
+	
+	Added icon for all JFrames (windows) in the program
+=======================================================================================================
+76.
+	25/07/2014 - rpt/AdmissionUserInDate.jasper
+			   - rpt/AdmissionUserInDate.jrxml
+			   - rpt/DischargeUserInDate.jasper
+			   - rpt/DischargeUserInDate.jrxml
+			   - rpt/IPD_ADMISSION.jasper
+			   - rpt/IPD_ADMISSION.jrxml
+			   - rpt/IPD_DISCHARGE.jasper
+			   - rpt/IPD_DISCHARGE.jrxml
+			   - rpt/OH010_OutPatientReport.jasper
+			   - rpt/OH010_OutPatientReport.jrxml
+			   
+	Updated some reports
+=======================================================================================================
+77.
+	25/07/2014 - org.isf.accounting.gui.PatientBillEdit
+	
+			   --> mysql/db/wolisso_step_26_procedure_accounting_again.sql
+	
+	Fixed again the way to calculate total and bigtotal of the bill and repeated script to fix
+	previous bills
+=======================================================================================================
+78.
+	25/07/2014 - org.isf.stat.reportlauncher.gui.ReportLauncher
+	
+			   --> rpt/OH017_ExemptionReport.jasper
+			   --> rpt/OH017_ExemptionReport.jrxml
+			   
+	Added new report for exemption calculation
+=======================================================================================================
+79.
+	25/07/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+	
+	
+	Changed the way to aumatic charge the patient registration
+=======================================================================================================
+80.
+	25/07/2014 - org.isf.medicalstockward.gui.WardPharmacyReturn
+	
+	Fixed amount calculation in return bills
+=======================================================================================================
+81.
+	25/07/2014 - org.isf.medicalstockward.service.IoOperations
+	
+	Fixed a bug in return drugs prescriptions (prescriber = null)
+=======================================================================================================
+82.
+	26/07/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+	
+	Changed the way to aumatic charge the patient registration
+=======================================================================================================
+83.
+	26/07/2014 - org.isf.admission.gui.AdmissionBrowser
+	
+	Fixed bug on disease out check when saving admission
+=======================================================================================================
+84.
+	26/07/2014 - org.isf.stat.reportlauncher.gui.ReportLauncher
+	
+			   --> rpt/OH018_GyneFOC.jasper
+			   --> rpt/OH018_GyneFOC.jrxml
+			   
+	Added new report for exemption calculation
+=======================================================================================================
+85.
+	28/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.gui.PatientBillEdit
+			   
+	The admin user can edit closed bill and remove already saved items and payments
+=======================================================================================================
+86.
+	29/07/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.manager.BillBrowserManager
+			   - org.isf.accounring.service.IoOperations
+	
+	Added search by OPD number (previous code)
+=======================================================================================================
+87.
+	30/07/2014 - org.isf.accounting.gui.PatientBillEdit
+	
+			   --> rsc/icons/cancel_button.png
+	
+	Added button for previous items cancellation (charge off)
+=======================================================================================================
+88.
+	31/07/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+	
+	Added consultation price code for all new patients during day time
+=======================================================================================================
+89.
+	31/07/2014 - rpt/OH018_GyneFOC.jasper
+			   - rpt/OH018_GyneFOC.jrxml
+			   
+	Adjusted the report to new cancellation procedure
+=======================================================================================================
+90.
+	02/08/2014 - rpt/DischargeUserInDate.jasper
+			   - rpt/DischargeUserInDate.jrxml
+			   
+	Fixed Report Layout to landscape
+=======================================================================================================
+91.
+	02/08/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   
+			   --> rpt/OH019_PrivatePatientsBill.jasper
+			   --> rpt/OH019_PrivatePatientsBill.jrxml
+			   
+	Enabled pricelists selection and showing
+=======================================================================================================
+92.
+	02/08/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.service.IoOperations
+			   - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.gui.WardPharmacyDispense
+			   - org.isf.medicalstockward.manager.MovWardBrowserManager
+			   - org.isf.medicalstockward.service.IoOperations
+			   
+			   - rpt/BillsReport.jasper
+			   - rpt/BillsReport.jrxml
+			   - rpt/BillsReportMonth.jasper
+			   - rpt/BillsReportMonth.jrxml
+			   - rpt/patient_clinical_sheet_ver2.jasper
+			   - rpt/patient_clinical_sheet_ver2.jrxml
+			   - rpt/PatientBill.jasper
+			   - rpt/PatientBill.jrxml
+			   
+	Bill Deletion:
+	- Bills no longer deleted from the database but only marked as deleted (status = 'D').
+	- This reflects on some reports
+	- Automatic cancellation of prescription too
+=======================================================================================================
+93.
+	04/08/2014 - org.isf.admission.gui.AdmissionBrowser
+	
+	Fixed Java Heap Memory out of space
+=======================================================================================================
+94.
+	06/08/2014 - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.medicalstockward.gui.WardPharmacyReturn
+			   
+	Fixed a bug in automatic bill that wasn't supporting pricelists management
+=======================================================================================================
+95.
+	06/08/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	D5 is no longer automatic exempted for drugs
+=======================================================================================================
+96. 
+	06/08/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Added D7 Exemption in pharmacy
+=======================================================================================================
+97.
+	07/08/2014 - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   
+	Improved Today (closure) report
+=======================================================================================================
+98.
+	07/08/2014 - org.isf.priceslist.gui.ListBrowser
+			   - org.isf.pricelists.service.IoOperations
+			   
+	Added no-rounding option
+=======================================================================================================
+99.
+	09/08/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.medicalstockward.gui.WardPharmacyReturn
+			   
+	Fixed a bug that was allowing negative quantities in new prescription and calculate balance for
+	return bills
+=======================================================================================================
+100.
+	11/08/2014 - org.isf.accounting.gui.PatientBillEdit
+	
+			   - rpt/PatientBillPayments.jasper
+			   - rpt/PatientBillPayments.jrxml
+			   - rpt/PatientBillPaymentsPDF.jasper
+			   - rpt/PatientBillPaymentsPDF.jrxml
+			   --> rsc/receipt_button.png
+			   
+	Added new button for payments receipt printout and added balance on it
+=======================================================================================================
+101.
+	11/08/2014 - org.isf.accounting.gui.PatientBillEdit
+	
+			   --> mysql/db/wolisso_step_27_fix_no_price.sql
+			   - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   
+	Fixed a bug that was misunderstanding undefined prices and updated the cashiers report with
+	exemptions
+=======================================================================================================
+102.
+	12/08/2014 - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   - rpt/OH017_ExemptionReport.jasper
+			   - rpt/OH017_ExemptionReport.jrxml
+			   
+	Fixed a bug in cashiers report and added totals in exemption report
+=======================================================================================================
+103.
+	12/08/2014 - rpt/PatientAdmissionPrescriptionBillReport.jasper
+			   - rpt/PatientAdmissionPrescriptionBillReport.jrxml
+	
+	Fixed table names
+=======================================================================================================
+104.
+	12/08/2014 - org.isf.utils.excel.ExcelExporter
+	
+	Forced Excel exporter to use locale settings
+=======================================================================================================
+105.
+	13/08/2014 - org.isf.accounting.service.IoOperations
+	
+	Included status 'L' in pending bills
+=======================================================================================================
+106.
+	13/08/2014 --> Manuals/AdminManual_v1.7.docx
+			   --> Manuals/UserManual_v1.7.docx
+			   
+	Added manuals docx versions
+=======================================================================================================
+107.
+	14/08/2014 - org.isf.accounting.service.IoOperations
+	
+	Fixed Query
+=======================================================================================================
+108.
+	15/08/2014 - org.isf.utils.excel.ExcelExporter
+	
+	Forced Excel exporter to use locale settings also for table -> CVS conversion
+=======================================================================================================
+109.
+	15/08/2014 - org.isf.xmpp.gui.CommunicationFrame
+	
+	Added user name in title bar
+=======================================================================================================
+110.
+	15/08/2014 - org.isf.medicalstock.gui.MovStockBrowser
+	
+	Changed two columns names
+=======================================================================================================
+111.
+	15/08/2014 - rpt/OH018_GyneFOC.jasper
+			   - rpt/OH018_GyneFOC.jrxml
+	
+	Improved admission selection in the query
+=======================================================================================================
+* Wolisso_core1_7_0_release3 (released on 16/08/2014)
+- Added automatic exemptions for patients and staff and several helps for the users
+- Added prescribers specification in pharmacy
+- Added user sessions management for report printings
+- Added several reports for statistics and money collection
+- Increased password security
+- Several GUI Improvements
+- Several small bug fixed
+=======================================================================================================
+1.
+	18/08/2014 - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   
+	Fixed variables evaluation order that was causing weird totals
+=======================================================================================================
+2
+	18/08/2014 - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   
+	Fixed query to exclude deleted bills
+=======================================================================================================
+3.
+	27/08/2014 - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   
+	Fixed query to exclude deleted admissions
+=======================================================================================================
+4.
+	27/08/2014 - org.isf.admission.gui.AdmissionBrowser
+	
+	Fixed a bug in transfer feature introduced with minimum and maximum age for wards
+=======================================================================================================
+5.
+	04/09/2014 - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   
+	Fixed variable to include negative amounts
+=======================================================================================================
+6.
+	06/09/2014 - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   
+	Fixed broken report
+=======================================================================================================
+7.
+	10/09/2014 - rpt/IPD_DISCHARGE.jasper
+			   - rpt/IPD_DISCHARGE.jrxml
+			   - rpt/OH009_InPatientReport.jasper
+			   - rpt/OH009_InPatientReport.jrxml
+			   - rpt/OH010_OutPatientReport.jasper
+			   - rpt/OH010_OutPatientReport.jrxml
+			   
+	Added new column DAYS with age in days
+=======================================================================================================
+8.
+	16/09/2014 - rpt/OH009_InPatientReport.jasper
+			   - rpt/OH009_InPatientReport.jrxml
+			   
+	Fixed LOS field
+=======================================================================================================
+9.
+	16/09/2014 - rpt/OH009_InPatientReport.jasper
+			   - rpt/OH009_InPatientReport.jrxml
+			   
+	Fixed AVG DAYS field
+=======================================================================================================
+10.
+	12/11/2014 - rpt/OH004_IncomesAllByPriceCodes.jrxml
+			   - rpt/OH004_IncomesAllByPriceCodes.jasper
+			   - rpt/OH005_IncomesAllByCategories.jrxml
+			   - rpt/OH005_IncomesAllByCategories.jasper
+			   - rpt/OH006_IncomesOpdByPriceCodes.jrxml
+			   - rpt/OH006_IncomesOpdByPriceCodes.jasper
+			   - rpt/OH007_IncomesIpdByPriceCodes.jrxml
+			   - rpt/OH007_IncomesIpdByPriceCodes.jasper
+			   - rpt/OH008A_IncomesDrugsByAmount.jrxml
+			   - rpt/OH008A_IncomesDrugsByAmount.jasper
+			   - rpt/OH008B_IncomesDrugsByCode.jrxml
+			   - rpt/OH008B_IncomesDrugsByCode.jasper
+	
+	Fixed a typo in report OH005 and beautify queries in the others
+=======================================================================================================
+11.
+	11/12/2014 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounring.gui.PatientBillEdit
+			   - org.isf.accounting.service.IoOperations
+			   - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.disease.service.IoOperations
+			   - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   - org.isf.patient.gui.PatientInsertExtended
+			   - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   --> org.isf.utils.jobjects.BusyState
+			   
+			   - rpt/OH002_RegisteredPatientsByProvenance.jasper
+			   - rpt/OH002_RegisteredPatientsByProvenance.jrxml
+			   - rpt/patient_clinical_sheet_ver2.jasper
+			   - rpt/patient_clinical_sheet_ver2.jrxml
+			   - rpt/PharmaceuticalStock.jasper
+			   - rpt/PharmaceuticalStock.jrxml
+				
+				
+	OpenHospital 1.8 compliance:
+	- Cosmetic changes to the code
+	- Changed waiting mechanism
+	- Small errors fix
+=======================================================================================================
+12.
+	15/12/2014 - org.isf.patient.gui.SelectPatient
+	
+	Fixed a minor bug when ENHANCEDSEARCH = no
+=======================================================================================================
+13.
+	15/12/2014 - org.isf.admission.gui.AdmissionBrowser
+			   
+	Fixed admission date to keep the time
+=======================================================================================================
+14.
+	15/12/2014 - org.isf.ward.gui.WardBrowser
+			   - org.isf.ward.gui.WardEdit
+
+	Cosmetic changes to the code
+=======================================================================================================
+15.
+	23/12/2014 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Automatic exempted bills added (modified) on the previous one:
+	- Free bill for admitted patient when codes PS1, PS2, PS3, PS4, POR1, POR2, POR3, POR4 and PSS1
+=======================================================================================================
+16.
+	18/02/2015 - org.isf.medicalstoc.service.IoOperations
+	
+	Fixed query
+=======================================================================================================
+17.
+	18/02/2015 - org.isf.admission.manager.AdmissionBrowserManager
+			   - org.isf.admission.service.IoOperations
+			   
+	Added method to retrieve only closed admissions between two dates
+=======================================================================================================
+18.
+	18/02/2015 - org.isf.opd.service.IoOperations
+	
+	Fixed the OPD data retrieval
+=======================================================================================================
+19.
+	18/02/2015 --> org.isf.stat.java.OH020_AdmissionAverageCost
+			   --> org.isf.stat.java.OH021_OPDAverageCost
+			   - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   - org.isf.utils.excel.ExcelExporter
+	
+			   --> rpt/OH020_AdmissionAverageCost.jasper
+			   --> rpt/OH020_AdmissionAverageCost.jrxml
+			   --> rpt/OH021_OPDAverageCost.jasper
+			   --> rpt/OH021_OPDAverageCost.jrxml
+			   
+	Added two new Java based reports (no SQL query)
+=======================================================================================================
+20.
+	19/02/2015 - org.isf.stat.java.OH020_AdmissionAverageCost
+			   - org.isf.stat.java.OH021_OPDAverageCost
+			   
+	Added EXEMPT code
+=======================================================================================================
+21.
+	25/02/2015 - org.isf.stat.java.OH020_AdmissionAverageCost
+	
+			   - rpt/OH021_OPDAverageCost.jasper
+			   - rpt/OH021_OPDAverageCost.jrxml
+	
+	Fixed bills retrieval and separated AVGs
+=======================================================================================================
+22.
+	26/02/2015 - org.isf.stat.java.OH020_AdmissionAverageCost
+			   - org.isf.admission.service.IoOperations
+	
+	Fixed bill retrieval to include also after discharges prescriptions
+=======================================================================================================
+23.
+	27/02/2015 - org.isf.stat.java.OH020_AdmissionAverageCost
+			   - org.isf.stat.java.OH021_OPDAverageCost
+	
+	Fixed bill retrieval to exclude deleted ones
+=======================================================================================================
+24.
+	02/03/2015 - org.isf.accounting.gui.PatientBillEdit
+	
+	Commented RememberDates mechanism to test ClosureReport issue
+=======================================================================================================
+25.
+	26/02/2016 - rpt/PatientAdmissionPrescriptionBillReport.jasper
+			   - rpt/PatientAdmissionPrescriptionBillReport.jrxml
+			   
+	Added WARD description
+=======================================================================================================
+26.
+	02/03/2016 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.opd.gui.OpdEditExtended
+			   - org.isf.patient.model.Patient
+			   - org.isf.therapy.gui.TherapyEntryForm
+			   - org.isf.utils.time.TimeTools
+			   
+	Improved TimeTools calculations to better support LOS and security checks on dates:
+	- Added check on long admission (using BED_DAYS_THRESHOLD)
+	- Checks if admission date is before birthdate
+	- Checks if opd date is before birthdate
+	- List diagnosis according to the patient's age at the date of admission
+	- List diagnosis according to the patient's age at the date of opd
+	- Checks the patient's age apply to the ward at the date of admission
+	- Improved overal algorithm
+=======================================================================================================
+27.
+	02/03/2016 <-- lib/poi-2.0-final-20040126.jar
+			   --> lib/poi-3.0.1-FINAL-20070705.jar
+			   
+	Updated poi library to support Jasper export to Excel
+=======================================================================================================
+28.
+	02/03/2016 - rpt/diseaseslist.jasper
+			   - rpt/diseaseslist.jrxml
+			   
+	Update DiseaseList report to include MALE column
+=======================================================================================================
+29.
+	02/03/2016 - org.isf.admission.gui.AdmissionBrowser
+	
+	Cosmetic changes to the code
+=======================================================================================================
+30.
+	22/04/2016 - org.isf.accounting.gui.PatientBillEdit
+	
+	Check on pending bills rely only on Open ("O") ones now, Pay Later ("L") are not taken in account
+=======================================================================================================
+31.
+	22/04/2016 - org.isf.admission.gui.AdmissionBrowser
+	
+	Reduced BED_DAYS_THRESHOLD to 15 days
+=======================================================================================================
+32.
+	22/04/2016 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Disease list must show only the ones allowed in OPD and reflect the patient age and sex
+=======================================================================================================
+33.
+	22/04/2016 - org.isf.accounting.gui.BillBrowser
+	
+	Fixed total period label for the selected user
+=======================================================================================================
+34.
+	23/04/2016 - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.medicals.model.Medical
+			   - org.isf.medicals.service.IoOperations
+			   - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.gui.WardPharmacyDispense
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.medicalstockward.gui.WardPharmacyRectify
+			   - org.isf.medicalstockward.gui.WardPharmacyReturn
+			   - org.isf.priceslist.gui.PricesBrowser
+			   - org.isf.serviceprinting.print.Medical4Print
+			   - org.isf.serviceprinting.print.MedicalPrintSelection
+			   - org.isf.serviceprinting.print.MedicalStockSelection
+			   - org.isf.serviceprinting.print.Movement4Print
+			   - org.isf.serviceprinting.print.MovementForPrint
+			   - org.isf.serviceprinting.print.MovementWardForPrint
+			   
+			   --> mysql/db/wolisso_step_28_medicals_description.sql
+			   - rpt/PharmaceuticalOrder.jasper
+			   - rpt/PharmaceuticalOrder.jrxml
+			   - rpt/WardPharmacyIncomes.jasper
+			   - rpt/WardPharmacyIncomes.jrxml
+	
+	Changed the way to show medicals description (code - description) with a refactoring to POJO
+	and specific method for such purpose. This affected also some reports and needs DB adjustment
+	too
+=======================================================================================================
+35.
+	25/04/2016 - org.isf.admission.gui.AdmissionBrowser
+	
+	Fixed the bedDays calculation and check only at discharge time
+=======================================================================================================
+36.
+	25/04/2016 - org.isf.medicalstockward.manager.MovWardBrowserManager
+	
+	Improved sorting methods in models for print
+=======================================================================================================
+37.
+	25/04/2016 - release_files/oh.bat
+			   - release_files/oh.sh
+			   
+	Added Java HeapSize parameters -Xms64m -Xmx256m
+=======================================================================================================
+38.
+	25/04/2016 - rsc/generalData.properties
+	
+	Changed default PharmaceuticalStock report
+=======================================================================================================
+39.
+	25/04/2016 - org.isf.opd.gui.OpdEditExtended
+
+	Diagnoses not saving correctly fixed.
+=======================================================================================================
+40.
+	27/04/2016 - org.isf.accouting.gui.BillBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.menu.manager.UserBrowsingManager
+	
+			   - bundle/language_en.properties
+			   --> mysql/db/wolisso_step_29_disclose_accounting_admin_features.sql
+			   
+	Disclosed accounting "admin" features in order to assign them to any UserGroup
+=======================================================================================================
+41.
+	27/04/2016 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounring.manager.BillBrowserManager
+			   - org.isf.accounring.service.IoOperations
+			   
+	Improved query for getting bill which payments are in the period
+=======================================================================================================
+42.
+	27/04/2016 - org.isf.accounring.gui.BillBrowser
+	
+	Fixed Total Period calculation
+=======================================================================================================
+43.
+	27/04/2016 - org.isf.accounting.gui.BillBrowser
+	
+	Fixed Total Today calculation
+=======================================================================================================
+44.
+	27/04/2016 - org.isf.accounting.gui.BillBrowser
+	
+	Improved today totals calculations
+	
+=======================================================================================================
+45.
+	27/04/2016 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.gui.WardPharmacyDispense
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.stat.java.OH020_AdmissionAverageCost
+			   - org.isf.stat.java.OH021_OPDAverageCost
+			   
+			   - rpt/BillsReport.jasper
+			   - rpt/BillsReport.jrxml
+			   - rpt/BillsReportMonth.jasper
+			   - rpt/BillsReportMonth.jrxml
+			   - rpt/BillsReportUserInDate.jasper
+			   - rpt/BillsReportUserInDate.jrxml
+			   - rpt/OH019_PrivatePatientsBill.jasper
+			   - rpt/OH019_PrivatePatientsBill.jrxml
+			   - rpt/patient_clinical_sheet_ver2.jasper
+			   - rpt/patient_clinical_sheet_ver2.jrxml
+			   
+	Added new bill status "X" in order to handle unclaimed bills. Until the bill is in this state
+	it will be ignored by all calculations and all reports.
+=======================================================================================================
+46.
+	27/04/2016 - org.isf.admission.gui.AdmissionBrowser
+	
+	Fixed a bug on DiseaseBox2 and DiseaseBox3
+=======================================================================================================
+47.
+	27/04/2016 - org.isf.accounting.gui.PatientBillEdit
+		       - org.isf.medicalstockward.gui.WardPharmacy
+		       
+	When "PayLater" a bill related to a prescription, it will also trigger the dispense
+=======================================================================================================
+48.
+	28/04/2016 --> mysql/db/wolisso_step_30_comment_on_prescription_table.sql
+	
+	Added script in order to describe the prescription status codes
+=======================================================================================================
+49.
+	28/04/2016 - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.manager.MovWardBrowserManager
+			   - org.isf.medicalstockward.service.IoOperations
+	
+	Separated methods to retrieve all prescriptions and only pending ones and added a control in order
+	to dispense only prescriptions with status 0 (open)
+=======================================================================================================
+50.
+	01/05/2016 - org.isf.accounting.gui.PatientBillEdit
+	
+	Added check on prices changed since last saving and allow the user to update them
+=======================================================================================================
+51.
+	01/05/2016 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Automatically close exempted bills (BALANCE = 0) and free drugs (AMOUNT = BALANCE = 0)
+=======================================================================================================
+52.
+	01/05/2016 - org.isf.medicalstockward.service.IoOperations
+	
+	Added possibility to set the date of the wardmovement (for movements in the past)
+=======================================================================================================
+53.
+	01/05/2016 - org.isf.medicalstocward.gui.WardPharmacyNew
+	
+	Check all pricecodes for changes when exempting a patient
+=======================================================================================================
+54.
+	01/05/2016 - org.isf.medicalstocward.gui.WardPharmacyNew
+	
+	Disease code in Emergency always compulsory but a special diagnosis code can be choosen (999)
+	in order to avoid the case closing
+=======================================================================================================
+55.
+	02/05/2016 - org.isf.accounting.gui.PatientBillEdit
+	
+	Fixed bug when the bill item refers to a deleted price
+=======================================================================================================
+56.
+	02/05/2016 - org.isf.accounting.gui.BillBrowser
+	
+	Added column for cashier's name who created the bill
+=======================================================================================================
+57.
+	02/05/2016 - rpt/OH004_IncomesAllByPriceCodes.jasper
+			   - rpt/OH004_IncomesAllByPriceCodes.jrxml
+			   - rpt/OH005_IncomesAllByCategories.jasper
+			   - rpt/OH005_IncomesAllByCategories.jrxml
+			   - rpt/OH006_IncomesOpdByPriceCodes.jasper
+			   - rpt/OH006_IncomesOpdByPriceCodes.jrxml
+			   - rpt/OH007_IncomesIpdByPriceCodes.jasper
+			   - rpt/OH007_IncomesIpdByPriceCodes.jrxml
+			   - rpt/OH008A_IncomesDrugsByAmount.jasper
+			   - rpt/OH008A_IncomesDrugsByAmount.jrxml
+			   - rpt/OH008B_IncomesDrugsByCode.jasper
+			   - rpt/OH008B_IncomesDrugsByCode.jrxml
+			   
+	Fixed the way to calculate items total amounts
+=======================================================================================================
+58.
+	02/05/2016 - org.isf.stat.reportlauncher.gui.ReportLauncher
+	
+	Removed useless reports for Wolisso
+=======================================================================================================
+59.
+	02/05/2016 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.admission.model.Admission
+			   
+	Fixed a bug introduced with commit 26. and improved dates management
+=======================================================================================================
+60.
+	02/05/2016 - rpt/PatientAdmissionPrescriptionBillReport.jasper
+			   - rpt/PatientAdmissionPrescriptionBillReport.jrxml
+
+	Added Age and Sex fields
+=======================================================================================================
+61.
+	03/05/2016 - org.isf.admission.gui.AdmittedPatientBrowser
+	           - org.isf.admission.gui.AdmissionBrowser
+
+	           --> /mysql/db/wolisso_step_31_emergency_button_permissions.sql
+	           - bundle/language_xx.properties
+
+	Reordered admission browser buttons and emergency button added.
+	Added emergency button label in language properties.
+	Code cleaning.
+=======================================================================================================
+62.
+	03/05/2016 - org.isf.admission.gui.AdmittedPatientBrowser
+
+	Use of constants to set emergency admission fields.
+=======================================================================================================
+63.
+	03/05/2016 - bundle/language_xx.properties
+	
+	Updated all bundles
+=======================================================================================================
+64.
+	03/05/2016 - rpt/PharmaceuticalStock.jasper
+			   - rpt/PharmaceuticalStock.jrxml
+			   
+	Improved Stock Report with actual value, average value and critical evidence
+=======================================================================================================
+65.
+	03/05/2016 - org.isf.generaldata.GeneralData
+			   - org.isf.medicals.gui.MedicalBrowser
+			   
+			   - bundle/language_xx.properties
+			   --> rpt/PharmaceuticalAMC.jasper
+			   --> rpt/PharmaceuticalAMC.jrxml
+			   - rsc/generalData.properties
+			   
+	Added new report for Average Monthly Consumption for Pharmacy
+=======================================================================================================
+66.
+	03/05/2016 - org.isf.medicals.gui.MedicalBrowser
+	
+			   - bundle/language_xx.properties
+	
+	Reversed new logic for expiring report from HEAD branch
+=======================================================================================================
+67.
+	04/05/2016 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.PatientDataBrowser
+			   - org.isf.PatientFolderBrowser
+	
+	Solved the problem of EMERGENCY ward:
+	EMERGENCY is not available in normal admissions (only used by Emergency button, also fixed)
+	Forcing to TRANSFER before saving when edititing and EMERGENCY mode.
+	TRANSFER button only changes the ward and keeps the same IPD number.
+	From now reports should only show the EMERGENCY admission related to an OPD
+=======================================================================================================
+68.
+	04/05/2016 <-- org.isf.utils.db.PharmacyResetFromCSV 
+			   --> org.isf.utils.db.maintenance.PharmacyResetFromCSV
+			   --> org.isf.utils.db.maintenance.IoOperations
+			   --> org.isf.utils.db.maintenance.MovWardBrowserManager
+			   --> org.isf.utils.db.maintenance.PayLaterDispense
+			   
+			   --> mysql/db/maintenance/wolisso_01_procedure_accounting_balances.sql
+			   --> mysql/db/maintenance/wolisso_02_procedure_closing_bills_from_admissions.sql
+			   --> mysql/db/maintenance/wolisso_03_procedure_closing_admissions_from_bills.sql
+			   
+	Added set of classes and scripts to fix Open, PayLater bills and open Admissions before release4
+=======================================================================================================
+69.
+	05/05/2016 - org.isf.xmpp.service.Service.java
+			   - org.isf.patient.service.IoOperations
+
+	Remove non UTF8 characters from comments to avoid errors during ant build.
+=======================================================================================================
+70.
+	05/05/2016 - org.isf.utils.db.maintenance.IoOperations
+			   - org.isf.utils.db.maintenance.PayLaterDispense
+			   
+			   --> mysql/db/maintenance/release4_maintenance.sql
+			   
+	Removed limits to PayLaterDispense utility and added overall script for release4 DB maintenance
+=======================================================================================================
+71.
+	06/05/2016 - org.isf.accounting.gui.BillBrowser
+	
+	Fixed a bug introduced with commit 40.
+=======================================================================================================
+72.
+	06/05/2016 - org.isf.admission.gui.AdmittedPatientBrowser
+	
+	Added a confirmation message for the Emergency button
+=======================================================================================================
+73.
+	06/05/2016 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Roll back on commit 51. and added user in bill creation
+=======================================================================================================
+74.
+	06/05/2016 - org.isf.priceslist.gui.PricesBrowser
+	
+	Added waiting system when saving a pricelist
+=======================================================================================================
+75.
+	06/05/2016 - rpt/PharmaceuticalAMC.jasper
+			   - rpt/PharmaceuticalAMC.jrxml
+			   - rpt/PharmaceuticalStock.jasper
+			   - rpt/PharmaceuticalStock.jrxml
+			   
+	Fixed cases on table names
+=======================================================================================================
+76.
+	07/05/2016 - org.isf.accounting.BillBrowser
+	
+	Added the year chooser for "Other month..." report option
+=======================================================================================================
+77.
+	07/05/2016 - org.isf.accounting.BillBrowser
+	
+			   - bundle/language_xx.properties
+	
+	Added dateFrom and dateTo selection on "Period..." report option
+=======================================================================================================
+78.
+	08/05/2016 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.manager.BillBrowserManager
+			   - org.isf.accounting.service.IoOperations
+			   - org.isf.priceslist.model.List
+			   
+			   - bundle/language_en.properties
+			   --> mysql/wolisso_step_32_clearcompany_button_permissions.sql
+			   
+	New feature to clear pending bill for a choosen PriceList (company) on a monthly basis
+=======================================================================================================
+79.
+	08/05/2016 <-- org.isf.accounting.model.BillItems
+			   --> org.isf.accounting.model.BillItem
+			   <-- org.isf.accounting.model.BillPayment
+			   --> org.isf.accounting.model.BillPayment
+			   - org.isf.accounting.service.IoOperations
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.medicalstockward.gui.WardPharmacyReturn
+			   - org.isf.priceslist.gui.ListBrowser
+			   - org.isf.priceslist.gui.ListEdit
+			   - org.isf.priceslist.gui.PricesBrowser
+			   - org.isf.priceslist.manager.PriceListManager
+			   <-- org.isf.priceslist.model.List
+			   --> org.isf.pricelist.service.PriceList
+			   - org.isf.priceslist.service.IoOperations
+			   - org.isf.stat.java.OH020_AdmissionAverageCost
+			   - org.isf.stat.java.OH021_OPDAverageCost
+			   
+	 Refactoring of some models
+=======================================================================================================
+80.
+	08/05/2016 - rpt/OH019_PrivatePatientsBill.jasper
+			   - rpt/OH019_PrivatePatientsBill.jrxml
+			   
+	Added date from and to
+=======================================================================================================
+81.
+	10/05/2016 - org.isf.admission.gui.AdmissionBrowser
+	
+	Always show TRANSFER button in editing mode
+=======================================================================================================
+82.
+	10/05/2016 - org.isf.accounting.gui.BillBrowser
+	
+	Added BusyState on reports
+=======================================================================================================
+83.
+	10/05/2016 - org.isf.medicalstockward.manager.MovWardBrowserManager
+			   - org.isf.therapy.*
+			   - org.isf.utils.jobjects.JAgenda
+			   - org.isf.visits.*
+			   
+			   - bundle/language_en.properties
+			   --> mysql/db/wolisso_step_33_therapy_model_changes.sql
+			   
+	Updated Therapy and Visit modules from HEAD
+=======================================================================================================
+84.
+	10/05/2016 - org.isf.admission.gui.AdmittedPatientBrowser
+
+			   - bundle/language_en.properties
+			   - bundle/language_it.properties
+
+	Emergency button, patient can be admitted to Emergency only if there is no other pending admissions
+=======================================================================================================
+85.
+	11/05/2016 - org.isf.admission.gui.AdmittedPatientBrowser
+	
+	Fixed warning message layout
+=======================================================================================================
+86.
+	11/05/2016 - release_files/oh.sh
+			   - release_files/oh.bat
+	
+	Increased Java Heap sizes to 128MB (min) and 512MB (max)
+=======================================================================================================
+87.
+	11/05/2016 - rpt/OH008A_IncomesDrugsByAmount.jasper
+			   - rpt/OH008A_IncomesDrugsByAmount.jrxml
+			   - rpt/OH008B_IncomesDrugsByCode.jasper
+			   - rpt/OH008B_IncomesDrugsByCode.jrxml
+	
+	Added staff, free and exemption details with real income (powered by Nicolò Salvato)
+=======================================================================================================
+88.
+	12/05/2016 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Allowed empty prescription in order to close OPD and Emergency cases
+=======================================================================================================
+89.
+	12/05/2016 - rpt/BillsReport.jasper
+			   - rpt/BillsReport.jrxml
+			   - rpt/BillsReportMonth.jasper
+			   - rpt/BillsReportMonth.jrxml
+	
+	Simplified queries
+=======================================================================================================
+90.
+	12/05/2016 - rpt/OH019_PrivatePatientsBill.jasper
+			   - rpt/OH019_PrivatePatientsBill.jrxml
+			   
+	Added totals
+=======================================================================================================
+91.	
+	13/05/2016 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   - org.isf.patient.gui.PatientInsertedExtended
+			   - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   
+	Enclosed BusyState calls in try-catch blocks
+=======================================================================================================
+92.
+	14/05/2016 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Fixed "non free drugs admission codes"
+=======================================================================================================
+93.
+	14/05/2016 - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.stat.java.OH020_AdmissionAverageCost
+			   - org.isf.stat.java.OH021_OPDAverageCost
+			   - org.isf.stat.manager.GenericReportFromDateToDate
+			   - org.isf.stat.manager.GenericReportMY
+			   - org.isf.utils.excel.ExcelExporter
+			   
+	Improved ExcelExporter by using POI library (no more CSV)
+=======================================================================================================
+94.
+	14/05/2016 - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.stat.java.OH020_AdmissionAverageCost
+			   - org.isf.stat.java.OH021_OPDAverageCost
+			   - org.isf.stat.manager.GenericReportFromDateToDate
+			   - org.isf.stat.manager.GenericReportMY
+			   - org.isf.stat.reportlauncher.gui.ReportLauncher
+	
+	Added automatic filename for export
+=======================================================================================================
+* Wolisso_core1_7_0_release4 (released on 16/05/2016)
+- Improved Reports and emoved useless ones
+- Added new report for Average Monthly Consumption for Pharmacy
+- Improved Stock Report with actual value, average value and critical evidence
+- Added check on long admission (using BED_DAYS_THRESHOLD = 15 days)
+- Checks if admission date is before birthdate
+- Checks if opd date is before birthdate
+- List diagnosis according to the patient's age at the date of admission
+- List diagnosis according to the patient's age at the date of opd
+- Checks the patient's age apply to the ward at the date of admission
+- Updated poi library to support Jasper export to Excel
+- Check on pending bills rely only on Open ("O") ones now, Pay Later ("L") are not taken in account
+- Disclosed accounting "admin" features in order to assign them to any UserGroup
+- Added new bill status "X" in order to handle unclaimed bills (until the bill is in this state it will be ignored by all calculations and all reports)
+- When "PayLater" a bill related to a prescription, it will also trigger the dispense
+- Added check on prices changed since last saving and allow the user to update them
+- Check all pricecodes for changes when exempting a patient
+- Disease code in Emergency always compulsory but a special diagnosis code can be choosen (999) in order to avoid the case closing
+- EMERGENCY is not available in normal admissions (only used by Emergency button, also fixed)
+- Forcing to TRANSFER before saving when edititing and EMERGENCY mode.
+- TRANSFER button only changes the ward and keeps the same IPD number.
+- From now reports should only show the EMERGENCY admission related to an OPD
+- New feature to clear pending bill for a choosen PriceList (company) on a monthly basis
+- Updated Therapy and Visit modules from HEAD
+- Allowed empty prescription in order to close OPD and Emergency cases
+- Overall speed improvements
+- Minor bugs fixed
+=======================================================================================================
+1.
+	07/06/2016 - rpt/OH017_ExemptionReport.jrxml
+			   - rpt/OH017_ExemptionReport.jasper
+
+	The exemption report now distinguishes between IPD and OPD.
+=======================================================================================================
+2.
+	07/06/2016 - build.properties
+			   - build.xml
+			   - lib/iReport-utils-2.0.1.jar
+
+	Added compile_reports task in Ant build.xml. The tasks compiles all the .jrxml files that have no
+	.jasper file. A reorganization of reports may be evaluated, keeping just .jrxml files in CVS and
+	including only .jasper files in the distribution.
+=======================================================================================================
+3.
+	25/06/2016 - org.isf.medicals.gui.MedicalBrowser
+			   --> org.isf.stat.manager.GenericReportPharmaceuticalStock
+			   
+			   - bundle/language_xx.properties
+			   - rpt/PharmaceuticalStock.jasper
+			   - rpt/PharmaceuticalStock.jrxml
+	
+	Improved Pharmaceutical Stock report to retrieve stock at the date
+=======================================================================================================
+4.
+	15/08/2016 - build.xml
+
+	Compile_reports Ant task is now executed when distributing OH.
+=======================================================================================================
+5.
+	16/08/2016 - org.isf.stat.java.OH020_AdmissionAverageCost
+	
+	Include missing addmission codes.
+=======================================================================================================
+6.
+    17/08/2016 --> org.isf.accounting.gui.BillBrowser_New
+               --> mysql/db/wolisso_step_34_try_new_billsmanager.sql
+               - org.isf.accounting.manager.BillBrowserManager
+               - org.isf.accounting.service.IoOperations
+               - org.isf.accounting.gui.PatientBillEdit
+
+    BillBrowser_New added, to be fully tested.
+    This commit is a big one, but still easy to revert. It aims to:
+        - fix an anomaly on BillBrowser filters: when the field is manually clear, the filter also is
+        cleared, so that all the results will be retrieved;
+        - clean a bit the code, relaying more on database queries then on operations on java objects
+        also to save some memory on the client;
+        - group some repeated operation for the sake of DRY principle, reorganizing in a method the code
+        snippets used to query the database;
+        - minor maquillage.
+    Since these changes are yet to be tested fully, the original BillBrowser class was left in place
+    untouched and a new BillBrowser_New class was created, together with the sql queries needed to set
+    it in place. When selecting Accounting from OH start window, the new billbrowser_new button will
+    appear together with the old Bill Browser one.
+    To get rid of the new BillBrowser_New:
+        - remove BillBrowser_New.java;
+        - from BillBrowserManager.java and IoOperations.java, remove all methods with #BILLBROWSER_NEW
+        tag;
+        - delete the db records added by wolisso_step_34_try_new_billsmanager.sql script.
+=======================================================================================================
+7.
+    18/08/2016 - mysql/db/wolisso_step_34_try_new_billsmanager.sql
+
+    Fixed error in group menu query.
+=======================================================================================================
+8.
+	24/09/2016 <-- org.isf.accounting.gui.BillBrowser_New
+			   - org.isf.accounting.manager.BillBrowserManager
+			   - org.isf.accounting.service.IoOperations
+			   
+			   <-- mysql/db/wolisso_step_34_try_new_billsmanager.sql
+			   
+	Rollback on commits 6. and 7. but kept some code maquillage
+	Feature (will be moved to branch 'wolisso_1_7_0_billbrowsernew')
+=======================================================================================================
+9.
+	12/10/2016 --> doc/chronic_opd_module_release_notes.txt
+	           --> org.isf.chronicopd.gui.ChronicOpdEdit
+               --> org.isf.chronicopd.gui.ChronicOpdHistoryPanel
+               --> org.isf.chronicopd.manager.ChronicOpdManager
+               --> org.isf.therapy.gui.ChronicTherapyEntryForm
+               --> org.isf.chronicopd.model.ChronicVisit
+               --> org.isf.chronicopd.gui.ChronicVisitEdit
+               --> org.isf.utils.time.Converters
+               --> org.isf.chronicopd.service.IoOperations
+               --> org.isf.chronicopd.model.OpdHistoryRow
+               --> org.isf.utils.listeners.SelectAllOnFocus
+               --> org.isf.utils.gui.SpringUtilities
+               --> org/isf/utils/tasks/WaitingDialog
+               --> org.isf.utils.tasks.SwingBackgroundTask
+               --> org.isf.utils.tasks.SwingBackgroundTaskExecutor
+               --> org.isf.utils.tasks.SwingUiRenderer
+               --> org.isf.utils.tasks.WaitingDialog
+               --> mysql/db/wolisso_step_35_chronic_opd.sql
+               - org.isf.disease.manager.DiseaseBrowserManager
+               - org.isf.distype.manager.DiseaseTypeBrowserManager
+               - org.isf.distype.service.IoOperation
+               - org.isf.opd.service.IoOperations
+               - org.isf.therapy.service.IoOperations
+               - org.isf.patient.service.IoOperations
+               - org.isf.disease.service.IoOperations
+               - org.isf.medicals.service.IoOperations
+               - org.isf.medicalstockward.service.IoOperations
+               - language_en.properties
+               - org.isf.medicals.manager.MedicalBrowsingManager
+               - org.isf.medicalstockward.model.MedicalWardPrescription
+               - org.isf.opd.model.Opd
+               - org.isf.opd.gui.OpdBrowser
+               - org.isf.opd.manager.OpdBrowserManager
+               - org.isf.opd.gui.OpdEdit
+               - org.isf.opd.gui.OpdEditExtended
+               - org.isf.patient.manager.PatientBrowserManager
+               - org.isf.patient.gui.PatientInsert
+               - org.isf.patient.gui.PatientInsertExtended
+               - org.isf.therapy.model.Therapy
+               - org.isf.therapy.model.TherapyRow
+               - org.isf.medicalstockward.gui.WardPharmacyNew
+
+	Chronic Module first commit.
+	For further information please see doc/chronic_opd_module_release_notes.txt file.
+=======================================================================================================
+10.
+	13/10/2016 - org.isf.chronicopd.gui.ChronicOpdEdit
+			   - org.isf.chronicopd.gui.ChronicVisitEdit
+			   - org.isf.chronicopd.manager.ChronicOpdManager
+			   - org.isf.chronicopd.model.ChronicVisit
+			   - org.isf.chronicopd.service.IoOperations
+			   - org.isf.disease.manager.DiseaseBrowserManager
+			   - org.isf.disease.service.IoOperations
+			   - org.isf.distype.manager.DiseaseTypeBrowserManager
+	           - org.isf.distype.service.IoOperation 
+	           - org.isf.medicals.manager.MedicalBrowsingManager
+	           - org.isf.medicals.service.IoOperations
+	           - org.isf.medicalstockward.gui.WardPharmacyNew
+	           - org.isf.medicalstockward.model.MedicalWardPrescription
+	           - org.isf.medicalstockward.service.IoOperations
+			   - org.isf.opd.gui.OpdBrowser
+               - org.isf.opd.gui.OpdEdit
+               - org.isf.opd.gui.OpdEditExtended
+               - org.isf.opd.manager.OpdBrowserManager
+			   - org.isf.opd.model.Opd
+			   - org.isf.opd.service.IoOperations
+			   - org.isf.patient.gui.PatientInsert
+               - org.isf.patient.gui.PatientInsertExtended
+               - org.isf.patient.manager.PatientBrowserManager
+               - org.isf.patient.service.IoOperations
+               - org.isf.stat.reportlauncher.gui.ReportLauncher
+               - org.isf.therapy.gui.ChronicTherapyEntryForm
+			   - org.isf.therapy.model.Therapy
+               - org.isf.therapy.model.TherapyRow
+               - org.isf.therapy.service.IoOperations
+               - org.isf.utils.excel.ExcelExporter
+	           
+	           - bundle/language_en.properties
+	           - doc/chronic_patient_module_release_notes.txt
+	           - mysql/db/wolisso_step_35_chronic_opd.sql
+	           --> rpt/ChronicOpdReport.jasper
+	           --> rpt/ChronicOpdReport.jrxml
+
+	Chronic Patient module:
+	- Some bug fixing to Chronic Module functionality, including parameters adjustment.
+	- Some GUI adjustment to the therapy panel to make it more user friendly.
+	- Added all chronic diseases codes to SQL file.
+	- Added field Notes to chronic visit.
+	- The method getPatients can now also search by PAT_PCODE (opd code) field.
+	- A new Chronic OPD Report is available to avoid double work for the clinicians.
+	- Fixed cast bug in Excel exporter for java.sql.Date class.
+=======================================================================================================
+* Wolisso_core1_7_0_release4_chronic_beta (released on 26/12/2016)
+- New Feature! Chronic Patient module
+- Improved the exemption report (now distinguishes between IPD and OPD)
+- Improved Pharmaceutical Stock report to retrieve stock at the date
+- Improved OH020_AdmissionAverageCost report
+=======================================================================================================
+1.
+	31/01/2017 - org.isf.opd.gui.OpdBrowser
+
+	Removed the Report button from the OPDBrowser GUI.
+=======================================================================================================
+2.
+	31/01/2017 - org.isf.opd.service.IoOperations
+	           - language_en.properties
+	           - org.isf.opd.gui.OpdBrowser
+	           - org.isf.opd.manager.OpdBrowserManager
+	           --> org.isf.opd.model.OpdRow
+	           <-- CVS_test.txt
+
+	Added the PAT_PCODE (OPD Number) to OPDBrowser table.
+	Added a filter by OPD Number to OPDBrowser.
+=======================================================================================================
+3.
+	31/01/2017 - org.isf.therapy.gui.TherapyEdit
+			   - org.isf.visits.manager.VisitManager
+			   - org.isf.visits.model.Visit
+			   - org.isf.visiss.service.IoOperations
+			   
+	Simplified the Visit model
+=======================================================================================================
+4.
+	31/01/2017 --> mysql/db/wolisso_step_34_chronic_opd.sql
+	           <-- mysql/db/wolisso_step_35_chronic_opd_ref.sql
+	           - org.isf.chronicopd.gui.ChronicOpdEdit
+	           - org.isf.chronicopd.manager.ChronicOpdManager
+	           - org.isf.chronicopd.model.ChronicVisit
+	           - org.isf.chronicopd.gui.ChronicVisitEdit
+	           - org.isf.opd.model.Opd
+
+	Moved previous SQL script 35 to 34. When changing diagnosis in ChronicOpdEdit window, the visit
+	parameters not related to that diagnosis will be reset, a message will be displayed to the user
+	and the ChronicVisitEdit window will be opened automatically.
+=======================================================================================================
+5.
+	31/01/2017 - org.isf.stat.reportlauncher.gui.ReportLauncher
+	
+	Changed Chronic Patients report's name
+=======================================================================================================
+6.
+	01/02/2017 - org.isf.opd.gui.OpdBrowser
+	
+	Fixed filter button and it will only reset the fields
+=======================================================================================================
+7.
+	01/02/2017 - org.isf.opd.manager.OpdBrowserManager
+			   - org.isf.opd.model.Opd
+			   - org.isf.opd.service.IoOperations
+			   - org.isf.utils.time.TimeTools
+			   
+	Added new Time Util to retrieve today's date (with time 00:00:00 or 23:59:59) and fixed some
+	Opd methods.
+=======================================================================================================
+8.
+	01/02/2017 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Added warning for the Pharmacist in case the Patient has an OPD with the same disease in the same
+	day in order to avoid OPD duplicates or to refer the prescription to another OPD case.
+	This is meant to be temporary or permanent as long as the clinical room will be connected or not 
+	to the system and so every OPD will be recorded by the clinician and not at the moment of 
+	prescription only.
+=======================================================================================================
+9.
+	02/02/2017 - org.isf.accounting.gui.BillBrowser
+	
+	Improved Clear Company button by allowing the user to select which bill to close
+=======================================================================================================
+10.
+	02/02/2017 - org.isf.visits.manager.VisitManager
+			   - org.isf.visits.model.Visit
+			   - org.isf.visits.service.IoOperations
+			   
+	Fixed commit 3. by removing the SMS field (will be added later on with SMS module)
+=======================================================================================================
+11.
+	02/02/2017 - andrea/ --> mysql/db/andrea
+			   
+	Moved Andrea Malagoli's folder
+=======================================================================================================
+12.
+	02/02/2017 --> org.isf.generaldata.SmsParameters
+			   - org.isf.menu.gui.MainMenu
+			   --> org.isf.sms.gui.SmsBrowser
+			   --> org.isf.sms.gui.SmsEdit
+			   --> org.isf.sms.model.Sms
+			   --> org.isf.sms.providers.GSMParameters
+			   --> org.isf.sms.providers.SkebbyGateway
+			   --> org.isf.sms.providers.SkebbyParameters
+			   --> org.isf.sms.service.IoOperations
+			   --> org.isf.sms.service.SmsSender
+			   --> org.isf.sms.service.SmsSenderGSM
+			   --> org.isf.sms.service.SmsSenderHTTP
+			   --> org.isf.sms.service.SmsSenderInterface
+			   --> org.isf.utils.jobjects.JDateAndTimeChooserDialog
+			   --> org.isf.utils.sms.Ping
+			   --> org.isf.utils.sms.SetupGSM
+			   
+			   - bundle/language_en.properties
+			   --> lib/native/Linux/amd64/librxtxSerial.so
+			   --> lib/native/Linux/i386/librxtxParallel.so
+			   --> lib/native/Linux/i386/librxtxSerial.so
+			   --> lib/native/Linux/ia64/librxtxSerial.so
+			   --> lib/native/Win64/rxtxSerial.dll
+			   --> lib/native/Windows/rxtxParallel.dll
+			   --> lib/native/windows/rxtxSerial.dll
+			   --> lib/httpclient-4.3.4.jar
+			   --> lib/httpcore-4.3.2.jar
+			   --> lib/RXTXcomm.jar
+			   --> mysql/db/wolisso_step_36_sms_module.sql
+			   --> rsc/sms.properties
+			   --> SetupGSM.cmd
+			   --> SetupGSM.sh
+			   
+	New SMS module (backport from version 1.8.2):
+	- SmsManager in GeneralData can be used to test and schedule messages
+	- Patients phone number retrivial (if any)
+	- Configurable loop time
+	- Configurable sender via mobile device (GSM) or Internet proxy (HTTP)
+	- Skebby proxy already available (needs a Skebby account)
+	- Scripts for Linux and Windows to setup the GSM device
+=======================================================================================================
+13.
+	03/02/2017 - doc/chronic_patient_module_release_notes.txt
+	           - org.isf.chronicopd.gui.ChronicOpdEdit
+	           - org.isf.chronicopd.manager.ChronicOpdManager
+	           - org.isf.chronicopd.model.ChronicVisit
+	           - org.isf.chronicopd.gui.ChronicVisitEdit
+	           - org.isf.opd.service.IoOperations
+	           - org.isf.visits.service.IoOperations
+	           - org.isf.therapy.service.IoOperations
+	           - org.isf.chronicopd.service.IoOperations
+	           - org.isf.opd.model.Opd
+	           - org.isf.opd.gui.OpdBrowser
+	           - org.isf.opd.manager.OpdBrowserManager
+	           --> mysql/db/release4_chronic_beta_update.sql
+	           - org.isf.visits.manager.VisitManager
+	           - mysql/db/wolisso_step_34_chronic_opd.sql
+
+	Chronic Patient module:
+	New version of the chronic patient module, including a SQL script that modify the database migrating
+	old data. VISITS table is now used to store next and scheduled visits date and a OPD_US_ID_A column
+	has been added to OPD table storing the last user to edit the record. Some bug fixing to OpdBrowser
+	filtering is also included.
+=======================================================================================================
+14.
+	04/02/2017 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Improved new layout
+=======================================================================================================
+15.
+	04/02/2017 - org.isf.chronicopd.gui.ChronicOpdEdit
+			   - org.isf.chronicopd.service.IoOperations
+			   - org.isf.opd.gui.OpdBrowser
+			   - org.isf.visits.service.IoOperations
+			   
+			   - mysql/db/release4_chronic_beta_update.sql --> mysql/db/maintenance
+			   - mysql/db/wolisso_step_34_chronic_opd.sql
+	
+	Chronic Patient module:		   
+	- Fixed visit saving (VST_PAT_ID missing)
+	- Fixed OPD_CHRONIC saving (VS_USER removed)
+	- Fixed OPD edit button (gets OPD from OpdRow)
+	- Added INDEXES and FOREIGN KEYS to new fields
+=======================================================================================================
+16.
+	04/02/2017 - org.isf.chronicopd.manager.ChronicOpdManager
+	           - org.isf.therapy.gui.ChronicTherapyEntryForm
+	           - org.isf.chronicopd.gui.ChronicVisitEdit
+	           --> org.isf.utils.jobjects.FormattedTextField
+
+	Chronic Patient module:
+	- Refactoring the code that creates and parse the FormattedTextFields used in ChronicTherapyEntryForm
+	and in ChronicVisitEdit.
+=======================================================================================================
+17.
+	04/02/2017 - org.isf.chronicopd.service.IoOperations
+			   - org.isf.opd.service.IoOperations
+			   - org.isf.visits.service.IoOperations
+	
+	Chronic Patient module:
+	- Fixed transactional commit on Visits table
+	- Cosmetic changes to the code
+=======================================================================================================
+18.
+	06/02/2017 - org.isf.chronicopd.gui.ChronicOpdEdit
+	           <-- org.isf.chronicopd.gui.ChronicVisitEdit
+	           --> org.isf.chronicopd.gui.OpdChronic
+
+	Chronic Patient module:
+	- if a visit has already been saved and the diagnosis selection changes, the
+	user is asked to review the visit when he/she presses the OK button
+	- ChronicVisitEdit was renamed to OpdChronic
+=======================================================================================================
+19.
+	06/02/2017 - org.isf.therapy.gui.ChronicTherapyEntryForm
+	           - org.isf.opd.gui.OpdBrowser
+	           - org.isf.medicalstockward.gui.WardPharmacyNew
+	           <-- org.isf.chronicopd.gui.OpdChronic
+	           <-- org.isf.chronicopd.gui.ChronicOpdHistoryPanel
+	           <-- org.isf.chronicopd.gui.ChronicOpdManager
+	           <-- org.isf.chronicopd.gui.ChronicVisit
+	           <-- org.isf.chronicopd.gui.IoOperations
+	           <-- org.isf.chronicopd.gui.OpdHistoryRow
+	           --> org.isf.opdchronic.service.IoOperations
+	           --> org.isf.opdchronic.model.OpdChronic
+	           --> org.isf.opdchronic.gui.OpdChronicDetail
+	           --> org.isf.opdchronic.gui.OpdChronicEdit
+	           --> org.isf.opdchronic.gui.OpdChronicHistoryPanel
+	           --> org.isf.opdchronic.model.OpdChronicHistoryRow
+	           --> org.isf.opdchronic.manager.OpdChronicManager
+
+	Chronic Patient module, package and classes name refactoring.
+=======================================================================================================
+20.
+	06/02/2017 - language_en.properties
+	           - org.isf.opd.gui.OpdBrowser
+	           - org.isf.medicalstockward.gui.WardPharmacyNew
+	           - org.isf.opdchronic.gui.OpdChronicDetail
+	           - org.isf.opdchronic.gui.OpdChronicEdit
+
+	Chronic module, label bug fix.
+=======================================================================================================
+21.
+	06/02/2017 - language_en.properties
+	           - org.isf.opd.gui.OpdBrowser
+	           - org.isf.opd.service.IoOperations
+	           - org.isf.opd.manager.OpdBrowserManager
+	           - org.isf.opdchronic.gui.OpdChronicEdit
+	           --> org.isf.utils.jobjects.BorderedPanel
+
+	Chronic module:
+	- changed OpdBrowser filters behaviour, if PAT_PCODE hint is inserted all other filters will be
+	ignored
+	- changed OpdBrowser filters layout
+	- added a BorderedPanel utility class to refactor some commonly used methods
+=======================================================================================================
+22.
+	06/02/2017 - org.isf.opd.gui.OpdBrowser
+	
+	Chronic module:
+	- added BusyState block when searching
+=======================================================================================================
+23.
+	06/02/2017 - org.isf.accounting.gui.PatientBillEdit
+	
+	Removed "Add Custom" price for not 'admin' users
+=======================================================================================================
+24.
+	06/02/2017 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Fixed OPD saving (user was missing) and JList action listener
+=======================================================================================================
+25.
+	06/02/2017 - org.isf.opd.model.Opd
+	
+	Added missing toString() method
+=======================================================================================================
+26.
+	06/02/2017 - org.isf.opd.service.IoOperations
+	
+	Fixed getOpdList() method
+=======================================================================================================
+27.
+	06/02/2017 - org.isf.therapy.gui.ChronicTherapyEntryForm
+	
+	Fixed End Date updating (Start Date property change listener)
+======================================================================================================
+28.
+	06/02/2017 - org.isf.opd.gui.OpdBrowser
+			   - org.isf.opd.service.IoOperations
+			   - org.isf.visits.service.IoOperations
+
+			   - mysql/maintenance/release4_chronic_beta_update.sql
+			   - mysql/wolisso_step_34_chronic_opd.sql
+
+	Chronic Module:
+	- Fixed deleted OPD with CASCADE on OPD_CHRONIC and manual delete of related Visits
+======================================================================================================
+29.
+	06/02/2017 - mysql/maintenance/release4_chronic_beta_update.sql
+			   - mysql/wolisso_step_34_chronic_opd.sql
+
+	Chronic Module:
+	- Fixed bundles in the MENUITEM table
+======================================================================================================
+30.
+	06/02/2017 - org.isf.opd.gui.OpdBrowser
+	           - org.isf.opd.service.IoOperations
+
+	Changed the way of retrieving visits for chronic OPDs from the database (less queries).
+	Added the search on enter functionality to the OpdCode search field in OpdBrowser.
+=======================================================================================================
+31.
+	07/02/2017 - org.isf.opd.service.IoOperations
+	           - org.isf.opdchronic.service.IoOperations
+
+	Chronic module bug fixing on visits data parsing.
+=======================================================================================================
+32.
+	07/02/2017 - org.isf.medicalstockward.gui.WardPharmacyNew
+               - org.isf.patient.service.IoOperations
+               - org.isf.opd.service.IoOperations
+
+	Changed the ordering for some opd queries (now by OPD_DATE_VIS and OPD_DATE instead of OPD_PROG_YEAR)
+=======================================================================================================
+33.
+	07/02/2017 - mysql/maintenance/release4_chronic_beta_update.sql
+
+	Chronic Module: Fixed the script in order to work on Linux
+=======================================================================================================
+34.
+	07/02/2017 - org.isf.opdchronic.service.IoOperations
+               - org.isf.opdchronic.gui.OpdChronicEdit
+               - org.isf.opdchronic.gui.OpdChronicHistoryPanel
+               - org.isf.opdchronic.model.OpdChronicHistoryRow
+               - org.isf.opdchronic.manager.OpdChronicManager
+
+	Added some info to OPD History panel.
+=======================================================================================================
+35.
+	08/02/2017 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Fixed bug on saving prescription when OPD case is already there
+=======================================================================================================
+36.
+	10/02/2017 - org.isf.accounting.gui.BillBrowser
+	
+			   - rpt/OH019_PrivatePatientsBill.jasper
+			   - rpt/OH019_PrivatePatientsBill.jrxml
+	
+	Clear Company button:
+	- Fixed date range calculation from European calendar
+	- Fixed page numbering in Company & Private bills report
+=======================================================================================================
+37.
+	10/02/2017 - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   
+			   - rpt/BillsReport.jasper
+			   - rpt/BillsReport.jrxml
+			   - rpt/BillsReportMonth.jasper
+			   - rpt/BillsReportMonth.jrxml
+			   - rpt/OH023_BillsReport.jasper
+			   - rpt/OH023_BillsReport.jrxml
+			   
+	Added new report for Revenues, Incomes & Receivables
+=======================================================================================================
+38.
+	23/02/2017 --> doc/malnutrition_module_release_notes.txt
+	           --> org.isf.malnutrition.model.MalnutritionVisit
+	           --> org.isf.malnutrition.gui.MalnutritionVisitEdit
+	           --> org.isf.malnutrition.gui.MalnutritionVisitPanel
+	           --> org.isf.malnutrition.model.TfuPatient
+	           --> org.isf.malnutrition.utils.WhReference
+	           --> rpt/WolissoTfuZonalReport.jrxml
+	           --> rpt/WolissoTfuZonalReport.jasper
+	           --> mysql/db/wolisso_step_36_malnutrition_module.sql
+	           - org.isf.admission.manager.AdmissionBrowserManager
+	           - org.isf.admission.gui.AdmittedPatientBrowser
+	           - org.isf.utils.time.Converters
+	           - org.isf.utils.jobjects.FormattedTextField
+	           - org.isf.malnutrition.service.IoOperation
+	           - org.isf.admission.service.IoOperations
+	           - language_en.properties
+	           - org.isf.malnutrition.manager.MalnutritionManager
+	           - org.isf.admission.gui.PatientDataBrowser
+	           - org.isf.patient.gui.PatientInsertExtended
+	           - org.isf.patient.gui.PatientSummary
+	           - org.isf.stat.reportlauncher.gui.ReportLauncher
+	           <-- org.isf.malnutrition.gui.InsertMalnutrition
+	           <-- org.isf.malnutrition.model.Malnutrition
+	           <-- org.isf.malnutrition.gui.MalnutritionBrowser
+
+	Beta release of the malnutrition module.
+=======================================================================================================
+39.
+	03/03/2017 - org.isf.utils.excel.ExcelExporter
+	
+	Improved Excel filesize and styles
+=======================================================================================================
+* Wolisso_core1_7_0_release5 (released on 23/02/2017)
+- Final Chronic Patient module
+- Added the PAT_PCODE (OPD Number) to OPDBrowser table.
+- Added a filter by OPD Number to OPDBrowser.
+- Added new Time Util to retrieve today's date (with time 00:00:00 or 23:59:59)
+- Added warning for the Pharmacist in case the Patient has an OPD with the same disease
+- Improved Clear Company button by allowing the user to select which bill to close
+- New SMS module (backport from version 1.8.2):
+- Removed "Add Custom" price for not 'admin' users in BillEdit
+- Added new report for Revenues, Incomes & Receivables
+- Improved Excel filesize and styles
+=======================================================================================================
+1.
+	08/03/2017 - rpt/ADM_cost_betweentwodates_report.jasper
+			   - rpt/ADM_cost_betweentwodates_report.jrxml
+			   - rpt/OH008A_IncomesDrugsByAmount.jasper
+			   - rpt/OH008A_IncomesDrugsByAmount.jrxml
+			   - rpt/OH008B_IncomesDrugsByCode.jasper
+			   - rpt/OH008B_IncomesDrugsByCode.jrxml
+			   
+	Improved some reports with totals and differences in the PDF and resultset (Excel)
+=======================================================================================================
+2.
+	09/03/2017 - rpt/ADM_cost_betweentwodates_report.jasper
+			   - rpt/ADM_cost_betweentwodates_report.jrxml
+			  
+	Fix: the report was miscalculating the total amount
+=======================================================================================================
+3.
+	09/03/2017 - org.isf.utils.excel.ExcelExporter
+	
+	Removed limit of 32,767 (short) rows (max is 65,535)
+=======================================================================================================
+4.
+	13/03/2017 - org.isf.opd.service.IoOperations
+	
+	Fixed one query for "OH021 - (New!) OPD AVG Cost" report.
+	
+	TODO (reports needs optimization because too slow):
+	- OH020 - (New!) Admission AVG Cost
+	- OH021 - (New!) OPD AVG Cost
+=======================================================================================================
+5.
+	09/03/2017 - rpt/ADM_cost_betweentwodates_report.jasper
+			   - rpt/ADM_cost_betweentwodates_report.jrxml
+			  
+	Fix: the report was miscalculating the averages
+=======================================================================================================
+6.
+	17/03/2017 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.accounting.model.Bill
+			   - org.isf.accounting.service.IoOperations
+			   - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   
+			   --> mysql/db/maintenance/wolisso_04_procedure_admission_from_bill.sql
+			   --> mysql/db/wolisso_step_37_admission_bills.sql
+			   --> rpt/BillsReportUserInDate2.jasper
+			   --> rpt/BillsReportUserInDate2.jrxml
+			   --> rpt/OH023_BillsReport_monthly.jasper
+			   --> rpt/OH023_BillsReport_monthly.jrxml
+			   --> rpt/OH024_Incomes_and_Exemptions.jasper
+			   --> rpt/OH024_Incomes_and_Exemptions.jrxml
+			   
+	Billing update!
+	- Added new field to better link bills and admission and so improve reporting (speed and precision)
+	- Added two new accounting reports (in statistics)
+=======================================================================================================
+7.
+	17/03/2017 - org.isf.admission.service.IoOperations
+			   --> org.isf.malnutrition.gui.MalnutritionController
+			   - org.isf.malnutrition.gui.MalnutritionVisitEdit
+			   - org.isf.malnutrition.gui.MalnutritionVisitPanel
+			   - org.isf.malnutrition.manager.MalnutritionManager
+			   - org.isf.malnutrition.service.IoOperations
+			   
+			   - mysql/db/wolisso_step_36_malnutrition_module.sql
+			   
+	Beta2 release of the malnutrition module:
+	- minor gui fixes
+	- moved business/gui logic to "controller" class
+	- fixed script in order to use the v1.7.0 tables and fields
+=======================================================================================================
+8.
+	17/03/2017 - org.isf.malnutrition.manager.MalnutritionManager
+			   - org.isf.malnutrition.service.IoOperations
+			   
+			   - mysql/db/wolisso_step_36_malnutrition_module.sql
+			   
+	Beta2 release of the malnutrition module:
+	- added logic to set and unset the malnutritioncontrol flag on Admission table
+=======================================================================================================
+9.
+	17/03/2017 - rsc/version.properties
+	
+	Updated version to release6_beta (temporary)
+=======================================================================================================
+10.
+	22/03/2017 - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.accounting.service.IoOperations
+			   
+	Fixed a bug in new Bills and when editing a bill without admission
+=======================================================================================================
+11.
+	05/06/2017 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.stat.manager.GenericReportFromDateToDate
+			   - org.isf.stat.manager.GenericReportMY
+			   - org.isf.stat.reportlauncher.gui.ReportLauncher
+			   - org.isf.utils.excel.ExcelExporter
+			   - org.isf.xmpp.gui.ChatMessages
+			   
+			   --> lib/poi-3.7.jar
+			   --> lib/xmlbeans-2.3.0.jar
+			   --> lib/poi-ooxml-3.7.jar
+			   --> lib/poi-ooxml-schemas-3.7.jar
+			   --> lib/dom4j-1.6.1.jar
+			   
+	Added new libraries in order to go beyond the limit of 65536 rows in Excel 2010. 
+	Kept compatibility with Excel 97-2003 through the file chooser ("save as" dialog)
+=======================================================================================================
+12.
+	20/06/2017 - org.isf.accounting.gui.PatientBillEdit
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   
+	Fixed a bug when new Bills for admission come from Pharmacy/Prescriptions
+	TODO: find a workaround for Emergency cases that can be closed as OPD or IPD as well
+=======================================================================================================
+13.
+	20/06/2017 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Added "N2" free code
+=======================================================================================================
+14.
+	20/06/2017 - org.isf.medicalstockward.gui.WardPharmacyNew
+	
+	Added "N1" free code
+=======================================================================================================
+15.
+	16/08/2017 - rpt/OH007_IncomesIpdByPriceCodes.jrxml
+			   - rpt/OH007_IncomesIpdByPriceCodes.jasper
+	18/08/2017 - rpt/OH006_IncomesOpdByPriceCodes.jrxml
+			   - rpt/OH006_IncomesOpdByPriceCodes.jasper
+	23/08/2017 - rpt/OH005_IncomesAllByCategories.jrxml
+			   - rpt/OH005_IncomesAllByCategories.jasper
+	
+	Updated New Price codes.
+=======================================================================================================
+16.
+	31/08/2017 - rpt/PharmaceuticalStock.jrxml
+			   - rpt/PharmaceuticalStock.jasper
+			   
+	Updated STOCK report in order to include new products without movements yet
+=======================================================================================================
+17.
+	31/08/2017 - org.isf.medicalstock.manager.MovStockInsertingManager
+			   --> mysql/db/manteinance/wolisso_05_procedure_medicaldsr_table_input_output_fix.sql
+			   
+	Multiple charge and discharge operations made safer and new procedure to update MEDICALDSR table
+	on the MEDICALDSRSTOCKMOV one
+=======================================================================================================
+18.
+	29/09/2017 - org.isf.disease.gui.DiseaseBrowser
+			   - org.isf.disease.gui.DiseaseEdit
+			   - org.isf.disease.model.Disease
+			   - org.isf.disease.service.IoOperations
+			   - org.isf.opd.gui.OpdBrowser
+			   
+	Added hidden field DIS_IS_CHRONIC in model, gui and service
+=======================================================================================================
+19.
+	29/09/2017 - org.isf.disease.gui.DiseaseEdit
+	
+	Fixed GUI layout
+=======================================================================================================
+20.
+	04/10/2017 - org.isf.admission.gui.AdmissionBrowser
+			   - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.admission.manager.AdmissionBrowserManager
+			   - org.isf.admission.service.IoOperations
+			   - org.isf.malnutrition.gui.MalnutritionController
+			   - org.isf.malnutrition.gui.MalnutritionVisitEdit
+			   - org.isf.malnutrition.gui.MalnutritionVisitPanel
+			   - org.isf.malnutrition.model.MalnutritionVisit
+			   - org.isf.malnutrition.model.TfuPatient
+			   - org.isf.malnutrition.service.IoOperations
+			   - org.isf.utils.jobjects.BorderedPanel
+			   
+			   - bundle/language_xx.properties
+			   - mysql/db/wolisso_step_36_malnutrition_module.sql
+			   
+	Beta3 release of the malnutrition module:
+	- added new fields (RELAPSE, SEPSIS, ANAEMIA, PNEUMONIA, MALARIA, CP, RICKETTS, OTHER, 
+	  FROM_OTHER_OTP, TO_OTHER_TFP, MEDICAL_TRANSFER)
+	- fixed TFU Filter in Admission/Patients
+	- Improved GUI
+	
+	TODO: Fix TFU Zonal Report and add new TFU Outcome Report (from Dr.Anna)
+=======================================================================================================
+21.
+	05/10/2017 - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.medicals.manager.MedicalBrowsingManager
+			   - org.isf.medicals.service.IoOperations
+			   - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   - org.isf.medicalstockward.gui.WardPharmacy
+			   - org.isf.medicalstockward.gui.WardPharmacyNew
+			   - org.isf.medicalstockward.gui.WardPharmacyRectify
+			   - org.isf.medicalstockward.gui.WardPharmacyReturn
+			   - org.isf.opd.gui.OpdBrowser
+			   - org.isf.opd.gui.OpdEditExtended
+			   - org.isf.priceslit.gui.PricesBrowser
+			   - org.isf.serviceprinting.print.MedicalPrintSelection
+			   - org.isf.serviceprinting.print.MedicalStockSelection
+			   - org.isf.therapy.gui.ChronicTherapyEntryForm
+			   - org.isf.therapy.gui.TherapyEdit
+			   - org.isf.therapy.gui.TherapyEntryForm
+			   
+	Refactored getMedicals() method in order to have different sorting, by Name or by Code
+=======================================================================================================
+22.
+	07/10/2017 - org.isf.admission.gui.AdmittedPatientBrowser
+			   - org.isf.opdchronic.manager.OpdChronicManager
+			   
+			   --> mysql/db/wolisso_step_38_HMIS_migration_script.csv
+			   --> mysql/db/wolisso_step_38_HMIS_migration_script.sql
+			   
+	New HMIS codes!
+	1. run the script on the server
+	2. deploy the new version on each client
+=======================================================================================================
+23.
+	13/10/2017 - org.isf.malnutrition.gui.MalnutritionVisitPanel
+	
+	Malnutrition module: Fixed WH ranges
+=======================================================================================================
+24.
+	13/10/2017 - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.medicals.manager.MedicalBrowsingManager
+			   - org.isf.medicals.service.IoOperations
+			   - org.isf.medicalstock.gui.MovStockMultipleCharging
+			   - org.isf.medicalstock.gui.MovStockMultipleDischarging
+			   
+	Pharmacy Enhancements:
+	- Added search field in MedicalBrowser
+	- Added row sorting by clicking on the column header
+	- Added remove item button on both Charging and Discharging windows
+=======================================================================================================
+25.
+	13/10/2017 - mysql/db/maintenance/wolisso_06_procedure_fix_double_chronic_visits.sql
+			   - mysql/db/maintenance/wolisso_07_procedure_fix_multiple_opds.sql
+			   
+	Added new scripts for fixing OPDs:
+	- wolisso_06: fixes the double OPDs done by Chronic staff when Pharmacy already processed the 
+	prescription
+	- wolisso_07: fixes the multiple OPDs done by the Pharmacy on Emergency cases when not using the 
+	Emergency code
+=======================================================================================================
+26.
+	13/10/2017 - rpt/OH017_ExemptionReport.jasper
+			   - rpt/OH017_ExemptionReport.jrxml
+			   - rpt/OH023_BillsReport_monthly.jasper
+			   - rpt/OH023_BillsReport_monthly.jrxml
+			   
+	Fixed one OH017 formula and some OH023 labels
+=======================================================================================================
+27.
+	13/10/2017 - org.isf.utils.excel.ExcelExporter
+	
+	Honoring sorting on jtable (if any) to exportTableToExcel()
+=======================================================================================================
+28.
+	13/10/2017 - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.medicalstock.gui.MovStockBrowser
+			   - org.isf.stat.manager.GenericReportPharmaceuticalStock
+			   
+			   --> PharmaceuticalStock_ver4.jasper
+			   --> PharmaceuticalStock_ver4.jrxml
+			   - rsc/generalData.properties
+	
+	Added semi-dynamic Stock report which reflect the new sorting & filtering behaviur of the 
+	MedicalBrowser window
+=======================================================================================================
+29.
+	07/11/2017 - org.isf.admission.service.IoOperations
+	
+	Fixed query to retrieve admitted patients
+=======================================================================================================
+30.
+	07/11/2017 - rpt/OH008A_IncomesDrugsByAmount.*
+			   - rpt/OH008A_IncomesDrugsByCode.*
+			   
+	Fixed "Emer" calculation (time limit was missing)
+=======================================================================================================
+* Wolisso_core1_7_0_release6_beta (released on 07/11/2017)
+- Improved some reports with totals and differences in the PDF and resultset (Excel)
+- Added new field to better link bills and admission and so improve reporting (speed and precision)
+- Added two new accounting reports (in statistics)
+- New malnutrition module
+- Added new libraries in order to go beyond the limit of 65536 rows in Excel 2010. 
+- Kept compatibility with Excel 97-2003 through the file chooser ("save as" dialog)
+- Added "N2" free code
+- Added "N1" free code
+- Updated New Price codes.
+- Updated STOCK report in order to include new products without movements yet
+- New HMIS codes!
+- Added search field in MedicalBrowser
+- Added row sorting by clicking on the column header
+- Added remove item button on both Charging and Discharging windows
+- Added semi-dynamic Stock report which reflect the new sorting & filtering behaviur of the MedicalBrowser window
+=================================================================================================================
+1.
+	23/11/2017 - org.isf.accounting.gui.BillBrowser
+			   - org.isf.utils.time.TimeTools
+			   
+	Moved isSameDay() method to TimeTools library
+=================================================================================================================
+2.
+	23/11/2017 - org.isf.accounting.manager.BillBrowserManager
+			   - org.isf.accounting.service.IoOperations
+			   
+	Added method to retrieve all patient's bills between two dates
+=================================================================================================================
+3.
+	23/11/2017 - org.isf.admission.manager.AdmissionBrowserManager
+			   - org.isf.admission.service.IoOperations
+	
+	Added two methods to retrieve next admission following an OPD or another Admission
+=================================================================================================================
+4.
+	23/11/2017 - org.isf.opd.manager.OpdBrowserManager
+			   - org.isf.opd.service.IoOperations
+	
+	Added two methods to retrieve next OPD following an Admission or another OPD
+=================================================================================================================
+5.
+	23/11/2017 - org.isf.stat.java.OH020_AdmissionAverageCost
+			   - org.isf.stat.java.OH021_OPDAverageCost
+			   
+	Improved speed of Java reports by retriving and process less data from the DB
+=================================================================================================================
+6.
+	24/11/2017 - org.isf.medicals.gui.MedicalBrowser
+			   - org.isf.stat.manager.GenericReportPharmaceuticalStock
+			   
+			   - rpt/PharmaceuticalStock_ver4.jasper
+			   - rpt/PharmaceuticalStock_ver4.jrxml
+			   
+	Updated semi-dynamic STOCK report in order to reflect the visualized data
+=================================================================================================================
+7.
+	24/11/2017 - org.isf.medicalstockward.gui.WardPharmacy
+			   --> org.isf.stat.manager.GenericReportPharmaceuticalStockWard
+			   
+			   --> rpt/PharmaceuticalStockWard.jasper
+			   --> rpt/PharmaceuticalStockWard.jrxml
+			   
+	Added new report for Stock evaluation in wards at date
+=================================================================================================================
+8.
+	25/11/2017 - rpt/PharmaceuticalAMC.jasper
+			   - rpt/PharmaceuticalAMC.jrxml
+			   
+	Added average evaluation in AMC report
+=================================================================================================================
+4a1d920a - Alessandro Domanico - 2018-06-27 14:54:57 +0200: New migration script for HMIS codes (NCOD-ICD10)
+84e42922 - Alessandro Domanico - 2018-05-09 14:12:09 +0200: BillUserInDate Report: fixed accounting bridge for OpenERP entry
+901eda7c - Alessandro Domanico - 2018-04-30 20:23:32 +0200: BillUserInDate Report: added accounting bridge for OpenERP entry
+779f7961 - Alessandro Domanico - 2018-04-30 20:22:26 +0200: BillManager: fixed report button for SINGLEUSER=yes
+e2515759 - Alessandro Domanico - 2018-04-27 13:39:31 +0200: OpdChronicEdit: shows all therapies prescribed in each visit
+abdf25af - Alessandro Domanico - 2018-04-27 13:38:16 +0200: OpdChronicEdit: add check on deleted diseases
+4afe88ff - Alessandro Domanico - 2018-04-27 13:35:34 +0200: OpdEditExtended: add check to avoid double warnings on missing diseases
+7e795b75 - Alessandro Domanico - 2018-04-21 16:29:01 +0200: Added .gitignore
+=======================================================================================================
+* Wolisso_core1_7_0_release6 (released on 27/06/2018)
+- Improved speed of Java reports by retriving and process less data from the DB
+- Added new report for Stock evaluation in wards at date
+- Added average evaluation in AMC report
+- OpdEditExtended: add check to avoid double warnings on missing diseases
+- OpdChronicEdit: shows all therapies prescribed in each visit
+- BillManager: fixed report button for SINGLEUSER=yes
+- BillUserInDate Report: added accounting bridge for OpenERP entry
+- New migration script for HMIS codes (NCOD-ICD10)
+=================================================================================================================

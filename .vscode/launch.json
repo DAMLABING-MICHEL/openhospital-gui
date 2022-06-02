@@ -1,0 +1,741 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Wolisso",
+            "request": "launch",
+            "mainClass": "org.isf.menu.gui.Menu"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HalDeviceDetectionHelper<OpenHospital>",
+            "request": "launch",
+            "mainClass": "au.edu.jcu.haldbus.HalDeviceDetectionHelper",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestDumpProperties<OpenHospital>",
+            "request": "launch",
+            "mainClass": "au.edu.jcu.haldbus.listener.TestDumpProperties",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestListenerDeviceAdded<OpenHospital>",
+            "request": "launch",
+            "mainClass": "au.edu.jcu.haldbus.listener.TestListenerDeviceAdded",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-VideoDevice<OpenHospital>",
+            "request": "launch",
+            "mainClass": "au.edu.jcu.v4l4j.VideoDevice",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DeviceChooser<OpenHospital>",
+            "request": "launch",
+            "mainClass": "au.edu.jcu.v4l4j.examples.DeviceChooser",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GetFrameRate<OpenHospital>",
+            "request": "launch",
+            "mainClass": "au.edu.jcu.v4l4j.examples.GetFrameRate",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JPEGViewer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "au.edu.jcu.v4l4j.examples.JPEGViewer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RGBViewer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "au.edu.jcu.v4l4j.examples.RGBViewer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-concat_pdf<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.lowagie.tools.concat_pdf",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-encrypt_pdf<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.lowagie.tools.encrypt_pdf",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-handout_pdf<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.lowagie.tools.handout_pdf",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-split_pdf<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.lowagie.tools.split_pdf",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DocsConnectionPropsHelper<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.mysql.jdbc.DocsConnectionPropsHelper",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ErrorMappingsDocGenerator<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.mysql.jdbc.util.ErrorMappingsDocGenerator",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PropertiesDocGenerator<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.mysql.jdbc.util.PropertiesDocGenerator",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TimezoneDump<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.mysql.jdbc.util.TimezoneDump",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-VersionFSHierarchyMaker<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.mysql.jdbc.util.VersionFSHierarchyMaker",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Native<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.sun.jna.Native",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Native$DeleteNativeLibrary<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.sun.jna.Native$DeleteNativeLibrary",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JCalendar<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.toedter.calendar.JCalendar",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JDateChooser<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.toedter.calendar.JDateChooser",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JDayChooser<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.toedter.calendar.JDayChooser",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JMonthChooser<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.toedter.calendar.JMonthChooser",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JTextFieldDateEditor<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.toedter.calendar.JTextFieldDateEditor",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JYearChooser<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.toedter.calendar.JYearChooser",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JCalendarDemo<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.toedter.calendar.demo.JCalendarDemo",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JLocaleChooser<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.toedter.components.JLocaleChooser",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JSpinField<OpenHospital>",
+            "request": "launch",
+            "mainClass": "com.toedter.components.JSpinField",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-test<OpenHospital>",
+            "request": "launch",
+            "mainClass": "cx.ath.matthew.io.test",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-test2<OpenHospital>",
+            "request": "launch",
+            "mainClass": "cx.ath.matthew.io.test2",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-test3<OpenHospital>",
+            "request": "launch",
+            "mainClass": "cx.ath.matthew.io.test3",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-testclient<OpenHospital>",
+            "request": "launch",
+            "mainClass": "cx.ath.matthew.unix.testclient",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-testserver<OpenHospital>",
+            "request": "launch",
+            "mainClass": "cx.ath.matthew.unix.testserver",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BlackBox<OpenHospital>",
+            "request": "launch",
+            "mainClass": "examples.BlackBox.BlackBox",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ParallelBlackBox<OpenHospital>",
+            "request": "launch",
+            "mainClass": "examples.ParallelBlackBox.ParallelBlackBox",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SerialDemo<OpenHospital>",
+            "request": "launch",
+            "mainClass": "examples.SerialDemo.SerialDemo",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SimpleRead<OpenHospital>",
+            "request": "launch",
+            "mainClass": "examples.Simple.SimpleRead",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SimpleWrite<OpenHospital>",
+            "request": "launch",
+            "mainClass": "examples.Simple.SimpleWrite",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RMIAgentImpl<OpenHospital>",
+            "request": "launch",
+            "mainClass": "jcu.sal.agent.RMIAgentImpl",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RmiClient<OpenHospital>",
+            "request": "launch",
+            "mainClass": "jcu.sal.client.RmiClient",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RmiClientDummyStressTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "jcu.sal.client.RmiClientDummyStressTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SALClient<OpenHospital>",
+            "request": "launch",
+            "mainClass": "jcu.sal.client.SALClient",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RmiClientDummyStressTest2<OpenHospital>",
+            "request": "launch",
+            "mainClass": "jcu.sal.client.stressTest.RmiClientDummyStressTest2",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SerialEndPoint<OpenHospital>",
+            "request": "launch",
+            "mainClass": "jcu.sal.components.EndPoints.SerialEndPoint",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Version<OpenHospital>",
+            "request": "launch",
+            "mainClass": "junit.runner.Version",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestRunner<OpenHospital>",
+            "request": "launch",
+            "mainClass": "junit.textui.TestRunner",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JRXmlDataSource<OpenHospital>",
+            "request": "launch",
+            "mainClass": "net.sf.jasperreports.engine.data.JRXmlDataSource",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JasperDesignViewer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "net.sf.jasperreports.view.JasperDesignViewer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JasperViewer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "net.sf.jasperreports.view.JasperViewer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.chainsaw.Main",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PropertyPrinter<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.config.PropertyPrinter",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-LF5Appender<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.lf5.LF5Appender",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-StartLogFactor5<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.lf5.StartLogFactor5",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JMSSink<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.net.JMSSink",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SimpleSocketServer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.net.SimpleSocketServer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SocketServer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.net.SocketServer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Roller<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.varia.Roller",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AudioPanorama<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.AudioPanorama",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AudioPlayer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.AudioPlayer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AudioPlayerMetadata<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.AudioPlayerMetadata",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BusMessages<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.BusMessages",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ButtonDemo<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.ButtonDemo",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ColorBalance<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.ColorBalance",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DecodeBinPlayer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.DecodeBinPlayer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DoubleQuit<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.DoubleQuit",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DynamicPadTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.DynamicPadTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ElementTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.ElementTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FakeSrcTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.FakeSrcTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GDateTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.GDateTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-InitTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.InitTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-InputStreamSrcTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.InputStreamSrcTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-NavigationTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.NavigationTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-OutputStreamSinkTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.OutputStreamSinkTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-OverlayPlayer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.OverlayPlayer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PiPDemo<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.PiPDemo",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PipelineLauncher<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.PipelineLauncher",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Player<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.Player",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PropertyProber<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.PropertyProber",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SimplePipeline<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.SimplePipeline",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SwingMultiPlayer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.SwingMultiPlayer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SwingMultiPlayerAlpha<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.SwingMultiPlayerAlpha",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SwingPlayer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.SwingPlayer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TagFinder<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.TagFinder",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TunerTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.TunerTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TypeFindTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.TypeFindTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-VideoPlayer<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.VideoPlayer",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-VideoTest<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.gstreamer.example.VideoTest",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<OpenHospital>(1)",
+            "request": "launch",
+            "mainClass": "org.gstreamer.lowlevel.Main",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IoOperation<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.isf.admtype.service.IoOperation",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IoOperation<OpenHospital>(1)",
+            "request": "launch",
+            "mainClass": "org.isf.disctype.service.IoOperation",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IoOperation<OpenHospital>(2)",
+            "request": "launch",
+            "mainClass": "org.isf.dlvrrestype.service.IoOperation",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IoOperation<OpenHospital>(3)",
+            "request": "launch",
+            "mainClass": "org.isf.dlvrtype.service.IoOperation",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Menu<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.isf.menu.gui.Menu",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IoOperation<OpenHospital>(4)",
+            "request": "launch",
+            "mainClass": "org.isf.pregtreattype.service.IoOperation",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MedicalPrintSelection<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.isf.serviceprinting.print.MedicalPrintSelection",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MedicalStockSelection<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.isf.serviceprinting.print.MedicalStockSelection",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JAgenda<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.isf.utils.jobjects.JAgenda",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JTimeTable<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.isf.utils.jobjects.JTimeTable",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<OpenHospital>(2)",
+            "request": "launch",
+            "mainClass": "org.isf.video.Main",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JUnitCore<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Base64Decoder<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.w3c.tools.codec.Base64Decoder",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Base64Encoder<OpenHospital>",
+            "request": "launch",
+            "mainClass": "org.w3c.tools.codec.Base64Encoder",
+            "projectName": "OpenHospital"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PApplet<OpenHospital>",
+            "request": "launch",
+            "mainClass": "processing.core.PApplet",
+            "projectName": "OpenHospital"
+        }
+    ]
+}

@@ -1,0 +1,101 @@
+START TRANSACTION;
+
+# Add visits_id and user_reference to OPD table
+ALTER TABLE OPD ADD OPD_SCHEDULED_VISIT_ID INT(11) NULL;
+ALTER TABLE OPD ADD OPD_NEXT_VISIT_ID INT(11) NULL;
+ALTER TABLE OPD ADD OPD_US_ID_A VARCHAR(32) DEFAULT 'admin';
+
+ALTER TABLE OPD 
+ADD INDEX FK_OPD_NEXT_VISIT_IDX (OPD_NEXT_VISIT_ID ASC),
+ADD INDEX FK_OPD_SCHED_VISIT_IDX (OPD_SCHEDULED_VISIT_ID ASC),
+ADD INDEX FK_OPD_USER_IDX (OPD_US_ID_A ASC);
+
+ALTER TABLE OPD 
+ADD CONSTRAINT FK_OPD_NEXT_VISIT FOREIGN KEY (OPD_NEXT_VISIT_ID) REFERENCES VISITS (VST_ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT FK_OPD_SCHED_VISIT FOREIGN KEY (OPD_SCHEDULED_VISIT_ID) REFERENCES VISITS (VST_ID) ON DELETE NO ACTION ON UPDATE NO ACTION, 
+ADD CONSTRAINT FK_OPD_USER FOREIGN KEY (OPD_US_ID_A) REFERENCES USER (US_ID_A) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+# Create procedure to migrate opd visits data
+DELIMITER |
+CREATE PROCEDURE migrate_chronic_visit_dates_to_visit()
+  BEGIN
+    DECLARE isDone INT;
+
+    DECLARE patientId INT(11);
+    DECLARE opdId INT(11);
+    DECLARE scheduledVisitDate DATETIME;
+    DECLARE nextVisitDate DATETIME;
+    DECLARE userId VARCHAR(50);
+
+    DECLARE curs CURSOR FOR SELECT
+                              OPD_ID,
+                              OPD_PAT_ID,
+                              OPD_SCHEDULED_VISIT_DATE,
+                              OPD_NEXT_VISIT_DATE,
+                              CV_USER
+                            FROM CHRONIC_VISIT
+                              JOIN OPD ON CV_OPD_ID = OPD_ID
+                            ORDER BY OPD_DATE;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET isDone = 1;
+
+    OPEN curs;
+    SET isDone = 0;
+
+    REPEAT
+      IF NOT isDone
+      THEN
+        FETCH curs
+        INTO opdId, patientId, scheduledVisitDate, nextVisitDate, userId;
+
+        IF nextVisitDate IS NOT NULL
+        THEN
+          INSERT INTO VISITS (VST_PAT_ID, VST_DATE) VALUES (patientId, nextVisitDate);
+          UPDATE OPD
+          SET OPD_NEXT_VISIT_ID = LAST_INSERT_ID(), OPD_US_ID_A = userId
+          WHERE OPD_ID = opdId;
+        END IF;
+
+        IF scheduledVisitDate IS NOT NULL
+        THEN
+          INSERT INTO VISITS (VST_PAT_ID, VST_DATE) VALUES (patientId, scheduledVisitDate);
+          UPDATE OPD
+          SET OPD_SCHEDULED_VISIT_ID = LAST_INSERT_ID(), OPD_US_ID_A = userId
+          WHERE OPD_ID = opdId;
+        END IF;
+
+      END IF;
+    UNTIL isDone END REPEAT;
+  END |
+DELIMITER ;
+
+# Call procedure
+CALL migrate_chronic_visit_dates_to_visit();
+DROP PROCEDURE migrate_chronic_visit_dates_to_visit;
+
+# Drop old visit date columns
+ALTER TABLE OPD DROP OPD_SCHEDULED_VISIT_DATE;
+ALTER TABLE OPD DROP OPD_NEXT_VISIT_DATE;
+
+#Drop CV_USER column from CHRONIC_VISIT table
+ALTER TABLE CHRONIC_VISIT DROP CV_USER;
+
+# Drop IS_CHRONIC field from VISITS table, totally meaningless
+ALTER TABLE VISITS DROP IS_CHRONIC;
+
+# Change the name of CHRONIC_VISIT table to OPD_CHRONIC
+ALTER TABLE CHRONIC_VISIT RENAME TO OPD_CHRONIC;
+
+ALTER TABLE OPD_CHRONIC 
+ADD INDEX FK_OPD_CHRONIC_OPD_IDX (CV_OPD_ID ASC);
+
+ALTER TABLE OPD_CHRONIC 
+ADD CONSTRAINT FK_OPD_CHRONIC_OPD FOREIGN KEY (CV_OPD_ID) REFERENCES OPD (OPD_ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+# Change the name of THR_OPD_CODE column to THR_OPD_ID in THERAPIES table
+ALTER TABLE THERAPIES CHANGE THR_OPD_CODE THR_OPD_ID INT(11);
+
+# Update bundles in the MENUITEM table
+UPDATE MENUITEM SET MNI_BTN_LABEL='angal.opdchronic.registration', MNI_LABEL='angal.opdchronic.registration' WHERE MNI_ID_A='btnchropd';
+
+
+COMMIT;

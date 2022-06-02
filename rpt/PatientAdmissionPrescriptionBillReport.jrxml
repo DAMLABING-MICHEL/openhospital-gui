@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="PatientAdmissionPrescriptionBillReport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="fromdate" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="todate" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT ADM_ID, WRD_NAME, ADM_PAT_ID, SEX, AGE, OUT_DISEASE1, OUT_DISEASE2, OUT_DISEASE3, MWP_DATE, MWPD_MDSR_QTY, MDSR_DESC, BLL_AMOUNT, BLL_FREE, DOCTOR
+FROM (SELECT ADM_ID, WRD_NAME, ADM_PAT_ID, SEX, AGE, OUT_DISEASE1, OUT_DISEASE2, OUT_DISEASE3, MWP_DATE, MWPD_MDSR_QTY, MDSR_DESC, MWP_BLL_ID, DOCTOR
+		FROM (SELECT ADM_ID, WRD_NAME, ADM_PAT_ID, SEX, AGE, OUT_DISEASE1, OUT_DISEASE2, OUT_DISEASE3, MWP_DATE, MWPD_MDSR_QTY, MWPD_MDSR_ID, MWP_BLL_ID, DOCTOR
+				FROM (SELECT ADM_ID, WRD_NAME, ADM_PAT_ID, SEX, AGE, OUT_DISEASE1, OUT_DISEASE2, OUT_DISEASE3, MWP_DATE, MWP_ID, MWP_BLL_ID, ( SELECT PRS_NAME FROM PRESCRIBER WHERE PRS_ID = MWP_PRS_ID ) AS DOCTOR
+						FROM (select ADM_ID, WRD_NAME, ADM_PAT_ID, PAT_SEX AS SEX, TIMESTAMPDIFF(YEAR, PAT_BDATE, ADM_DATE_ADM) AS AGE, ADM_DATE_ADM, ADM_DATE_DIS, 
+										(SELECT DIS_DESC FROM DISEASE WHERE DIS_ID_A = ADM_OUT_DIS_ID_A) AS OUT_DISEASE1,
+										(SELECT DIS_DESC FROM DISEASE WHERE DIS_ID_A = ADM_OUT_DIS_ID_A_2) AS OUT_DISEASE2,
+										(SELECT DIS_DESC FROM DISEASE WHERE DIS_ID_A = ADM_OUT_DIS_ID_A_3) AS OUT_DISEASE3
+								FROM ADMISSION JOIN WARD ON ADM_WRD_ID_A = WRD_ID_A
+								JOIN PATIENT ON ADM_PAT_ID = PAT_ID
+								WHERE DATE(ADM_DATE_DIS) between str_to_date($P{fromdate},'%d/%m/%Y') and str_to_date($P{todate},'%d/%m/%Y')
+								  and ADM_DATE_DIS != 'NULL' AND ADM_DELETED='N'
+							 ) admissions
+						JOIN MEDICALDSRWARDPRESCRIPTION on MWP_PAT_ID=ADM_PAT_ID 
+						  and MWP_DATE >= ADM_DATE_ADM and DATE(MWP_DATE) <= DATE(ADM_DATE_DIS)) prescriptions
+				JOIN MEDICALDSRWARDPRESCRIPTIONDETAIL on MWPD_MWP_ID = MWP_ID) prescriptionsdetails
+		JOIN MEDICALDSR on MWPD_MDSR_ID = MDSR_ID) medicals
+LEFT JOIN (SELECT BLL_ID, BLL_AMOUNT, BLL_AMOUNT - IF(SUM(BLP_AMOUNT) IS NULL, 0, SUM(BLP_AMOUNT)) AS BLL_FREE
+		FROM BILLS LEFT JOIN BILLPAYMENTS on BLP_ID_BILL = BLL_ID
+		GROUP BY BLL_ID) bills ON BLL_ID = MWP_BLL_ID]]></queryString>
+
+	<field name="ADM_ID" class="java.lang.Integer"/>
+	<field name="WRD_NAME" class="java.lang.String"/>
+	<field name="ADM_PAT_ID" class="java.lang.Integer"/>
+	<field name="PAT_SEX" class="java.lang.String"/>
+	<field name="AGE" class="java.lang.Long"/>
+	<field name="OUT_DISEASE1" class="java.lang.String"/>
+	<field name="OUT_DISEASE2" class="java.lang.String"/>
+	<field name="OUT_DISEASE3" class="java.lang.String"/>
+	<field name="MWP_DATE" class="java.sql.Timestamp"/>
+	<field name="MWPD_MDSR_QTY" class="java.lang.Double"/>
+	<field name="MDSR_DESC" class="java.lang.String"/>
+	<field name="BLL_AMOUNT" class="java.lang.Double"/>
+	<field name="BLL_FREE" class="java.lang.Double"/>
+	<field name="DOCTOR" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="100"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="535"
+						height="100"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
+					</textElement>
+				<text><![CDATA[To manage this dataset, export to Excel 
+with provided button]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

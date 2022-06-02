@@ -1,0 +1,4342 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="WolissoTfuZonalReport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="595"
+		 columnWidth="782"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<subDataset name="SubDataset2" >
+
+		<queryString><![CDATA[SELECT COUNT(*) AS TEST
+FROM MALNUTRITIONVISIT
+WHERE MAL_TYPE = 'admission' AND (MAL_WH = '<60%' OR MAL_WH = '60%' OR MAL_WH = '<70%') OR
+      (MAL_PAT_AGE <= 5 AND MAL_MUAC < 11) OR
+      (MAL_PAT_AGE > 5 AND MAL_MUAC < 18);]]></queryString>
+
+		<field name="TEST" class="java.lang.String"/>
+
+	</subDataset>
+
+	<subDataset name="SubDataset1" >
+
+		<queryString><![CDATA[SELECT COUNT(*)
+FROM MALNUTRITIONVISIT
+WHERE MAL_TYPE = 'admission' AND (MAL_WH = '<60%' OR MAL_WH = '60%' OR MAL_WH = '<70%') OR
+      (MAL_PAT_AGE <= 5 AND MAL_MUAC < 11) OR
+      (MAL_PAT_AGE > 5 AND MAL_MUAC < 18);]]></queryString>
+
+		<field name="TEST" class="java.lang.String"/>
+
+	</subDataset>
+
+	<parameter name="fromdate" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="todate" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="Hospital" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL AS ADM WHERE MLN_TYPE = 'admission' AND ADM.MLN_DATE_DELETED IS NULL AND DATE(ADM.MLN_DATE_VIS) < STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND (NOT EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID) OR EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID AND (DIS.MLN_DATE_DELETED IS NOT NULL OR DATE(DIS.MLN_DATE_VIS) >= STR_TO_DATE($P{fromdate}, '%d/%m/%Y')))) AND ADM.MLN_PAT_MONTHS < 6) AS START_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL AS ADM WHERE MLN_TYPE = 'admission' AND ADM.MLN_DATE_DELETED IS NULL AND DATE(ADM.MLN_DATE_VIS) < STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND (NOT EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID) OR EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID AND (DIS.MLN_DATE_DELETED IS NOT NULL OR DATE(DIS.MLN_DATE_VIS) >= STR_TO_DATE($P{fromdate}, '%d/%m/%Y')))) AND ADM.MLN_PAT_MONTHS >= 6 AND ADM.MLN_PAT_MONTHS <= 59) AS START_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL AS ADM WHERE MLN_TYPE = 'admission' AND ADM.MLN_DATE_DELETED IS NULL AND DATE(ADM.MLN_DATE_VIS) < STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND (NOT EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID) OR EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID AND (DIS.MLN_DATE_DELETED IS NOT NULL OR DATE(DIS.MLN_DATE_VIS) >= STR_TO_DATE($P{fromdate}, '%d/%m/%Y')))) AND ADM.MLN_PAT_MONTHS >= 60 AND ADM.MLN_PAT_MONTHS <= 120) AS START_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL AS ADM WHERE MLN_TYPE = 'admission' AND ADM.MLN_DATE_DELETED IS NULL AND DATE(ADM.MLN_DATE_VIS) < STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND (NOT EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID) OR EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID AND (DIS.MLN_DATE_DELETED IS NOT NULL OR DATE(DIS.MLN_DATE_VIS) >= STR_TO_DATE($P{fromdate}, '%d/%m/%Y')))) AND ADM.MLN_PAT_MONTHS >= 121 AND ADM.MLN_PAT_MONTHS <= 17*12 ) AS START_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL AS ADM WHERE MLN_TYPE = 'admission' AND ADM.MLN_DATE_DELETED IS NULL AND DATE(ADM.MLN_DATE_VIS) < STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND (NOT EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID) OR EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID AND (DIS.MLN_DATE_DELETED IS NOT NULL OR DATE(DIS.MLN_DATE_VIS) >= STR_TO_DATE($P{fromdate}, '%d/%m/%Y')))) AND ADM.MLN_PAT_MONTHS >= 18*12) AS START_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL AS ADM WHERE MLN_TYPE = 'admission' AND ADM.MLN_DATE_DELETED IS NULL AND DATE(ADM.MLN_DATE_VIS) <= STR_TO_DATE($P{todate}, '%d/%m/%Y') AND (NOT EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID) OR EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID AND (DIS.MLN_DATE_DELETED IS NOT NULL OR DATE(DIS.MLN_DATE_VIS) > STR_TO_DATE($P{todate}, '%d/%m/%Y')))) AND ADM.MLN_PAT_MONTHS < 6) AS END_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL AS ADM WHERE MLN_TYPE = 'admission' AND ADM.MLN_DATE_DELETED IS NULL AND DATE(ADM.MLN_DATE_VIS) <= STR_TO_DATE($P{todate}, '%d/%m/%Y') AND (NOT EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID) OR EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID AND (DIS.MLN_DATE_DELETED IS NOT NULL OR DATE(DIS.MLN_DATE_VIS) > STR_TO_DATE($P{todate}, '%d/%m/%Y')))) AND ADM.MLN_PAT_MONTHS >= 6 AND ADM.MLN_PAT_MONTHS <= 59) AS END_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL AS ADM WHERE MLN_TYPE = 'admission' AND ADM.MLN_DATE_DELETED IS NULL AND DATE(ADM.MLN_DATE_VIS) <= STR_TO_DATE($P{todate}, '%d/%m/%Y') AND (NOT EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID) OR EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID AND (DIS.MLN_DATE_DELETED IS NOT NULL OR DATE(DIS.MLN_DATE_VIS) > STR_TO_DATE($P{todate}, '%d/%m/%Y')))) AND ADM.MLN_PAT_MONTHS >= 60 AND ADM.MLN_PAT_MONTHS <= 120) AS END_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL AS ADM WHERE MLN_TYPE = 'admission' AND ADM.MLN_DATE_DELETED IS NULL AND DATE(ADM.MLN_DATE_VIS) <= STR_TO_DATE($P{todate}, '%d/%m/%Y') AND (NOT EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID) OR EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID AND (DIS.MLN_DATE_DELETED IS NOT NULL OR DATE(DIS.MLN_DATE_VIS) > STR_TO_DATE($P{todate}, '%d/%m/%Y')))) AND ADM.MLN_PAT_MONTHS >= 121 AND ADM.MLN_PAT_MONTHS <= 17*12 ) AS END_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL AS ADM WHERE MLN_TYPE = 'admission' AND ADM.MLN_DATE_DELETED IS NULL AND DATE(ADM.MLN_DATE_VIS) <= STR_TO_DATE($P{todate}, '%d/%m/%Y') AND (NOT EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID) OR EXISTS (SELECT 1 FROM MALNUTRITIONCONTROL AS DIS WHERE MLN_TYPE = 'discharge' AND DIS.MLN_ADM_ID = ADM.MLN_ADM_ID AND (DIS.MLN_DATE_DELETED IS NOT NULL OR DATE(DIS.MLN_DATE_VIS) > STR_TO_DATE($P{todate}, '%d/%m/%Y')))) AND ADM.MLN_PAT_MONTHS >= 18*12) AS END_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND ((MLN_WH <= 70) OR (MLN_MUAC > 0 AND MLN_MUAC < 11)) AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS WH_MAX_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND ((MLN_WH <= 70) OR (MLN_MUAC > 0 AND MLN_MUAC < 11)) AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS WH_MAX_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND ((MLN_WH <= 70) OR (MLN_MUAC > 0 AND MLN_MUAC < 11)) AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS WH_MAX_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND ((MLN_WH <= 70) OR (MLN_MUAC > 0 AND MLN_MUAC < 11)) AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS WH_MAX_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND ((MLN_WH <= 70) OR (MLN_MUAC > 0 AND MLN_MUAC < 18)) AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS WH_OVER_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND (MLN_KM = 'K' OR MLN_KM = 'MK') AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS OEDEMA_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND (MLN_KM = 'K' OR MLN_KM = 'MK') AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS OEDEMA_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND (MLN_KM = 'K' OR MLN_KM = 'MK') AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS OEDEMA_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND (MLN_KM = 'K' OR MLN_KM = 'MK') AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS OEDEMA_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND (MLN_KM = 'K' OR MLN_KM = 'MK') AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS OEDEMA_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND MLN_READMISSION IS TRUE AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS READM_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND MLN_READMISSION IS TRUE AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS READM_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND MLN_READMISSION IS TRUE AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS READM_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND MLN_READMISSION IS TRUE AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS READM_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND MLN_READMISSION IS TRUE AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS READM_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND MLN_FROM_OTHER_TFP IS TRUE AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS TRANSF_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND MLN_FROM_OTHER_TFP IS TRUE AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS TRANSF_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND MLN_FROM_OTHER_TFP IS TRUE AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS TRANSF_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND MLN_FROM_OTHER_TFP IS TRUE AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS TRANSF_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND MLN_FROM_OTHER_TFP IS TRUE AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS TRANSF_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS TOT_ADM_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS TOT_ADM_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS TOT_ADM_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS TOT_ADM_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'admission' AND MLN_DATE_DELETED IS NULL AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS TOT_ADM_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'CURED' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS CURED_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'CURED' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS CURED_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'CURED' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS CURED_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'CURED' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS CURED_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'CURED' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS CURED_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'DEATH' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS DEATH_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'DEATH' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS DEATH_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'DEATH' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS DEATH_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'DEATH' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS DEATH_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'DEATH' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS DEATH_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND (MLN_OUTCOME = 'UNKNOWN' OR MLN_OUTCOME NOT IN ('DEATH','CURED','UNKNOWN','DEFAULTER','NON-RESPONDER','MEDICAL_TRANSFER','TRANSFER_OUT')) AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS UNKNOWN_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND (MLN_OUTCOME = 'UNKNOWN' OR MLN_OUTCOME NOT IN ('DEATH','CURED','UNKNOWN','DEFAULTER','NON-RESPONDER','MEDICAL_TRANSFER','TRANSFER_OUT')) AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS UNKNOWN_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND (MLN_OUTCOME = 'UNKNOWN' OR MLN_OUTCOME NOT IN ('DEATH','CURED','UNKNOWN','DEFAULTER','NON-RESPONDER','MEDICAL_TRANSFER','TRANSFER_OUT')) AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS UNKNOWN_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND (MLN_OUTCOME = 'UNKNOWN' OR MLN_OUTCOME NOT IN ('DEATH','CURED','UNKNOWN','DEFAULTER','NON-RESPONDER','MEDICAL_TRANSFER','TRANSFER_OUT')) AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS UNKNOWN_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND (MLN_OUTCOME = 'UNKNOWN' OR MLN_OUTCOME NOT IN ('DEATH','CURED','UNKNOWN','DEFAULTER','NON-RESPONDER','MEDICAL_TRANSFER','TRANSFER_OUT')) AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS UNKNOWN_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'DEFAULTER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS DEFAULTER_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'DEFAULTER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS DEFAULTER_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'DEFAULTER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS DEFAULTER_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'DEFAULTER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS DEFAULTER_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'DEFAULTER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS DEFAULTER_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'NON-RESPONDER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS NON_RESP_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'NON-RESPONDER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS NON_RESP_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'NON-RESPONDER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS NON_RESP_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'NON-RESPONDER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS NON_RESP_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'NON-RESPONDER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS NON_RESP_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'MEDICAL_TRANSFER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS MED_TRANSF_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'MEDICAL_TRANSFER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS MED_TRANSF_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'MEDICAL_TRANSFER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS MED_TRANSF_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'MEDICAL_TRANSFER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS MED_TRANSF_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'MEDICAL_TRANSFER' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS MED_TRANSF_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'TRANSFER_OUT' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS TRANSF_OUT_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'TRANSFER_OUT' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS TRANSF_OUT_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'TRANSFER_OUT' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS TRANSF_OUT_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'TRANSFER_OUT' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS TRANSF_OUT_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND MLN_OUTCOME = 'TRANSFER_OUT' AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS TRANSF_OUT_18Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS < 6) AS TOT_DIS_6M,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 6 AND MLN_PAT_MONTHS <= 59) AS TOT_DIS_5Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 60 AND MLN_PAT_MONTHS <= 120) AS TOT_DIS_10Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 121 AND MLN_PAT_MONTHS <= 17*12) AS TOT_DIS_17Y,
+  (SELECT COUNT(*) FROM MALNUTRITIONCONTROL WHERE MLN_TYPE = 'discharge' AND MLN_DATE_DELETED IS NULL AND DATE(MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y') AND MLN_PAT_MONTHS >= 18*12) AS TOT_DIS_18Y,
+  (SELECT ROUND(AVG(TMP.W_DIFF), 2) FROM (SELECT DIS.MLN_WEIGHT - ADM.MLN_WEIGHT AS W_DIFF FROM MALNUTRITIONCONTROL AS ADM JOIN MALNUTRITIONCONTROL AS DIS ON ADM.MLN_ADM_ID = DIS.MLN_ADM_ID WHERE ADM.MLN_TYPE = 'admission' AND DIS.MLN_TYPE = 'discharge' AND ADM.MLN_DATE_DELETED IS NULL AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_OUTCOME <> 'UNKNOWN' AND DATE(DIS.MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y')) AS TMP) AS AVG_WEIGHT_GAIN,
+  (SELECT ROUND(AVG(TMP.DATE_DIFF), 2) FROM (SELECT DATEDIFF(DIS.MLN_DATE_VIS, ADM.MLN_DATE_VIS) AS DATE_DIFF FROM MALNUTRITIONCONTROL AS ADM JOIN MALNUTRITIONCONTROL AS DIS ON ADM.MLN_ADM_ID = DIS.MLN_ADM_ID WHERE ADM.MLN_TYPE = 'admission' AND DIS.MLN_TYPE = 'discharge' AND ADM.MLN_DATE_DELETED IS NULL AND DIS.MLN_DATE_DELETED IS NULL AND DIS.MLN_OUTCOME <> 'UNKNOWN' AND DATE(DIS.MLN_DATE_VIS) BETWEEN STR_TO_DATE($P{fromdate}, '%d/%m/%Y') AND STR_TO_DATE($P{todate}, '%d/%m/%Y')) AS TMP) AS AVG_STAY;]]></queryString>
+
+	<field name="END_6M" class="java.lang.Long"/>
+	<field name="END_5Y" class="java.lang.Long"/>
+	<field name="END_10Y" class="java.lang.Long"/>
+	<field name="END_17Y" class="java.lang.Long"/>
+	<field name="END_18Y" class="java.lang.Long"/>
+	<field name="START_6M" class="java.lang.Long"/>
+	<field name="START_5Y" class="java.lang.Long"/>
+	<field name="START_10Y" class="java.lang.Long"/>
+	<field name="START_17Y" class="java.lang.Long"/>
+	<field name="START_18Y" class="java.lang.Long"/>
+	<field name="WH_MAX_6M" class="java.lang.Long"/>
+	<field name="WH_MAX_5Y" class="java.lang.Long"/>
+	<field name="WH_MAX_10Y" class="java.lang.Long"/>
+	<field name="WH_MAX_17Y" class="java.lang.Long"/>
+	<field name="WH_OVER_18Y" class="java.lang.Long"/>
+	<field name="OEDEMA_6M" class="java.lang.Long"/>
+	<field name="OEDEMA_5Y" class="java.lang.Long"/>
+	<field name="OEDEMA_10Y" class="java.lang.Long"/>
+	<field name="OEDEMA_17Y" class="java.lang.Long"/>
+	<field name="OEDEMA_18Y" class="java.lang.Long"/>
+	<field name="READM_6M" class="java.lang.Long"/>
+	<field name="READM_5Y" class="java.lang.Long"/>
+	<field name="READM_10Y" class="java.lang.Long"/>
+	<field name="READM_17Y" class="java.lang.Long"/>
+	<field name="READM_18Y" class="java.lang.Long"/>
+	<field name="TRANSF_6M" class="java.lang.Long"/>
+	<field name="TRANSF_5Y" class="java.lang.Long"/>
+	<field name="TRANSF_10Y" class="java.lang.Long"/>
+	<field name="TRANSF_17Y" class="java.lang.Long"/>
+	<field name="TRANSF_18Y" class="java.lang.Long"/>
+	<field name="TOT_ADM_6M" class="java.lang.Long"/>
+	<field name="TOT_ADM_5Y" class="java.lang.Long"/>
+	<field name="TOT_ADM_10Y" class="java.lang.Long"/>
+	<field name="TOT_ADM_17Y" class="java.lang.Long"/>
+	<field name="TOT_ADM_18Y" class="java.lang.Long"/>
+	<field name="CURED_6M" class="java.lang.Long"/>
+	<field name="CURED_5Y" class="java.lang.Long"/>
+	<field name="CURED_10Y" class="java.lang.Long"/>
+	<field name="CURED_17Y" class="java.lang.Long"/>
+	<field name="CURED_18Y" class="java.lang.Long"/>
+	<field name="DEATH_6M" class="java.lang.Long"/>
+	<field name="DEATH_5Y" class="java.lang.Long"/>
+	<field name="DEATH_10Y" class="java.lang.Long"/>
+	<field name="DEATH_17Y" class="java.lang.Long"/>
+	<field name="DEATH_18Y" class="java.lang.Long"/>
+	<field name="UNKNOWN_6M" class="java.lang.Long"/>
+	<field name="UNKNOWN_5Y" class="java.lang.Long"/>
+	<field name="UNKNOWN_10Y" class="java.lang.Long"/>
+	<field name="UNKNOWN_17Y" class="java.lang.Long"/>
+	<field name="UNKNOWN_18Y" class="java.lang.Long"/>
+	<field name="DEFAULTER_6M" class="java.lang.Long"/>
+	<field name="DEFAULTER_5Y" class="java.lang.Long"/>
+	<field name="DEFAULTER_10Y" class="java.lang.Long"/>
+	<field name="DEFAULTER_17Y" class="java.lang.Long"/>
+	<field name="DEFAULTER_18Y" class="java.lang.Long"/>
+	<field name="NON_RESP_6M" class="java.lang.Long"/>
+	<field name="NON_RESP_5Y" class="java.lang.Long"/>
+	<field name="NON_RESP_10Y" class="java.lang.Long"/>
+	<field name="NON_RESP_17Y" class="java.lang.Long"/>
+	<field name="NON_RESP_18Y" class="java.lang.Long"/>
+	<field name="MED_TRANSF_6M" class="java.lang.Long"/>
+	<field name="MED_TRANSF_5Y" class="java.lang.Long"/>
+	<field name="MED_TRANSF_10Y" class="java.lang.Long"/>
+	<field name="MED_TRANSF_17Y" class="java.lang.Long"/>
+	<field name="MED_TRANSF_18Y" class="java.lang.Long"/>
+	<field name="TRANSF_OUT_6M" class="java.lang.Long"/>
+	<field name="TRANSF_OUT_5Y" class="java.lang.Long"/>
+	<field name="TRANSF_OUT_10Y" class="java.lang.Long"/>
+	<field name="TRANSF_OUT_17Y" class="java.lang.Long"/>
+	<field name="TRANSF_OUT_18Y" class="java.lang.Long"/>
+	<field name="TOT_DIS_6M" class="java.lang.Long"/>
+	<field name="TOT_DIS_5Y" class="java.lang.Long"/>
+	<field name="TOT_DIS_10Y" class="java.lang.Long"/>
+	<field name="TOT_DIS_17Y" class="java.lang.Long"/>
+	<field name="TOT_DIS_18Y" class="java.lang.Long"/>
+	<field name="AVG_WEIGHT_GAIN" class="java.math.BigDecimal"/>
+	<field name="AVG_STAY" class="java.math.BigDecimal"/>
+
+	<variable name="TOT_CURED" class="java.lang.Long" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new Long($F{CURED_6M}.longValue() + 
+$F{CURED_5Y}.longValue() + 
+$F{CURED_10Y}.longValue() + 
+$F{CURED_17Y}.longValue() + 
+$F{CURED_18Y}.longValue())]]></variableExpression>
+	</variable>
+	<variable name="TOT_DIS" class="java.lang.Long" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new Long($F{TOT_DIS_6M}.longValue() + 
+$F{TOT_DIS_5Y}.longValue() + 
+$F{TOT_DIS_10Y}.longValue() + 
+$F{TOT_DIS_17Y}.longValue() + 
+$F{TOT_DIS_18Y}.longValue())]]></variableExpression>
+	</variable>
+	<variable name="TOT_DEATH" class="java.lang.Long" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new Long($F{DEATH_6M}.longValue() + 
+$F{DEATH_5Y}.longValue() + 
+$F{DEATH_10Y}.longValue() + 
+$F{DEATH_17Y}.longValue() + 
+$F{DEATH_18Y}.longValue())]]></variableExpression>
+	</variable>
+	<variable name="TOT_UNKNOWN" class="java.lang.Long" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new Long($F{UNKNOWN_6M}.longValue() + 
+$F{UNKNOWN_5Y}.longValue() + 
+$F{UNKNOWN_10Y}.longValue() + 
+$F{UNKNOWN_17Y}.longValue() + 
+$F{UNKNOWN_18Y}.longValue())]]></variableExpression>
+	</variable>
+	<variable name="TOT_DEFAULTER" class="java.lang.Long" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new Long($F{DEFAULTER_6M}.longValue() + 
+$F{DEFAULTER_5Y}.longValue() + 
+$F{DEFAULTER_10Y}.longValue() + 
+$F{DEFAULTER_17Y}.longValue() + 
+$F{DEFAULTER_18Y}.longValue())]]></variableExpression>
+	</variable>
+	<variable name="TOT_NON_RESP" class="java.lang.Long" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new Long($F{NON_RESP_6M}.longValue() + 
+$F{NON_RESP_5Y}.longValue() + 
+$F{NON_RESP_10Y}.longValue() + 
+$F{NON_RESP_17Y}.longValue() + 
+$F{NON_RESP_18Y}.longValue())]]></variableExpression>
+	</variable>
+	<variable name="TOT_MED_TRANSF" class="java.lang.Long" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new Long($F{MED_TRANSF_6M}.longValue() + 
+$F{MED_TRANSF_5Y}.longValue() + 
+$F{MED_TRANSF_10Y}.longValue() + 
+$F{MED_TRANSF_17Y}.longValue() + 
+$F{MED_TRANSF_18Y}.longValue())]]></variableExpression>
+	</variable>
+	<variable name="TOT_TRANSF_OUT" class="java.lang.Long" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new Long($F{TRANSF_OUT_6M}.longValue() + 
+$F{TRANSF_OUT_5Y}.longValue() + 
+$F{TRANSF_OUT_10Y}.longValue() + 
+$F{TRANSF_OUT_17Y}.longValue() + 
+$F{TRANSF_OUT_18Y}.longValue())]]></variableExpression>
+	</variable>
+		<background>
+			<band height="8"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="42"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="782"
+						height="20"
+						backcolor="#FBFFB6"
+						key="staticText-1"/>
+					<box>					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[MONTHLY STATISTICS REPORT - MANAGEMENT OF SEVERE ACUTE MALNUTRITION - THERAPEUTIC FEEDING PROGRAM]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="130"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="90"
+						height="20"
+						key="staticText-2"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[FACILITY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="20"
+						width="90"
+						height="20"
+						key="staticText-3"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[REGION]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="40"
+						width="90"
+						height="20"
+						key="staticText-4"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[ZONE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="60"
+						width="90"
+						height="20"
+						key="staticText-5"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[WOREDA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="80"
+						width="90"
+						height="20"
+						key="staticText-6"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[OPENING DATE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="90"
+						y="0"
+						width="200"
+						height="20"
+						key="staticText-7"/>
+					<box leftPadding="5" rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="90"
+						y="20"
+						width="200"
+						height="20"
+						key="staticText-8"/>
+					<box leftPadding="5" rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="90"
+						y="40"
+						width="200"
+						height="20"
+						key="staticText-9"/>
+					<box leftPadding="5" rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="90"
+						y="60"
+						width="200"
+						height="20"
+						key="staticText-10"/>
+					<box leftPadding="5" rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="90"
+						y="80"
+						width="200"
+						height="20"
+						key="staticText-11"/>
+					<box leftPadding="5" rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="382"
+						y="0"
+						width="200"
+						height="20"
+						key="staticText-12"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Implementing agency / Health Facility]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="382"
+						y="20"
+						width="200"
+						height="20"
+						key="staticText-13"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Report prepared by]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="382"
+						y="40"
+						width="200"
+						height="20"
+						key="staticText-14"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[MONTH / YEAR of reporting (ethio calendar)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="382"
+						y="60"
+						width="130"
+						height="25"
+						key="staticText-15"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[TYPE OF PROGRAMME]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="582"
+						y="0"
+						width="200"
+						height="20"
+						key="staticText-17"/>
+					<box leftPadding="5" rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="582"
+						y="20"
+						width="200"
+						height="20"
+						key="staticText-18"/>
+					<box leftPadding="5" rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="582"
+						y="40"
+						width="200"
+						height="20"
+						key="staticText-19"/>
+					<box leftPadding="5" rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="512"
+						y="60"
+						width="90"
+						height="25"
+						key="staticText-20"/>
+					<box rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[In-patient]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="602"
+						y="60"
+						width="90"
+						height="25"
+						key="staticText-21"/>
+					<box rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Out-patient]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="692"
+						y="60"
+						width="90"
+						height="25"
+						key="staticText-22"/>
+					<box rightPadding="3">					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Mobile clinic]]></text>
+				</staticText>
+				<ellipse>
+					<reportElement
+						mode="Transparent"
+						x="521"
+						y="57"
+						width="68"
+						height="31"
+						key="ellipse-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</ellipse>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="90"
+						y="4"
+						width="200"
+						height="12"
+						key="textField-110"/>
+					<box leftPadding="5"></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{Hospital}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="581"
+						y="4"
+						width="200"
+						height="12"
+						key="textField-111"/>
+					<box leftPadding="5"></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{Hospital}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="253"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="0"
+						y="170"
+						width="46"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-24"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="0"
+						y="150"
+						width="46"
+						height="20"
+						key="rectangle-23"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="0"
+						y="130"
+						width="46"
+						height="20"
+						key="rectangle-22"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="0"
+						y="110"
+						width="46"
+						height="20"
+						key="rectangle-21"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="0"
+						y="90"
+						width="46"
+						height="20"
+						key="rectangle-20"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="0"
+						y="70"
+						width="46"
+						height="20"
+						key="rectangle-19"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="89"
+						y="0"
+						width="48"
+						height="70"
+						key="rectangle-3"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="0"
+						y="0"
+						width="46"
+						height="70"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="46"
+						y="0"
+						width="43"
+						height="70"
+						key="rectangle-2"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="736"
+						y="0"
+						width="46"
+						height="70"
+						key="rectangle-18"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="694"
+						y="0"
+						width="42"
+						height="70"
+						backcolor="#FBFFB6"
+						key="rectangle-17"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="651"
+						y="0"
+						width="43"
+						height="70"
+						key="rectangle-16"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="608"
+						y="0"
+						width="43"
+						height="70"
+						key="rectangle-15"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="565"
+						y="0"
+						width="43"
+						height="70"
+						key="rectangle-14"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="521"
+						y="0"
+						width="44"
+						height="70"
+						key="rectangle-13"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="478"
+						y="0"
+						width="44"
+						height="70"
+						key="rectangle-12"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="435"
+						y="0"
+						width="44"
+						height="70"
+						key="rectangle-11"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="394"
+						y="0"
+						width="42"
+						height="70"
+						key="rectangle-10"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="350"
+						y="0"
+						width="44"
+						height="70"
+						key="rectangle-9"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="307"
+						y="0"
+						width="44"
+						height="70"
+						backcolor="#FBFFB6"
+						key="rectangle-8"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="266"
+						y="0"
+						width="42"
+						height="70"
+						key="rectangle-7"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="223"
+						y="0"
+						width="43"
+						height="70"
+						key="rectangle-6"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="180"
+						y="0"
+						width="43"
+						height="70"
+						key="rectangle-5"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="137"
+						y="0"
+						width="43"
+						height="70"
+						key="rectangle-4"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="92"
+						y="2"
+						width="43"
+						height="24"
+						key="staticText-41"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[W/H<70% or MUAC<110mm (children)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="92"
+						y="34"
+						width="43"
+						height="24"
+						key="staticText-42"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[MUAC<180mm (adults)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="92"
+						y="26"
+						width="43"
+						height="8"
+						key="staticText-43"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[or]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="92"
+						y="58"
+						width="43"
+						height="10"
+						key="staticText-44"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(B1)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="137"
+						y="25"
+						width="43"
+						height="12"
+						key="staticText-47"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[OEDEMA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="138"
+						y="37"
+						width="43"
+						height="10"
+						key="staticText-48"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(B2)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="179"
+						y="25"
+						width="43"
+						height="12"
+						key="staticText-49"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Relapse]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="180"
+						y="37"
+						width="43"
+						height="10"
+						key="staticText-50"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(B3)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="223"
+						y="13"
+						width="43"
+						height="12"
+						key="staticText-51"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Re-admission]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="223"
+						y="25"
+						width="43"
+						height="10"
+						key="staticText-52"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(B4)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="224"
+						y="35"
+						width="43"
+						height="11"
+						key="staticText-53"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[after ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="224"
+						y="46"
+						width="43"
+						height="11"
+						key="staticText-54"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[dafaulting]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="265"
+						y="4"
+						width="43"
+						height="12"
+						key="staticText-55"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Transfer in]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="265"
+						y="16"
+						width="43"
+						height="10"
+						key="staticText-56"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(B5)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="265"
+						y="26"
+						width="43"
+						height="11"
+						key="staticText-57"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[from]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="266"
+						y="36"
+						width="43"
+						height="11"
+						key="staticText-58"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[another]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="266"
+						y="46"
+						width="43"
+						height="11"
+						key="staticText-59"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[therapeutic]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="265"
+						y="56"
+						width="43"
+						height="11"
+						key="staticText-60"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[unit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="308"
+						y="20"
+						width="43"
+						height="22"
+						key="staticText-61"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Total admissions]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="309"
+						y="42"
+						width="43"
+						height="10"
+						key="staticText-62"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(C)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="351"
+						y="25"
+						width="43"
+						height="12"
+						key="staticText-63"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[CURED]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="352"
+						y="37"
+						width="43"
+						height="10"
+						key="staticText-64"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(D1)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="393"
+						y="25"
+						width="43"
+						height="12"
+						key="staticText-65"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[DEATH]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="394"
+						y="37"
+						width="43"
+						height="10"
+						key="staticText-66"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(D2)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="436"
+						y="25"
+						width="43"
+						height="12"
+						key="staticText-67"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[UNKNOWN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="437"
+						y="37"
+						width="43"
+						height="10"
+						key="staticText-68"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(D3)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="479"
+						y="26"
+						width="43"
+						height="12"
+						key="staticText-69"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[DEFAULTER]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="480"
+						y="38"
+						width="43"
+						height="10"
+						key="staticText-70"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(D4)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="522"
+						y="22"
+						width="43"
+						height="19"
+						key="staticText-71"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[NON-RESPONDER]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="523"
+						y="41"
+						width="43"
+						height="10"
+						key="staticText-72"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(D5)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="564"
+						y="24"
+						width="44"
+						height="15"
+						key="staticText-73"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[MEDICAL TRANSFER]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="565"
+						y="41"
+						width="44"
+						height="10"
+						key="staticText-74"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(D6)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="608"
+						y="22"
+						width="43"
+						height="10"
+						key="staticText-75"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Transfer out]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="608"
+						y="32"
+						width="43"
+						height="10"
+						key="staticText-76"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(E1) to]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="609"
+						y="42"
+						width="43"
+						height="10"
+						key="staticText-77"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[out-patient]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="650"
+						y="22"
+						width="43"
+						height="10"
+						key="staticText-78"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Transfer out]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="650"
+						y="32"
+						width="43"
+						height="10"
+						key="staticText-79"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(E2) to]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="651"
+						y="42"
+						width="43"
+						height="10"
+						key="staticText-80"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[in-patient]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="694"
+						y="22"
+						width="43"
+						height="22"
+						key="staticText-81"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Total discharges]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="694"
+						y="43"
+						width="43"
+						height="10"
+						key="staticText-82"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(F)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="736"
+						y="16"
+						width="46"
+						height="12"
+						key="staticText-85"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Total end]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="736"
+						y="28"
+						width="46"
+						height="10"
+						key="staticText-86"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[of the]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="737"
+						y="38"
+						width="44"
+						height="11"
+						key="staticText-87"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[month]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="737"
+						y="48"
+						width="45"
+						height="11"
+						key="staticText-88"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[(G)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="46"
+						y="14"
+						width="43"
+						height="12"
+						key="staticText-89"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="46"
+						y="26"
+						width="43"
+						height="10"
+						key="staticText-90"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[beginning]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="46"
+						y="36"
+						width="43"
+						height="11"
+						key="staticText-91"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[of the]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="46"
+						y="47"
+						width="43"
+						height="11"
+						key="staticText-92"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[month (A)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="29"
+						width="46"
+						height="12"
+						key="staticText-93"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[Group age]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="46"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-25"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="46"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-26"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="46"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-27"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="46"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-28"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="46"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-29"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="46"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-30"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="3"
+						y="74"
+						width="41"
+						height="12"
+						key="staticText-94"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[< 6 months]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="3"
+						y="94"
+						width="41"
+						height="12"
+						key="staticText-95"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[6-59 months]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="3"
+						y="114"
+						width="41"
+						height="12"
+						key="staticText-96"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[5-10 years]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="3"
+						y="134"
+						width="41"
+						height="12"
+						key="staticText-97"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[11-17 years]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="3"
+						y="154"
+						width="41"
+						height="12"
+						key="staticText-98"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[> 18 years]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="3"
+						y="174"
+						width="41"
+						height="12"
+						key="staticText-99"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="47"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{START_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="47"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{START_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="47"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{START_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="47"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{START_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="47"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{START_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="47"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[new Long($F{START_6M}.longValue() + 
+$F{START_5Y}.longValue() + 
+$F{START_10Y}.longValue() + 
+$F{START_17Y}.longValue() + 
+$F{START_18Y}.longValue())]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="89"
+						y="170"
+						width="48"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-31"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="89"
+						y="150"
+						width="48"
+						height="20"
+						key="rectangle-32"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="89"
+						y="130"
+						width="48"
+						height="20"
+						key="rectangle-33"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="89"
+						y="110"
+						width="48"
+						height="20"
+						key="rectangle-34"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="89"
+						y="90"
+						width="48"
+						height="20"
+						key="rectangle-35"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="89"
+						y="70"
+						width="48"
+						height="20"
+						key="rectangle-36"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="91"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-7"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{WH_MAX_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="91"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-8"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{WH_MAX_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="91"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{WH_MAX_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="91"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-10"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{WH_MAX_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="91"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-11"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{WH_OVER_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="91"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-12"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[new Long($F{WH_MAX_6M}.longValue() + 
+$F{WH_MAX_5Y}.longValue() + 
+$F{WH_MAX_10Y}.longValue() + 
+$F{WH_MAX_17Y}.longValue() + 
+$F{WH_OVER_18Y}.longValue())]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="137"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-37"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="137"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-38"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="137"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-39"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="137"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-40"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="137"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-41"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="137"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-42"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="137"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-13"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{OEDEMA_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="137"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-14"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{OEDEMA_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="137"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-15"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{OEDEMA_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="137"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-16"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{OEDEMA_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="137"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-17"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{OEDEMA_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="137"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-18"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[new Long($F{OEDEMA_6M}.longValue() + 
+$F{OEDEMA_5Y}.longValue() + 
+$F{OEDEMA_10Y}.longValue() + 
+$F{OEDEMA_17Y}.longValue() + 
+$F{OEDEMA_18Y}.longValue())]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="180"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-43"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="180"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-44"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="180"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-45"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="180"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-46"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="180"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-47"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="180"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-48"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="223"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-49"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="223"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-50"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="223"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-51"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="223"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-52"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="223"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-53"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="223"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-54"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-25"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{READM_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-26"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{READM_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-27"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{READM_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-28"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{READM_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-29"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{READM_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-30"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[new Long($F{READM_6M}.longValue() + 
+$F{READM_5Y}.longValue() + 
+$F{READM_10Y}.longValue() + 
+$F{READM_17Y}.longValue() + 
+$F{READM_18Y}.longValue())]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="266"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-55"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="266"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-56"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="266"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-57"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="266"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-58"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="266"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-59"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="266"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-60"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="266"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-31"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TRANSF_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="266"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-32"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TRANSF_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="266"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-33"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TRANSF_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="266"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-34"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TRANSF_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="266"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-35"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TRANSF_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="266"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-36"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[new Long($F{TRANSF_6M}.longValue() + 
+$F{TRANSF_5Y}.longValue() + 
+$F{TRANSF_10Y}.longValue() + 
+$F{TRANSF_17Y}.longValue() + 
+$F{TRANSF_18Y}.longValue())]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="308"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-61"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="308"
+						y="150"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-62"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="308"
+						y="130"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-63"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="308"
+						y="110"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-64"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="308"
+						y="90"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-65"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="308"
+						y="70"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-66"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="308"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-37"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TOT_ADM_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="308"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-38"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TOT_ADM_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="308"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-39"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TOT_ADM_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="308"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-40"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TOT_ADM_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="308"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-41"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TOT_ADM_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="308"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-42"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[new Long($F{TOT_ADM_6M}.longValue() + 
+$F{TOT_ADM_5Y}.longValue() + 
+$F{TOT_ADM_10Y}.longValue() + 
+$F{TOT_ADM_17Y}.longValue() + 
+$F{TOT_ADM_18Y}.longValue())]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="180"
+						y="74"
+						width="42"
+						height="12"
+						key="staticText-100"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="180"
+						y="93"
+						width="42"
+						height="12"
+						key="staticText-101"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="180"
+						y="113"
+						width="42"
+						height="12"
+						key="staticText-102"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="180"
+						y="133"
+						width="42"
+						height="12"
+						key="staticText-103"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="180"
+						y="154"
+						width="42"
+						height="12"
+						key="staticText-104"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="180"
+						y="174"
+						width="42"
+						height="12"
+						key="staticText-105"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="351"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-67"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="351"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-68"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="351"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-69"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="351"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-70"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="351"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-71"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="351"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-72"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="351"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-43"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{CURED_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="351"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-44"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{CURED_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="351"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-45"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{CURED_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="351"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-46"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{CURED_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="351"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-47"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{CURED_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="351"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-48"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{TOT_CURED}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="394"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-73"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="394"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-74"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="394"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-75"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="394"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-76"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="394"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-77"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="394"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-78"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="394"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-49"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{DEATH_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="394"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-50"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{DEATH_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="394"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-51"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{DEATH_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="394"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-52"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{DEATH_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="394"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-53"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{DEATH_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="394"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-54"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{TOT_DEATH}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="436"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-79"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="436"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-80"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="436"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-81"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="436"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-82"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="436"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-83"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="436"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-84"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="436"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-55"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{UNKNOWN_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="436"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-56"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{UNKNOWN_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="436"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-57"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{UNKNOWN_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="436"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-58"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{UNKNOWN_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="436"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-59"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{UNKNOWN_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="436"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-60"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{TOT_UNKNOWN}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="479"
+						y="170"
+						width="44"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-85"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="479"
+						y="150"
+						width="44"
+						height="20"
+						key="rectangle-86"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="479"
+						y="130"
+						width="44"
+						height="20"
+						key="rectangle-87"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="479"
+						y="110"
+						width="44"
+						height="20"
+						key="rectangle-88"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="479"
+						y="90"
+						width="44"
+						height="20"
+						key="rectangle-89"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="479"
+						y="70"
+						width="44"
+						height="20"
+						key="rectangle-90"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="479"
+						y="74"
+						width="43"
+						height="12"
+						key="textField-61"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{DEFAULTER_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="479"
+						y="94"
+						width="43"
+						height="12"
+						key="textField-62"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{DEFAULTER_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="479"
+						y="114"
+						width="43"
+						height="12"
+						key="textField-63"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{DEFAULTER_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="479"
+						y="134"
+						width="43"
+						height="12"
+						key="textField-64"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{DEFAULTER_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="479"
+						y="154"
+						width="43"
+						height="12"
+						key="textField-65"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{DEFAULTER_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="479"
+						y="174"
+						width="43"
+						height="12"
+						key="textField-66"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{TOT_DEFAULTER}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="522"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-91"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="522"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-92"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="522"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-93"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="522"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-94"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="522"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-95"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="522"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-96"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="522"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-67"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{NON_RESP_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="522"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-68"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{NON_RESP_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="522"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-69"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{NON_RESP_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="522"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-70"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{NON_RESP_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="522"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-71"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{NON_RESP_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="522"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-72"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{TOT_NON_RESP}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="565"
+						y="170"
+						width="44"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-97"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="565"
+						y="150"
+						width="44"
+						height="20"
+						key="rectangle-98"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="565"
+						y="130"
+						width="44"
+						height="20"
+						key="rectangle-99"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="565"
+						y="110"
+						width="44"
+						height="20"
+						key="rectangle-100"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="565"
+						y="90"
+						width="44"
+						height="20"
+						key="rectangle-101"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="565"
+						y="70"
+						width="44"
+						height="20"
+						key="rectangle-102"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="565"
+						y="74"
+						width="43"
+						height="12"
+						key="textField-73"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{MED_TRANSF_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="565"
+						y="94"
+						width="43"
+						height="12"
+						key="textField-74"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{MED_TRANSF_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="565"
+						y="114"
+						width="43"
+						height="12"
+						key="textField-75"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{MED_TRANSF_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="565"
+						y="134"
+						width="43"
+						height="12"
+						key="textField-76"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{MED_TRANSF_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="565"
+						y="154"
+						width="43"
+						height="12"
+						key="textField-77"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{MED_TRANSF_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="565"
+						y="174"
+						width="43"
+						height="12"
+						key="textField-78"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{TOT_MED_TRANSF}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="608"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-103"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="608"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-104"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="608"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-105"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="608"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-106"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="608"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-107"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="608"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-108"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="608"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-79"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TRANSF_OUT_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="608"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-80"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TRANSF_OUT_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="608"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-81"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TRANSF_OUT_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="608"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-82"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TRANSF_OUT_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="608"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-83"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TRANSF_OUT_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="608"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-84"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{TOT_TRANSF_OUT}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="651"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-109"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="651"
+						y="150"
+						width="43"
+						height="20"
+						key="rectangle-110"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="651"
+						y="130"
+						width="43"
+						height="20"
+						key="rectangle-111"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="651"
+						y="110"
+						width="43"
+						height="20"
+						key="rectangle-112"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="651"
+						y="90"
+						width="43"
+						height="20"
+						key="rectangle-113"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="651"
+						y="70"
+						width="43"
+						height="20"
+						key="rectangle-114"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="694"
+						y="170"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-115"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="694"
+						y="150"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-116"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="694"
+						y="130"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-117"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="694"
+						y="110"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-118"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="694"
+						y="90"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-119"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="694"
+						y="70"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-120"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="694"
+						y="74"
+						width="42"
+						height="12"
+						key="textField-91"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TOT_DIS_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="694"
+						y="94"
+						width="42"
+						height="12"
+						key="textField-92"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TOT_DIS_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="694"
+						y="114"
+						width="42"
+						height="12"
+						key="textField-93"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TOT_DIS_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="694"
+						y="134"
+						width="42"
+						height="12"
+						key="textField-94"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TOT_DIS_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="694"
+						y="154"
+						width="42"
+						height="12"
+						key="textField-95"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{TOT_DIS_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="694"
+						y="174"
+						width="42"
+						height="12"
+						key="textField-96"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{TOT_DIS}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement
+						x="736"
+						y="170"
+						width="46"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-121"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="736"
+						y="150"
+						width="46"
+						height="20"
+						key="rectangle-122"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="736"
+						y="130"
+						width="46"
+						height="20"
+						key="rectangle-123"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="736"
+						y="110"
+						width="46"
+						height="20"
+						key="rectangle-124"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="736"
+						y="90"
+						width="46"
+						height="20"
+						key="rectangle-125"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="736"
+						y="70"
+						width="46"
+						height="20"
+						key="rectangle-126"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="736"
+						y="74"
+						width="45"
+						height="12"
+						key="textField-97"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{END_6M}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="736"
+						y="94"
+						width="45"
+						height="12"
+						key="textField-98"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{END_5Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="736"
+						y="114"
+						width="45"
+						height="12"
+						key="textField-99"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{END_10Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="736"
+						y="134"
+						width="45"
+						height="12"
+						key="textField-100"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{END_17Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="736"
+						y="154"
+						width="45"
+						height="12"
+						key="textField-101"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{END_18Y}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="736"
+						y="174"
+						width="45"
+						height="12"
+						key="textField-102"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[new Long($F{END_6M}.longValue() + 
+$F{END_5Y}.longValue() + 
+$F{END_10Y}.longValue() + 
+$F{END_17Y}.longValue() + 
+$F{END_18Y}.longValue())]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="651"
+						y="74"
+						width="42"
+						height="12"
+						key="staticText-106"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="651"
+						y="94"
+						width="42"
+						height="12"
+						key="staticText-107"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="651"
+						y="113"
+						width="42"
+						height="12"
+						key="staticText-108"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="651"
+						y="134"
+						width="42"
+						height="12"
+						key="staticText-109"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="651"
+						y="154"
+						width="42"
+						height="12"
+						key="staticText-110"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="651"
+						y="173"
+						width="42"
+						height="12"
+						key="staticText-111"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="351"
+						y="190"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-127"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="394"
+						y="190"
+						width="42"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-128"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="436"
+						y="190"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-129"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="479"
+						y="190"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-130"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="522"
+						y="190"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-131"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="565"
+						y="190"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-132"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="608"
+						y="190"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-133"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="651"
+						y="190"
+						width="43"
+						height="20"
+						backcolor="#FBFFB6"
+						key="rectangle-134"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="0.5"/>
+</graphicElement>
+				</rectangle>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00 %" isBlankWhenNull="false" evaluationTime="Auto" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="351"
+						y="194"
+						width="42"
+						height="12"
+						key="textField-103"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($V{TOT_CURED}.doubleValue() / $V{TOT_DIS}.doubleValue())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00 %" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="394"
+						y="194"
+						width="42"
+						height="12"
+						key="textField-104"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double ($V{TOT_DEATH}.doubleValue() / $V{TOT_DIS}.doubleValue())]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="652"
+						y="194"
+						width="42"
+						height="12"
+						key="staticText-112"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[0.00%]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00 %" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="480"
+						y="194"
+						width="42"
+						height="12"
+						key="textField-105"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double ($V{TOT_DEFAULTER}.doubleValue() / $V{TOT_DIS}.doubleValue())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00 %" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="194"
+						width="42"
+						height="12"
+						key="textField-106"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double ($V{TOT_UNKNOWN}.doubleValue() / $V{TOT_DIS}.doubleValue())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00 %" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="522"
+						y="194"
+						width="42"
+						height="12"
+						key="textField-107"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double ($V{TOT_NON_RESP}.doubleValue() / $V{TOT_DIS}.doubleValue())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00 %" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="566"
+						y="194"
+						width="42"
+						height="12"
+						key="textField-108"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double ($V{TOT_MED_TRANSF}.doubleValue() / $V{TOT_DIS}.doubleValue())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00 %" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="608"
+						y="194"
+						width="42"
+						height="12"
+						key="textField-109"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double ($V{TOT_TRANSF_OUT}.doubleValue() / $V{TOT_DIS}.doubleValue())]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

@@ -1,0 +1,282 @@
+#---------------------------------
+# CHRONIC OPD MODULE RELEASE NOTES
+#---------------------------------
+
+This module targets the registration and followup of chronic outpatients in OH.
+
+
+## CHRONIC OPD OVERVIEW
+-----------------------
+In Wolisso hospital, chronic patients follow this flow (question mark stands for optional steps, between brackets are
+reported OH operations):
+
+    - First Access:
+      card room -> examination room -> lab? -> examination room -> pharmacy (new Chronic OPD?) -> home
+
+    - Accesses after the first:
+      card room -> chronic room -> lab? -> chronic room -> pharmacy (new Chronic OPD?) -> home
+
+The pharmacy creates a new OPD only if the drugs to be prescribed to the patient are available. This means that all
+Opd's that cannot get the drugs are not registered in OH.
+After the chronic module is set in place, the flow will be the following:
+
+    - First Access:
+      card room -> examination room -> lab ? -> examination room -> pharmacy (new Chronic OPD?) -> home
+
+    - Accesses after the first:
+      card room -> chronic room -> lab? -> chronic room (new Chronic OPD) -> pharmacy (new prescription associated to
+      existing chronic OPD?) -> home
+
+At first access, the Opd related to the patient will be created in the Pharmacy (only if prescribed drugs are
+available). This Opd will be set to chronic if the disease selected by the pharmacist is a chronic disease.
+
+From the second access on, a new Opd will be created by the chronic room clinician. Again, the Opd will be set to
+chronic if at least one chronic disease is selected (in fact, the New Chronic Opd interface is built so that the
+clinician is forced to select at least a chronic disease).
+When the patient reaches the pharmacy, the pharmacist will insert a prescription. This used to trigger the automatic
+creation of an Opd. Now, before creating a new Opd, the system checks if a chronic Opd already exists based on patient,
+date and disease criteria. If so, the system automatically associates the prescription to the existing Opd, without
+creating a new one.
+
+If the patient reaches the pharmacy before his/her chronic opd record is inserted by the chronic room physician, an opd
+will be created along with the prescription of the pharmacist. This will result in a duplicated opd once the physician
+in the chronic room saves the record of that chronic patient.
+
+Before persisting any chronic opd record, the system will try to avoid trivial duplicates by checking, if a chronic opd
+with the same patient, same date and same disease is already present.
+If so, the system will warn the user and ask his consensus before overriding the data.
+
+
+## FUNCTIONALITY
+------------------
+The ChronicOpdEdit GUI allows the user to:
+1. select a patient
+2. select the diseases
+3. insert a visit
+4. insert, edit and delete a therapy
+5. schedule next followup visit
+7. view patient history
+6. save data
+
+1. Select a Patient
+-------------------
+On the patient search bar, typing a hint of at least 3 chars and pressing enter will trigger the search for all the
+patient whose names start with that hint. This is done in background while a progress bar blocks the UI. This pattern
+may be used in the future to perform all time consuming activities, avoiding the user to interact with the GUI before
+the background processing is done.
+
+2. Select the Disease
+---------------------
+The first disease combo box for the chronic opd interface now presents only chronic diseases.
+Diseases are marked as chronic by the DIS_IS_CHRONIC column in the DISEASE table.
+
+3. Insert a Visit (ChronicVisitEdit)
+------------------------------------
+The button that allows to open the chronic visit GUI is activated only when at least a chronic disease is selected.
+Since every chronic disease requires different parameters to be recorded, the GUI presents a list combining all the
+parameters required by the selected diseases, without repetitions. This means that if two chronic diseases are selected,
+that share some parameters, those parameters will appear just once.
+Once the save button is clicked in the visit GUI, the visit panel is closed and the data are saved in the application
+memory. Clicking on the visit button again will reopen the visit panel in edit mode, with the following behaviour: if
+initially one disease is selected and its visit parameters are filled by the user, those data will stay even if the
+user selects another chronic disease in the second combo box and reopen the visit panel, and the parameters related to
+the new selection will be added. All visit parameters are reset if the first combo box selection is changed.
+
+4. Insert, Edit, Delete a Therapy (ChronicTherapyEntryForm)
+-----------------------------------------------------------
+This GUI is a simpler version of the Therapy Module GUI, and was customized based on the responsible physician
+suggestions. The aim was mainly to provide the chronic room physician with all the tools he needed in one single mask,
+avoiding him to jump between different software modules.
+The button that opens this GUI is activated only when at least one chronic disease is selected in the ChronicOpdEdit
+GUI.
+The search of a drug has been enhanced with a search field that accepts hints for the drug name or code. The result of
+the query populates a combo box.
+Once the therapy data is confirmed, the name of the drug will be shown in a table in the main ChronicOpdEdit GUI.
+Clicking on a table row will activate the buttons that allow the user to edit or delete a therapy.
+Since the need arose of prescribing different doses of some drugs in different moments of the day, three quantity fields
+where added to the therapy table.
+
+5. Schedule next Followup Visit
+-------------------------------
+In the ChronicOpdEdit GUI there's a new date picker field that allows to schedule next followup visit. When at least a
+therapy is inserted, this field compiles automatically with the date in which the therapy ends. If more then one
+therapy is assigned to the patient, the chosen date will be the end date of the longest therapy.
+This way of scheduling nex followup visit accordingly to the therapy is working under the assumption that a patient
+affected by more than one chronic disease is visited in one single episode. If a different visit has to be scheduled for
+each chronic disease, some functionality will have to be rethought.
+
+6. View Patient History (ChronicOpdHistoryPanel)
+------------------------------------------------
+If at least a previous chronic opd is associated to the patient, the History button will activate. On click, it will
+open a simple GUI providing a table with the list of past chronic episodes (that is to say, chronic opd's), with a brief
+summary of their data.
+The last chronic opd information is displayed in the ChronicOpdEdit GUI as before, except that, instead of displaying
+the notes, the scheduled followup visit date is displayed together with some text telling the user if the patient came
+to the hospital on time.
+
+7. Save Data
+------------
+The ChronicOpdEdit GUI works so that all inserted data are saved only when the OK button of ChronicOpdEdit GUI is
+clicked. The OK or SAVE buttons of visit and therapy windows, for instance, only temporary store the data in the
+application, not in the database. This is done because, after inserting all the information, the user could still choose
+to press the CANCEL button. If data was persisted to the database before, deletes should be performed in order to
+restore a clean situation.
+
+
+## CODE CHANGES
+-----------------
+The changes made to OH code are listed below, conventions are the same followed in the releases notes.
+
+--> org.isf.chronicopd.gui.ChronicOpdEdit
+The main GUI to insert a new Chronic Opd, visible only for users with "btnchropd" permission.
+
+--> org.isf.chronicopd.gui.ChronicOpdHistoryPanel
+The panel showing chronic patient history.
+
+--> org.isf.chronicopd.manager.ChronicOpdManager
+The manager of the chronic module
+
+--> org.isf.therapy.gui.ChronicTherapyEntryForm
+The modified therapy GUI that allows to insert a new therapy for chronic patients.
+
+--> org.isf.chronicopd.model.ChronicVisit
+The chronic visit model.
+
+--> org.isf.chronicopd.gui.OpdChronic
+The GUI to create and edit a chronic visit.
+
+--> org.isf.utils.time.Converters
+A util to convert dates to database readable format (refactoring of something that was there before).
+
+--> org.isf.chronicopd.service.IoOperations
+The service class for the chronic module, deals with querying and persisting objects to the database.
+
+--> org.isf.chronicopd.model.OpdHistoryRow
+An utility model used to display chronic patients history.
+
+--> org.isf.utils.listeners.SelectAllOnFocus
+Utility to select all text of a text field on focus.
+
+--> org.isf.utils.gui.SpringUtilities
+A layout utility for grids.
+
+--> org/isf/utils/tasks/WaitingDialog
+Dialog to be shown when waiting for a background task.
+
+--> org.isf.utils.tasks.SwingBackgroundTask
+Interface for background tasks.
+
+--> org.isf.utils.tasks.SwingBackgroundTaskExecutor
+Implementation of a generic background task executor.
+
+--> org.isf.utils.tasks.SwingUiRenderer
+Interface to render dialogs when executing background task.
+
+--> org.isf.utils.tasks.WaitingDialog
+Shows a dialog when user has to wait for a background operation to finish.
+
+--> mysql/db/wolisso_step_35_chronic_opd.sql
+SQL file with the necessary changes to the databse.
+
+- org.isf.disease.manager.DiseaseBrowserManager
+Added methods to retrieve diseases based on patient data, basically gender and age. These methods are used to populate
+the disease combo boxes on patient select.
+
+- org.isf.distype.manager.DiseaseTypeBrowserManager
+Added a method to retrieve the DiseaseType from its code.
+
+- org.isf.distype.service.IoOperation
+Added a method to retrieve a DiseaseType object starting from its code.
+
+- org.isf.opd.service.IoOperations
+Added patient name hint and chronic filter to the query to retrieve a list of Opd objects.
+Overloaded some methods for backward compatibility.
+Some code refactoring, including moving to a new method the parsing of db records into Opd objects.
+
+- org.isf.therapy.service.IoOperations
+Added a method to filter TherapyRow objects by Opd code.
+Added save and update methods that allows managing transaction manually.
+Some code refactoring for backward compatibility.
+
+- org.isf.patient.service.IoOperations
+Added a method to parse db rows into Patient objects.
+Added a method to search Patient objects by both (beginning of) code and name.
+
+- org.isf.disease.service.IoOperations
+Added a method to get Opd diseases based on patient params and on whether the Opd is chronic.
+Added a method that returns a Disease given the code.
+Added a parser that converts a database row into a Disease object.
+
+- org.isf.medicals.service.IoOperations
+Added a finder by either code or name of the Medical.
+Added a parser that converts a database row into a Medical object.
+
+- org.isf.medicalstockward.service.IoOperations
+Edited insert and update queries to account for the new opdCode field of the Prescription.
+
+- language_en.properties
+Added some labels.
+
+- org.isf.medicals.manager.MedicalBrowsingManager
+Added a finder by either code or name of the Medical.
+
+- org.isf.medicalstockward.model.MedicalWardPrescription
+Added opdCode field.
+
+- org.isf.opd.model.Opd
+Added isChronic, scheduledVisitDate and nextVisitDate fields with getters and setters.
+
+- org.isf.opd.gui.OpdBrowser
+Added buttons and logic related to the Chronic Module functionality.
+
+- org.isf.opd.manager.OpdBrowserManager
+Made newOpd method return int opdCode instead of boolean.
+
+- org.isf.opd.gui.OpdEdit
+Minor changes for backward compatibility.
+
+- org.isf.opd.gui.OpdEditExtended
+Minor changes for backward compatibility.
+
+- org.isf.patient.manager.PatientBrowserManager
+Added a method to search patient passing a hint for the starting of either first name, last name or id.
+
+- org.isf.patient.gui.PatientInsert
+Added DISPOSE_ON_CLOSE.
+
+- org.isf.patient.gui.PatientInsertExtended
+Added DISPOSE_ON_CLOSE.
+
+- org.isf.therapy.model.Therapy
+Added opdCode, qty2, qty3 and qty4 fields with getters and setters.
+
+- org.isf.therapy.model.TherapyRow
+Added opdCode, qty2, qty3 and qty4 fields with getters and setters.
+Added a describe() method used in opd history panel.
+
+- org.isf.medicalstockward.gui.WardPharmacyNew
+Added the logic to avoid duplicating Opd's.
+Added the logic to add opd code to the prescription.
+
+
+## DATABASE CHANGES
+-------------------
+Changes to the database are listed below.
+
+- Insert Chronic OPD button item in MENUITEM table.
+
+- Add 'btnchropd' permission to GROUPMENU table.
+
+- Add 'Chronic OPD Physician' user group to USERGROUP table.
+
+- Added IS_CHRONIC, OPD_SCHEDULED_DATE, OPD_NEXT_VISIT_DATE columns to OPD table.
+
+- Added DIS_IS_CHRONIC field to DISEASE table and set it to 1 for chronic diseases (list provided by Dr. Marta Lunardi).
+
+- Created OPD_CHRONIC table.
+
+- Add IS_CHRONIC field to VISITS table.
+
+- Add THR_QTY_2, THR_QTY_3, THR_QTY_4, THR_OPD_ID, THR_DATE_DELETED to THERAPIES table.
+
+- Add MWP_OPD_ID to MEDICALDSRWARDPRESCRIPTION table.

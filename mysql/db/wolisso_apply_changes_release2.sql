@@ -1,0 +1,11 @@
+source wolisso_step_08_ipd_out_disease.sql;
+source wolisso_step_09_female_wards.sql;
+source wolisso_step_10_missing_medicals.sql;
+source wolisso_step_11_rectify_medical_ward.sql;
+source wolisso_step_12_free_ward.sql;
+source wolisso_step_13_automatic_bill.sql;
+source wolisso_step_14_medical_ward_permissions.sql;
+source wolisso_step_15_lot_cost.sql;
+source wolisso_step_16_no_payments_fix.sql;
+source wolisso_step_17_new_version_data.sql;
+source wolisso_step_18_after_save_pricelist.sql;
