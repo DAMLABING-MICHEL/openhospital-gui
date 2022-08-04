@@ -386,6 +386,7 @@ public class OpdBrowser extends ModalJFrame implements OpdEdit.SurgeryListener, 
 						newrecord.addSurgeryListener(OpdBrowser.this);
 						newrecord.setVisible(true);
 					} else {
+						System.out.println("registration of new opd patient");
 						OpdEdit newrecord = new OpdEdit(myFrame, opd, true);
 						newrecord.addSurgeryListener(OpdBrowser.this);
 						newrecord.setVisible(true);

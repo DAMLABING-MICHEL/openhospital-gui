@@ -172,6 +172,7 @@ public class GenericReportPharmaceuticalStockCard {
 				else { 
 					try{
 						Runtime rt = Runtime.getRuntime();
+						System.out.println(GeneralData.VIEWER +" "+ PDFfile);
 						rt.exec(GeneralData.VIEWER +" "+ PDFfile);
 						
 					} catch(Exception e){

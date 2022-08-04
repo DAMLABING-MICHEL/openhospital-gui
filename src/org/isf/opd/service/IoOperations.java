@@ -182,7 +182,7 @@ public class IoOperations {
 				" FROM OPD" +
 				" LEFT JOIN PATIENT ON OPD_PAT_ID = PAT_ID" +
 				" LEFT JOIN DISEASE ON OPD_DIS_ID_A = DIS_ID_A" +
-				" LEFT JOIN WARD ON OPD_WRD_ID_A = WRD_ID_A" +
+//				" LEFT JOIN WARD ON OPD_WRD_ID_A = WRD_ID_A" +
 				" LEFT JOIN DISEASETYPE ON DIS_DCL_ID_A = DCL_ID_A WHERE 1";
 		if (opdCodeHint != null && !opdCodeHint.isEmpty()) {
 			query += " AND PAT_PCODE LIKE ?";
@@ -196,10 +196,10 @@ public class IoOperations {
 				query += " AND DIS_ID_A = ?";
 				parameters.add(diseaseCode);
 			}
-			if (!wardCode.equals(MessageBundle.getMessage("angal.medicalstockward.selectaward"))) {
-				query += " AND WRD_ID_A = ?";
-				parameters.add(wardCode);
-			}
+//			if (!wardCode.equals(MessageBundle.getMessage("angal.medicalstockward.selectaward"))) {
+//				query += " AND WRD_ID_A = ?";
+//				parameters.add(wardCode);
+//			}
 			if (chronicFilter.equals("chronic"))
 				query += " AND OPD_IS_CHRONIC = 1";
 			else if (chronicFilter.equals("non-chronic"))
@@ -264,6 +264,7 @@ public class IoOperations {
 		}
 		try {
 			opdList = new ArrayList<Opd>(resultSet.getFetchSize());
+			System.out.println("view opd list" +opdList);
 			while (resultSet.next()) {
 				opdList.add(parseOpdRecord(resultSet, false, false));
 			}
@@ -318,10 +319,10 @@ public class IoOperations {
 				" OPD_PAT_CITY," +
 				" OPD_IS_CHRONIC," +
 				" OPD_SCHEDULED_VISIT_ID," +
-				" OPD_NEXT_VISIT_ID," +
-				" OPD_WRD_ID_A)" +
+				" OPD_NEXT_VISIT_ID)" +
+//				" OPD_WRD_ID_A)" +
 				
-				" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+				" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
 		Date visitDate = (opd.getVisitDate() == null ? null : new Date(opd.getVisitDate().getTimeInMillis()));
 		GregorianCalendar now = new GregorianCalendar();
@@ -349,7 +350,7 @@ public class IoOperations {
 		parameters.add(opd.getIsChronic());
 		parameters.add(opd.getScheduledVisit() != null ? opd.getScheduledVisit().getVisitID() : null);
 		parameters.add(opd.getNextVisit() != null ? opd.getNextVisit().getVisitID() : null);
-		parameters.add(opd.getWard());
+//		parameters.add(opd.getWard());
 
 		ResultSet r = dbQueryLogger.setDataReturnGeneratedKeyWithParams(query, parameters, commit);
 		try {
@@ -417,7 +418,7 @@ public class IoOperations {
 			String query = "UPDATE OPD SET" +
 					" OPD_US_ID_A = ?," +
 					" OPD_SEX = ?," +
-					" OPD_WRD_ID_A = ?," +
+//					" OPD_WRD_ID_A = ?," +
 					" OPD_AGE = ?," +
 					" OPD_DIS_ID_A = ?," +
 					" OPD_DIS_ID_A_2 = ?," +
@@ -443,7 +444,7 @@ public class IoOperations {
 			List<Object> parameters = new ArrayList<Object>();
 			parameters.add(String.valueOf(opd.getUser()));
 			parameters.add(String.valueOf(opd.getSex()));
-			parameters.add(opd.getWard());
+//			parameters.add(opd.getWard());
 			parameters.add(opd.getAge());
 			parameters.add(opd.getDisease());
 			parameters.add(opd.getDisease2());
@@ -639,7 +640,8 @@ public class IoOperations {
 				resultSet.getInt("OPD_AGE"),
 				resultSet.getString("OPD_DIS_ID_A"),
 				resultSet.getInt("OPD_LOCK"),
-				resultSet.getString("OPD_WRD_ID_A")
+				null
+//				resultSet.getString("OPD_WRD_ID_A")
 		);
 		opd.setUser(resultSet.getString("OPD_US_ID_A"));
 		opd.setCode(resultSet.getInt("OPD_ID"));

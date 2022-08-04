@@ -97,7 +97,8 @@ import org.isf.ward.model.Ward;
  * 12/08/08 - alessandro - Patient Extended
  * 01/01/09 - Fabrizio   - The OPD button is conditioned to the extended funcionality of OPD.
  *                         Reorganized imports.
- * 13/02/09 - Alex - Search Key extended to patient code & notes
+ * 13/02/09 - Alex - 
+ extended to patient code & notes
  * 29/05/09 - Alex - fixed mnemonic keys for Admission, OPD and PatientSheet
  * 14/10/09 - Alex - optimized searchkey algorithm and cosmetic changes to the code
  * 02/12/09 - Alex - search field get focus at begin and after Patient delete/update
@@ -345,6 +346,7 @@ public class AdmittedPatientBrowser extends ModalJFrame implements
 		Price consultationOver5 = null;
 				
 		for (Price price : prices) {
+			System.out.println(price);
 			if (price.getGroup().equals("OTH")) { 
 				if (price.getDesc().startsWith("C1 -"))
 					adultPrice = price;
@@ -381,6 +383,7 @@ public class AdmittedPatientBrowser extends ModalJFrame implements
 		BigDecimal total = new BigDecimal(0);
 		ArrayList<BillItem> billItems = new ArrayList<BillItem>();
 		if (age > 10) {
+			System.out.println(adultPrice);
 			BillItem billItem = new BillItem();
 			billItem.setItemDescription(adultPrice.getDesc());
 			billItem.setItemQuantity(1);

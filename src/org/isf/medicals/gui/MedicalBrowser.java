@@ -290,7 +290,6 @@ public class MedicalBrowser extends ModalJFrame { // implements RowSorterListene
 				fcExcel.setFileFilter(excelFilter);
 				fcExcel.setFileSelectionMode(JFileChooser.FILES_ONLY);  
 				fcExcel.setSelectedFile(new File(MessageBundle.getMessage("angal.medicals.stock")));
-				
 				int iRetVal = fcExcel.showSaveDialog(MedicalBrowser.this);
 				if(iRetVal == JFileChooser.APPROVE_OPTION)
 				{
@@ -514,6 +513,7 @@ public class MedicalBrowser extends ModalJFrame { // implements RowSorterListene
 		int i = 0;
 		
 		if (options.indexOf(option) == i) {
+			System.out.println("show the value of option1 " +option);
 			GregorianCalendar gc = new GregorianCalendar();
 			
 			from = formatDateTimeReport(gc);
@@ -567,6 +567,7 @@ public class MedicalBrowser extends ModalJFrame { // implements RowSorterListene
 
 	        if (r == JOptionPane.OK_OPTION) {
 	        	monthYear = monthYearChooser.getDate();
+				System.out.println("show the value of option2 " +option);
 	        } else {
 	            return;
 	        }
@@ -580,7 +581,8 @@ public class MedicalBrowser extends ModalJFrame { // implements RowSorterListene
 			gc.set(GregorianCalendar.DAY_OF_MONTH, gc.getActualMaximum(GregorianCalendar.DAY_OF_MONTH));
 			to = formatDateTimeReport(gc);
 		}
-		new GenericReportFromDateToDate(from, to, "PharmaceuticalExpiration", MessageBundle.getMessage("angal.medicals.expiringreport"), false);
+//		new GenericReportFromDateToDate(from, to, "PharmaceuticalExpiration", MessageBundle.getMessage("angal.medicals.expiringreport"), false);
+		new GenericReportFromDateToDate(from, to, "PharmaceuticalExpiration", MessageBundle.getMessage("angal.medicals.expiringreport"), true);
 	}
 	
 	private String formatDateTimeReport(GregorianCalendar date) {

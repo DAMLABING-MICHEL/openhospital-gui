@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class MainMenu extends JFrame implements ActionListener,
-		Login.LoginListener, SubMenu.CommandListener {
+		Login.LoginListener, SubMenu.CommandListener {	
 	private static final long serialVersionUID = 7620582079916035164L;
 	private boolean flag_Sms = false;
 	
@@ -45,7 +45,6 @@ public class MainMenu extends JFrame implements ActionListener,
 	
 	final int menuXPosition = 10;
 	final int menuYDisplacement = 75;
-	
 	private MainMenu myFrame;
 	private static User myUser=null;
 	private static Session mySession=null;
@@ -151,8 +150,15 @@ public class MainMenu extends JFrame implements ActionListener,
 		
 		// get menu items
 		myMenu = manager.getMenu(myUser);
-		
-		//start connection with xmpp server if is enabled
+		//removal of duplicate values in myMenu
+		ArrayList<UserMenuItem> MyNewMenu = new ArrayList<UserMenuItem>();
+		for(UserMenuItem u:myMenu) {
+			if(!MyNewMenu.contains(u)) {
+				MyNewMenu.add(u);
+			}
+		}
+		myMenu = MyNewMenu;
+		//start connection with xmpp server if is enabled 
 		if(flag_Xmpp){
 			try {
 				Server.getInstance().login(myUser.getUserName(), myUser.getPasswd());
@@ -327,7 +333,7 @@ public class MainMenu extends JFrame implements ActionListener,
 	 */
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
-		launchApp(command);
+		launchApp(command);  
 	}
 
 	/**
@@ -335,7 +341,6 @@ public class MainMenu extends JFrame implements ActionListener,
 	 * @param itemMenuCode
 	 */
 	private void launchApp(String itemMenuCode) {
-
 		for (UserMenuItem u : myMenu) {
 			if (u.getCode().equals(itemMenuCode)) {
 				if (u.getCode().equalsIgnoreCase("EXIT")) {
@@ -381,47 +386,39 @@ public class MainMenu extends JFrame implements ActionListener,
 		public MainPanel(MainMenu parentFrame) {
 			this.parentFrame = parentFrame;
 			int numItems = 0;
-
-			for (UserMenuItem u : myMenu)
+			
+			for (UserMenuItem u : myMenu) {
 				if (u.getMySubmenu().equals("main"))
 					numItems++;
-
-			// System.out.println(numItems);
-
+			}
 			button = new JButton[numItems];
 
 			int k = 1;
-
 			for (UserMenuItem u : myMenu)
-				if (u.getMySubmenu().equals("main")) {
-					button[k - 1] = new JButton(u.getButtonLabel());
-
-					button[k - 1].setMnemonic(KeyEvent.VK_A
-							+ (int) (u.getShortcut() - 'A'));
-
-					button[k - 1].addActionListener(parentFrame);
-					button[k - 1].setActionCommand(u.getCode());
-					k++;
+					if (u.getMySubmenu().equals("main")) {
+						button[k - 1] = new JButton(u.getButtonLabel());
+						button[k - 1].setMnemonic(KeyEvent.VK_A
+								+ (int) (u.getShortcut() - 'A'));
+	
+						button[k - 1].addActionListener(parentFrame);
+						button[k - 1].setActionCommand(u.getCode());
+						k++;
+					}
+				setButtonsSize(button);
+				//setBackground(java.awt.Color.WHITE);
+				JLabel fig = new JLabel(new ImageIcon("rsc"+File.separator+"images"+File.separator+"LogoMenu.jpg"));
+				add(fig,BorderLayout.WEST);
+				
+				
+				JPanel buttons = new JPanel();
+				GridBagLayout layout = new GridBagLayout();
+				buttons.setLayout(layout);
+				
+				
+				final int insetsValue = 6;
+				for (int i = 0; i < button.length; i++) {
+					buttons.add(button[i], new GBC(0, i).setInsets(insetsValue));
 				}
-
-			setButtonsSize(button);
-			
-			//setBackground(java.awt.Color.WHITE);
-			JLabel fig = new JLabel(new ImageIcon("rsc"+File.separator+"images"+File.separator+"LogoMenu.jpg"));
-			add(fig,BorderLayout.WEST);
-			
-			
-			JPanel buttons = new JPanel();
-			GridBagLayout layout = new GridBagLayout();
-			buttons.setLayout(layout);
-			
-			
-			final int insetsValue = 6;			
-
-			for (int i = 0; i < button.length; i++) {
-				buttons.add(button[i], new GBC(0, i).setInsets(insetsValue));
-			}
-			
 			add(buttons, BorderLayout.CENTER);
 		}
 

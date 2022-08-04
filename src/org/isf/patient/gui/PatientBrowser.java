@@ -131,6 +131,8 @@ public class PatientBrowser extends ModalJFrame implements PatientListener{
 			validate();
 		}
 		return jContainPanel;
+		
+		
 	}
 	
 	/**

@@ -1,5 +1,7 @@
 package org.isf.priceslist.model;
 
+import java.util.List;
+
 /**
  * Price model: represent a price
  * @author alex
@@ -73,6 +75,10 @@ public class Price {
 		this.desc = desc;
 		this.price = price;
 		this.editable = true;
+	}
+
+	public Price() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {

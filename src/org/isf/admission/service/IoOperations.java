@@ -51,13 +51,20 @@ public class IoOperations {
 	/**
 	 * Admission insertion query, if you modify the query please update the related parameters generation method.
 	 */
+//	protected static String ADMISSION_INSERTION_QUERY = "INSERT INTO ADMISSION (" +
+//			"ADM_IN, ADM_TYPE, ADM_WRD_ID_A, ADM_YPROG, ADM_PAT_ID, ADM_DATE_ADM, ADM_ADMT_ID_A_ADM, ADM_FHU, " +
+//			"ADM_IN_DIS_ID_A, ADM_OUT_DIS_ID_A, ADM_OUT_DIS_ID_A_2, ADM_OUT_DIS_ID_A_3, ADM_OPE_ID_A, ADM_DATE_OP, " +
+//			"ADM_RESOP, ADM_DATE_DIS, ADM_DIST_ID_A, ADM_NOTE, ADM_TRANS, ADM_PRG_DATE_VIS, ADM_PRG_PTT_ID_A, " +
+//			"ADM_PRG_DATE_DEL, ADM_PRG_DLT_ID_A, ADM_PRG_DRT_ID_A, ADM_PRG_WEIGHT, ADM_PRG_DATE_CTRL1, " +
+//			"ADM_PRG_DATE_CTRL2, ADM_PRG_DATE_ABORT, ADM_LOCK, ADM_DELETED) " +
+//			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 	protected static String ADMISSION_INSERTION_QUERY = "INSERT INTO ADMISSION (" +
-			"ADM_IN, ADM_TYPE, ADM_WRD_ID_A, ADM_YPROG, ADM_PAT_ID, ADM_DATE_ADM, ADM_ADMT_ID_A_ADM, ADM_FHU, " +
+			"ADM_IN, ADM_WRD_ID_A, ADM_YPROG, ADM_PAT_ID, ADM_DATE_ADM, ADM_ADMT_ID_A_ADM, ADM_FHU, " +
 			"ADM_IN_DIS_ID_A, ADM_OUT_DIS_ID_A, ADM_OUT_DIS_ID_A_2, ADM_OUT_DIS_ID_A_3, ADM_OPE_ID_A, ADM_DATE_OP, " +
 			"ADM_RESOP, ADM_DATE_DIS, ADM_DIST_ID_A, ADM_NOTE, ADM_TRANS, ADM_PRG_DATE_VIS, ADM_PRG_PTT_ID_A, " +
 			"ADM_PRG_DATE_DEL, ADM_PRG_DLT_ID_A, ADM_PRG_DRT_ID_A, ADM_PRG_WEIGHT, ADM_PRG_DATE_CTRL1, " +
 			"ADM_PRG_DATE_CTRL2, ADM_PRG_DATE_ABORT, ADM_LOCK, ADM_DELETED) " +
-			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	/**
 	 * Returns all patients with ward in which they are admitted.
@@ -112,7 +119,7 @@ public class IoOperations {
 			query.append(" AND ADM_TYPE = \'M\'");
 		} else if  (malnutrition != null && malnutrition.equals("N")) {
 			query.append(" AND ADM_TYPE <> \'M\'");
-		} 
+		}
 
 		query.append(" ORDER BY PAT_ID DESC");
 
@@ -347,7 +354,7 @@ public class IoOperations {
 	{
 		List<Object> parameters = new ArrayList<Object>();
 		parameters.add(admission.getAdmitted());
-		parameters.add(admission.getType());
+//		parameters.add(admission.getType());
 		parameters.add(admission.getWardId());
 		parameters.add(admission.getYProg());
 		parameters.add(admission.getPatId());

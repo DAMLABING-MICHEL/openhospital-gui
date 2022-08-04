@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import org.apache.log4j.helpers.Transform;
 import org.isf.menu.model.*;
+
+import com.lowagie.text.List;
 
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
@@ -98,7 +101,7 @@ public class SubMenu extends JDialog implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent event) {
-
+		
 		String command = event.getActionCommand();
 		for(UserMenuItem u : myMenu){
 			if (u.getCode().equals(command)){
@@ -125,18 +128,16 @@ public class SubMenu extends JDialog implements ActionListener{
 		private String title;
 		
 		public SubPanel(SubMenu dialogFrame, String subName) {
-
 			int numItems = 0;
 			
 			for(UserMenuItem u : myMenu){
 				if (u.getMySubmenu().equals(subName)) numItems++;
 				if (u.getCode().equalsIgnoreCase(subName)) title=u.getButtonLabel();
 			}	
-				
+			
 			//System.out.println(numItems);
 			
 			button = new JButton[numItems];
-
 			int k=1;
 			
 			for(UserMenuItem u : myMenu)
@@ -146,13 +147,12 @@ public class SubMenu extends JDialog implements ActionListener{
 					button[k-1].setActionCommand(u.getCode());
 					if (!u.isActive())
 						button[k-1].setEnabled(false);
-					else 
-						button[k-1].addActionListener(dialogFrame); 
+					else
+						button[k-1].addActionListener(dialogFrame);
 					k++;
-				} 
-
+				}
 			setButtonsSize(button);
-
+			
 			//setBackground(Color.WHITE);
 			GridBagLayout layout = new GridBagLayout();
 			setLayout(layout);

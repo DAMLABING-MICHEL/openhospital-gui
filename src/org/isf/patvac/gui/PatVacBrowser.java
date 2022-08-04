@@ -946,7 +946,7 @@ public class PatVacBrowser extends ModalJFrame implements ActionListener{
 			filterButton.setMnemonic(KeyEvent.VK_S);
 			filterButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					System.out.println("filterButton");
 					String vaccineTypeCode = ((VaccineType)vaccineTypeComboBox.getSelectedItem()).getCode();
 					String vaccineCode = ((Vaccine)vaccineComboBox.getSelectedItem()).getCode();
 	

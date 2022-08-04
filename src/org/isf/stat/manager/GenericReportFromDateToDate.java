@@ -66,6 +66,7 @@ import org.isf.utils.excel.ExcelExporter;
 				
 				JasperReport jasperReport = (JasperReport)JRLoader.loadObject(jasperFile);
 				if (toCSV) {
+					System.out.println("export the csv file");
 					JRQuery query = jasperReport.getMainDataset().getQuery();
 
 					String queryString = query.getText();
@@ -104,15 +105,15 @@ import org.isf.utils.excel.ExcelExporter;
 					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
 					String PDFfile = "rpt/PDF/"+jasperFileName+".pdf";
 					JasperExportManager.exportReportToPdfFile(jasperPrint, PDFfile);
-					if (GeneralData.INTERNALVIEWER)
+					if (GeneralData.INTERNALVIEWER) 
 						JasperViewer.viewReport(jasperPrint,false);
 					else { 
 						try{
 							Runtime rt = Runtime.getRuntime();
 							rt.exec(GeneralData.VIEWER +" "+ PDFfile);
-							
 						} catch(Exception e){
 							e.printStackTrace();
+							System.out.println("error");
 						}
 					}
 				}

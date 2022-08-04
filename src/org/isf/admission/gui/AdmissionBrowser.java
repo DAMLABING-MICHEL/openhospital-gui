@@ -584,6 +584,7 @@ public class AdmissionBrowser extends JDialog {
 		}
 		ps = new PatientSummary(patient);
 		if (editing) {
+			System.out.println("editing admission");
 			admission = admMan.getCurrentAdmission(patient);
 			if (admission.getWardId().equalsIgnoreCase("M")) {
 				viewingPregnancy = true;
@@ -596,6 +597,7 @@ public class AdmissionBrowser extends JDialog {
 				dateIn = admission.getAdmDate();
 			} 
 		} else {
+			System.out.println(" not editing admission");
 			admission = new Admission();
 			dateIn = new GregorianCalendar(); //RememberDates.getLastAdmInDateGregorian();
 			if (pregnancyManager.hasActivePregnancy(patient))
@@ -3499,7 +3501,7 @@ public class AdmissionBrowser extends JDialog {
 							}
 						}
 						
-						if (!editing && !isDischarge) {
+						if (!editing && !isDischarge) {;
 							int newKey = admMan.newAdmissionReturnKey(admission);
 							if (newKey > 0) {
 								result = true;

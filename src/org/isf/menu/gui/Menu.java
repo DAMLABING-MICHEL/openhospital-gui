@@ -27,7 +27,8 @@ public class Menu {
 		checkOHVersion();
 		checkJavaVersion();
 		JFrame.setDefaultLookAndFeelDecorated(false);
-		new SplashWindow3("rsc"+File.separator+"images"+File.separator+"Splash.jpg",null,3000);	
+//		new SplashWindow3("rsc"+File.separator+"images"+File.separator+"Splash.jpg",null,3000);
+		new SplashWindow3("rsc"+File.separator+"images"+File.separator+"Splash.jpg",null,0);	
 	}
 	
 	private static void checkOHVersion() {

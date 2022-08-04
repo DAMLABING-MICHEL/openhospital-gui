@@ -31,9 +31,12 @@ public class WardBrowserManager {
 		ArrayList<Ward> wardListOPD = new ArrayList<Ward>();
 		for (Ward ward : wardList) {
 			
-			if (ward.getBeds() == 0 &&
-				(ward.getDocs() != 0 || ward.getNurs() != 0))
-					wardListOPD.add(ward);
+//			if (ward.getBeds() == 0 &&
+//				(ward.getDocs() != 0 || ward.getNurs() != 0))
+//					wardListOPD.add(ward);
+			if (ward.getBeds() != 0 &&
+					(ward.getDocs() != 0 || ward.getNurs() != 0))
+						wardListOPD.add(ward);
 
 		}
 		return wardListOPD;

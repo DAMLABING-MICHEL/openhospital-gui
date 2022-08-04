@@ -489,6 +489,7 @@ public class OpdEdit extends JDialog implements ActionListener {
 					
 					
 					if (insert){
+						System.out.println("registration of the new opd patient no extended");
 						if (radiof.isSelected()) {
 							sex='F';
 						} else {
@@ -518,7 +519,7 @@ public class OpdEdit extends JDialog implements ActionListener {
 						}
 						if (!result) JOptionPane.showMessageDialog(null, MessageBundle.getMessage("angal.opd.thedatacouldnotbesaved"));
 						else  dispose();
-						}
+					}
 					else {    //Update
 						if (radiof.isSelected()) {
 							sex='F';
