@@ -150,14 +150,6 @@ public class MainMenu extends JFrame implements ActionListener,
 		
 		// get menu items
 		myMenu = manager.getMenu(myUser);
-		//removal of duplicate values in myMenu
-		ArrayList<UserMenuItem> MyNewMenu = new ArrayList<UserMenuItem>();
-		for(UserMenuItem u:myMenu) {
-			if(!MyNewMenu.contains(u)) {
-				MyNewMenu.add(u);
-			}
-		}
-		myMenu = MyNewMenu;
 		//start connection with xmpp server if is enabled 
 		if(flag_Xmpp){
 			try {

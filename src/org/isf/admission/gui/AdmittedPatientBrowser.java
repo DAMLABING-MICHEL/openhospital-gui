@@ -346,8 +346,7 @@ public class AdmittedPatientBrowser extends ModalJFrame implements
 		Price consultationOver5 = null;
 				
 		for (Price price : prices) {
-			System.out.println(price);
-			if (price.getGroup().equals("OTH")) { 
+			if (price.getGroup().equals("OTH")) {
 				if (price.getDesc().startsWith("C1 -"))
 					adultPrice = price;
 				else if (price.getDesc().startsWith("MC1 -"))
@@ -383,7 +382,6 @@ public class AdmittedPatientBrowser extends ModalJFrame implements
 		BigDecimal total = new BigDecimal(0);
 		ArrayList<BillItem> billItems = new ArrayList<BillItem>();
 		if (age > 10) {
-			System.out.println(adultPrice);
 			BillItem billItem = new BillItem();
 			billItem.setItemDescription(adultPrice.getDesc());
 			billItem.setItemQuantity(1);

@@ -594,8 +594,9 @@ public class AdmissionBrowser extends JDialog {
 				else if (pregnancyManager.hasActivePregnancy(patient)) { //pregnant?
 					pregnancy = pregnancyManager.getActivePregnancy(patient.getCode()); //get active pregnancy
 				}
-				dateIn = admission.getAdmDate();
+//				dateIn = admission.getAdmDate();
 			} 
+			dateIn = admission.getAdmDate();
 		} else {
 			System.out.println(" not editing admission");
 			admission = new Admission();
