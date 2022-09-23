@@ -104,7 +104,7 @@ import org.isf.utils.excel.ExcelExporter;
 				} else {
 					JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
 					String PDFfile = "rpt/PDF/"+jasperFileName+".pdf";
-					JasperExportManager.exportReportToPdfFile(jasperPrint, PDFfile);
+//					JasperExportManager.exportReportToPdfFile(jasperPrint, PDFfile);
 					if (GeneralData.INTERNALVIEWER) 
 						JasperViewer.viewReport(jasperPrint,false);
 					else { 
