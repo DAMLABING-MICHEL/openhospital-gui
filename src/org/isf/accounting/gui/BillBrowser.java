@@ -566,14 +566,23 @@ public class BillBrowser extends ModalJFrame implements PatientBillListener {
 						
 						if (r != JOptionPane.OK_OPTION) return;
 
-						int[] indexes = jList.getSelectedIndices();
-						GregorianCalendar login = ((Session) jList.getModel().getElementAt(indexes[indexes.length - 1])).getLogin();
-						GregorianCalendar logout = ((Session) jList.getModel().getElementAt(indexes[0])).getLogout();
-						if (logout == null) logout = new GregorianCalendar();
+							int[] indexes = jList.getSelectedIndices();
+							if(indexes.length >= 1) {
+								GregorianCalendar login = ((Session) jList.getModel().getElementAt(indexes[indexes.length - 1])).getLogin();
+								GregorianCalendar logout = ((Session) jList.getModel().getElementAt(indexes[0])).getLogout();
+								if (logout == null) logout = new GregorianCalendar();
+								
+								from = formatDateTimeReport(login);
+								to = formatDateTimeReport(logout);
+							}
+//						int[] indexes = jList.getSelectedIndices();
+//						GregorianCalendar login = ((Session) jList.getModel().getElementAt(indexes[indexes.length - 1])).getLogin();
+//						GregorianCalendar logout = ((Session) jList.getModel().getElementAt(indexes[0])).getLogout();
+//						if (logout == null) logout = new GregorianCalendar();
+//						
+//						from = formatDateTimeReport(login);
+//						to = formatDateTimeReport(logout);
 						
-						from = formatDateTimeReport(login);
-						to = formatDateTimeReport(logout);
-
 						//For testing
 						//from = "31/12/2018 14:41:03";
 						//to = "30/04/2019 15:19:18";
