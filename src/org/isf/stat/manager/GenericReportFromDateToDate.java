@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.sf.jasperreports.engine.JRQuery;
@@ -95,9 +96,14 @@ import org.isf.utils.excel.ExcelExporter;
 						
 						ExcelExporter xlsExport = new ExcelExporter();
 						if (exportFile.getName().endsWith(".xls"))
+						{
+							System.out.println("get export file with the .xls extension" +exportFile.getName());
 							xlsExport.exportResultsetToExcelOLD(resultSet, exportFile);
-						else
+						}
+						else {
+							System.out.println("get export file" +exportFile.getName());
 							xlsExport.exportResultsetToExcel(resultSet, exportFile);
+						}
 					}
 					dbQuery.releaseConnection();
 					
@@ -119,7 +125,8 @@ import org.isf.utils.excel.ExcelExporter;
 				}
 		
 			} catch (Exception e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "please choose another location to save this file!");
+//				e.printStackTrace();
 			}
 		}
 	}
