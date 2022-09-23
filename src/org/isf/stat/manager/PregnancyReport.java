@@ -47,7 +47,7 @@ public class PregnancyReport {
 		JasperReport jasperReport = (JasperReport)JRLoader.loadObject(jasperFile);
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
 		String PDFfile = "rpt/PDF/"+jasperFileName+".pdf";
-		JasperExportManager.exportReportToPdfFile(jasperPrint, PDFfile);
+//		JasperExportManager.exportReportToPdfFile(jasperPrint, PDFfile);
 		if (GeneralData.INTERNALVIEWER)
 			JasperViewer.viewReport(jasperPrint,false);
 		else { 
